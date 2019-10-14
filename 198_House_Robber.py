@@ -72,4 +72,41 @@ def rob_2(nums):
         
     return current
         
-  
+
+
+# top down (memoization)
+def rob_topDown(nums):
+    n = len(nums)
+    memo = {}
+    
+    if n == 0:
+        memo[n] = 0
+        return 0
+    
+    if n == 1:
+        memo[n] = nums[0]
+        return nums[0]
+
+    if n not in memo:
+        memo[n] = max(rob_topDown(nums[:-2]) + nums[n-1], rob_topDown(nums[:-1]))
+        
+    return memo[n]
+
+test1 = [1, 2, 3]
+rob_topDown(test1)
+len(test1)
+
+
+# bottom up 
+def rob_bottomUp(nums):
+    n = len(nums)
+    
+    if n == 0:
+        return 0
+    
+    a = 0
+    b = nums[0]
+    for i in range(1, n):
+        b, a = max(a+nums[i], b), b
+        
+    return b

@@ -21,6 +21,7 @@ Input: a = "1010", b = "1011"
 Output: "10101"
 """
 
+# bit manipulation
 # binary -> decimal
 # eval('0b' + '11')
 # decimal -> binary
@@ -33,6 +34,9 @@ def addBinary(a, b):
     :rtype: str
     """
     return bin(eval('0b'+a) + eval('0b'+b))[2:]
+
+eval('0b11')
+bin(3)
 
 
 # add two binary from back to front, when 1+1 we need a carry.
@@ -51,7 +55,5 @@ def addBinary_2(a, b):
     else:
         return addBinary_2(a[:-1], b[:-1]) + '1'
     
-    
-
 
 addBinary_2('1', '10')

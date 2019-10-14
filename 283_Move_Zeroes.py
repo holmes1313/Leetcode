@@ -47,5 +47,22 @@ def moveZeroes_2(nums):
         if nums[i] != 0:
             nums[ZeroIndex], nums[i] = nums[i], nums[ZeroIndex]
             ZeroIndex += 1
+            
+
+# best answer
+def moveZeros_3(nums):
+    if not nums:
+        return 
     
+    i = 0
     
+    for num in nums:
+        if num != 0:
+            nums[i] = num
+            i += 1
+            
+    nums[i:] = [0] * (len(nums) - i)
+
+test = [0,1,0,3,12]
+moveZeros_3(test)
+test

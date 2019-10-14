@@ -31,21 +31,41 @@ def merge(nums1, m, nums2, n):
     # nums1.sort()
     
     # make a copyt of nums1
-    nums1_copy = nums[:m]
-    nums1[:] = []
+    nums1_copy = nums1[:]
     
-    p1 = 0
-    p2 = 0
+    i = j = k = 0
     
-    while p1 < m and p2 < n:
-        if nums1_copy[p1] < nums2[p2]:
-            nums1.append(nums1_copy[p1])
-            p1 += 1
+    
+    while (i < m) and (j < n):
+        if nums1_copy[i] < nums2[j]:
+            nums1[k] = nums1_copy[i]
+            i += 1
         else:
-            nums1.append(nums2[p2])
-            p2 += 1
-        
-    if p1 < m:
-        nums1[p1+p2:] = nums1_copy[p1:]
-    else:
-        nums1[p1+p2:] = nums2[p2:]
+            nums1[k] = nums2[j]
+            j += 1
+        k += 1
+    while i < m:
+        nums1[k] = nums1_copy[i]
+        k += 1
+        i +=1
+    while j < n:
+        nums1[k] = nums2[j]
+        k += 1
+        j += 1
+
+
+
+
+a = [2, 0]
+merge(a, 1, [1], 1)
+a
+
+a = [1, 2, 3]
+b = a[:]
+b = a.copy()
+b
+c = a
+a[0] = 10
+a
+c
+b

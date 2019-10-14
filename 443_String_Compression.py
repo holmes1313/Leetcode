@@ -63,6 +63,7 @@ def compress(chars):
     :type chars:List[str]
     :rtype: int
     """
+    """
     result = ""
     counts = collections.Counter(chars)
     unique_letters = []
@@ -75,38 +76,27 @@ def compress(chars):
         result += letter
         result += count
     chars[:] = list(result)
+    return chars
+    """
+    index = subindex = 0
+    while index < len(chars):
+        char = chars[index]
+        count = 0
+        while index < len(chars) and chars[index] == char:
+            count += 1
+            index += 1
+        if count > 1:
+            chars[subindex+1:index] = str(count)
+            index = subindex + 2
+        else: 
+            index = subindex + 1
+        subindex = index
+        
     return len(chars)
-    
 
-
-
-chars = ["a","a","a","b","b","a","a"]
-result = ""
-counts = collections.Counter(chars)
-unique_letters = []
-for letter in chars:
-    if letter not in unique_letters:
-        unique_letters.append(letter)
-unique_letters
-counts
-
-for letter in unique_letters:
-    count = str(counts[letter]) if counts[letter] > 1 else ""
-    result += letter
-    result += count
-result
-
-chars[:] = list(result)
-chars    
-
-
-
-
-counts = collections.Counter(["a","a","b","b","c","c","c"])
-counts
-result = ""
-for letter, count in counts.items():
-        count = str(count) if count > 1 else ""
-        result += letter
-        result += count
-list(result)
+chars = ['a', 'a', 'b', 'b', 'c']
+compress(chars)
+chars2 = ['a', 'a', 'a', 'b', 'b', 'c']
+compress(chars2)
+chars = ['a', 'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'c']
+compress(chars)

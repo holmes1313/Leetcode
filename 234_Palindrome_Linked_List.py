@@ -67,7 +67,7 @@ def isPalindrome_deque(head):
     return True
 
 
-def isPalindrome_stack(head):
+def isPalindrome_runner(head):
     if not (head and head.next):
         return True
     
@@ -83,6 +83,8 @@ def isPalindrome_stack(head):
         stack.append(slow.val)
         slow = slow.next
     
+    # slow at the mid point
+    
     # 3. comparison
     while stack:
         if stack.pop() != current.val:
@@ -90,13 +92,6 @@ def isPalindrome_stack(head):
         current = current.next
     
     return True
-    
-    
-    
-    
-    
-    
-    
     
     
     

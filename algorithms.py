@@ -68,36 +68,6 @@ temp_s
 
 
 
-# * 53. Maximum Subarray
-"""
-Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
-
-Example:
-
-Input: [-2,1,-3,4,-1,2,1,-5,4],
-Output: 6
-Explanation: [4,-1,2,1] has the largest sum = 6.
-Follow up:
-
-If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle."""
-nums = [-2,1,-3,4,-1,2,1,-5,4]
-
-def maxSubArray(nums):
-    n = len(nums)
-    curr_sum = max_sum = nums[0]
-    
-    for i in range(1, n):
-        curr_sum = max(nums[i], curr_sum + nums[i])
-        max_sum = max(max_sum, curr_sum)
-        
-    return max_sum
-        
-
-
-
-    
-    
-    
 
 
 
@@ -105,79 +75,6 @@ def maxSubArray(nums):
 
 
 
-# 121. Best Time to Buy and Sell Stock
-"""
-Say you have an array for which the ith element is the price of a given stock on day i.
-
-If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
-
-Note that you cannot sell a stock before you buy one.
-
-Example 1:
-
-Input: [7,1,5,3,6,4]
-Output: 5
-Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
-             Not 7-1 = 6, as selling price needs to be larger than buying price.
-Example 2:
-
-Input: [7,6,4,3,1]
-Output: 0
-Explanation: In this case, no transaction is done, i.e. max profit = 0."""
-def maxProfit(prices):
-    """
-    :type prices: List[int]
-    :rtype: int
-    """
-    min_price = prices[0]
-    max_profit = 0
-    for price in prices[1:]:
-        if price < min_price:
-            min_price = price
-        elif price - min_price > max_profit:
-            max_profit = price - min_price
-    return max_profix
-
-maxProfit([7,1,5,3,6,4])
-        
-    
-    
-    
-    
-    max_profit = 0
-    for i in range(len(prices)):
-        for j in range(i+1, len(prices)):
-            if prices[j] - prices[i] > max_profit:
-                max_profit = prices[j] - prices[i]
-    return max_profit
-    
-
-
-# 125. Valid Palindrome
-"""
-Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
-
-Note: For the purpose of this problem, we define empty string as valid palindrome.
-
-Example 1:
-
-Input: "A man, a plan, a canal: Panama"
-Output: true
-Example 2:
-
-Input: "race a car"
-Output: false"""
-
-def isPalindrome(s):
-    """
-    :type s: str
-    :rtype: bool
-    """
-    if not s:
-        return True
-    
-    string_s = ''.join(e for e in s if e.isalnum()).lower()
-    return string_s == string_s[::-1]
     
 
 
@@ -315,27 +212,6 @@ def reverseList(head):
 
 
 
-# 344. Reverse String
-"""
-Write a function that reverses a string. The input string is given as an array of characters char[].
-
-Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory."""
-s = ["h","e","l","l","o"]
-s[::-1]
-s
-
-def reserverString(string):
-    """ Do not return anything, modify s in-place instead"""
-    left, right = 0, len(s) - 1
-    while left < right:
-        s[left], s[right] = s[right], s[left]
-        left += 1
-        right -= 1
-            
-reserverString(s)
-print(s)
-
-
 
 # 771. Jewels and Stones
 """
@@ -362,41 +238,3 @@ def numJewelsInStones(J, S):
 numJewelsInStones("aA", S="aAAbbbb")
 
 
-# 937. Reorder Data in Log Files
-"""
-You have an array of logs.  Each log is a space delimited string of words.
-
-For each log, the first word in each log is an alphanumeric identifier.  Then, either:
-
-Each word after the identifier will consist only of lowercase letters, or;
-Each word after the identifier will consist only of digits.
-We will call these two varieties of logs letter-logs and digit-logs.  It is guaranteed that each log has at least one word after its identifier.
-
-Reorder the logs so that all of the letter-logs come before any digit-log.  The letter-logs are ordered lexicographically ignoring identifier, with the identifier used in case of ties.  The digit-logs should be put in their original order.
-
-Return the final order of the logs.
-
- 
-Example 1:
-Input: logs = ["dig1 8 1 5 1","let1 art can","dig2 3 6","let2 own kit dig","let3 art zero"]
-Output: ["let1 art can","let3 art zero","let2 own kit dig","dig1 8 1 5 1","dig2 3 6"]
- 
-
-Constraints:
-0 <= logs.length <= 100
-3 <= logs[i].length <= 100
-logs[i] is guaranteed to have an identifier, and a word after the identifier.
-"""
-
-def reorderLogFiles(logs):
-    def f(log):
-        id_, rest = log.split(" ", 1)
-        return (0, rest, id_) if rest[0].isalpha() else (1, )
-            
-    return sorted(logs, key=f)
-
-logs = ["dig1 8 1 5 1","let1 art can","dig2 3 6","let2 own kit dig","let3 art zero"]
-log = logs[0]
-log.split(" ")
-id_, rest = log.split(" ", 1)
-rest[0].isalpha()

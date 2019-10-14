@@ -18,6 +18,8 @@ s = "loveleetcode",
 return 2.
 """
 
+import collections
+
 def firstUniqChar(s):
     """
     :type s:str
@@ -25,24 +27,12 @@ def firstUniqChar(s):
     """
     # build hash map : character and how often it appears
     # use Counter
-    count = {}
-    for l in s:
-        if l in count:
-            count[l] += 1
+    count = collections.Counter(s)
             
-        else:
-            count[l] = 1
-    # or count = Counter(s)
-        
     for i, l in enumerate(s):
         if count[l] == 1:
             return i
     
     return -1
                 
-
-# Counter
-
-from collections import Counter
-Counter('loveleetcode')
 
