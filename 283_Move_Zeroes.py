@@ -66,3 +66,23 @@ def moveZeros_3(nums):
 test = [0,1,0,3,12]
 moveZeros_3(test)
 test
+
+
+
+def moveZeros_4(nums):
+    nums_copy = nums[:]
+    left = 0
+    right = len(nums) - 1
+    
+    for num in nums_copy:
+        if num == 0:
+            nums[right] = num
+            right -= 1
+        else:
+            nums[left] = num
+            left += 1
+    
+def test_4():
+    input = [0,1,0,3,12]
+    output = moveZeros_4(input)
+    

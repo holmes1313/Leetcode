@@ -80,19 +80,19 @@ def rob_topDown(nums):
     memo = {}
     
     if n == 0:
-        memo[n] = 0
+        #memo[n] = 0
         return 0
     
     if n == 1:
-        memo[n] = nums[0]
+        #memo[n] = nums[0]
         return nums[0]
 
     if n not in memo:
-        memo[n] = max(rob_topDown(nums[:-2]) + nums[n-1], rob_topDown(nums[:-1]))
+        memo[n] = max(rob_topDown(nums[:-2]) + nums[-1], rob_topDown(nums[:-1]))
         
     return memo[n]
 
-test1 = [1, 2, 3]
+test1 = [2, 7, 9, 3, 1]
 rob_topDown(test1)
 len(test1)
 

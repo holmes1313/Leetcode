@@ -49,8 +49,9 @@ class MyHashMap(object):
         """
         Initialize your data structure
         """
-        self.bucket_number = 1000
-        self.hashmap = [None] * self.bucket_number
+        self.bucket_number = 10000
+        self.array = [None] * self.bucket_number
+       
     
     def put(self, key, value):
         """
@@ -59,20 +60,26 @@ class MyHashMap(object):
         :type value: int
         :rtype: void
         """
+        newNode = Node(key, value)
+        
         index = self.calculate_hash_value(key)
-        if self.hashmap[index] == None:
-            self.hashmap[index] = Node(key, value)
+        if self.array[index] == None:
+            self.array[index] = newNode
+            
         else:
-            current = self.hashmap[index]
-            while current:
-                if current.pair[0] == key:
-                    current.pair = (key, value)
-                    return
-                if current.next:  
-                    current = current.next
-                else:
-                    break
-            current.next = Node(key, value)
+            head = self.array[index]
+            if head.pair[0] == key:
+                head.pair = (key, value)
+            
+            else:
+                curr = head
+                while curr and curr.next:
+                    if curr.next.pair[0] == key:
+                        curr.next.pair = (key, value)
+                        return
+                    curr = curr.next
+                curr.next = newNode
+                
     
     def get(self, key):
         """
@@ -82,14 +89,15 @@ class MyHashMap(object):
         :rtype: int
         """
         index = self.calculate_hash_value(key)
-        current = self.hashmap[index]
-        
-        while current:
-            if current.pair[0] == key:
-                return current.pair[1]
-            current = current.next
-            
+        head = self.array[index]
+        curr = head
+        while curr:
+            if curr.pair[0] == key:
+                return curr.pair[1]
+            curr = curr.next
         return -1
+        
+        
         
     def remove(self, key):
         """
@@ -98,26 +106,22 @@ class MyHashMap(object):
         :type key: int
         """
         index = self.calculate_hash_value(key)
-        prev = None
-        current = self.hashmap[index]
+        head = self.array[index]
         
-        if not current:
+        if head and head.pair[0] == key:
+            self.array[index] = head.next
             return
         
-        while current.pair[0] != key and current.next:
-            prev = current
-            current = current.next
-        
-        if current.pair[0] == key:
-            if prev:
-                prev.next = current.next
-                # self.hashmap[index] = prev (why we dont need this step)
-            else:
-                self.hashmap[index] = current.next
-                # current = current.next (wrong)
+        curr = head
+        while curr and curr.next:
+            if curr.next.pair[0] == key:
+                curr.next = curr.next.next
+            curr = curr.next
+       
         
     def calculate_hash_value(self, key):
         return key % self.bucket_number
+       
 
 
 
