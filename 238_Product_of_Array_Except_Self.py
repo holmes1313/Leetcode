@@ -44,3 +44,26 @@ class Solution(object):
 def test():
     input = [1,2,3,4]
     output = Solution().productExceptSelf(input)
+    
+
+def productExceptSelf_3(nums):
+    """
+    :type nums: List[int]
+    :rtype: List[int]
+    """
+    left = 1
+    n = len(nums)
+    output = []
+    
+    for i in range(n):
+        output.append(left)
+        left *= nums[i]
+        
+    # output now is the left multiplication [1, 1*1, 1*1*2, 1*1*2*3]
+    # now we generate the right multiplications [1*4*3*2, 1*4*3, 1*4, 1]
+    right = 1
+    for j in range(n-1, -1, -1):
+        output[i] *= right
+        right *= nums[j]
+    
+    return output
