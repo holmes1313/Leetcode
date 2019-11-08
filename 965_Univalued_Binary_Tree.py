@@ -16,15 +16,16 @@ Input: [1,1,1,1,1,null,1]
 Output: true"""
 
 def isUnivalTree(self, root):
-    if not root:
-        return True
-    
-    if root.left:
-        if root.val != root.left.val:
-            return False
+    def isUnivalTree(self, root):
+        if not root:
+            return True
         
-    if root.right:
-        if root.val != root.right.val:
-            return False
+        result = []
+        self.dfs(root, result)
+        return len(set(result)) == 1
         
-    return self.isUnivalTree(root.left) and self.isUnivalTree(root.right)
+    def dfs(self, node, result):
+        if node:
+            result.append(node.val)
+            self.dfs(node.left, result)
+            self.dfs(node.right, result)

@@ -37,33 +37,27 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+
+# in-order traversal to sort the tree values
 class Solution(object):
-    
-    #def __init__(self):
-    result = float('inf')
-    prev = -float('inf')
-    diff = []    # for test cache
-    
     def minDiffInBST(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        if not root:
-            return 
+        result = []
+        self.dfs(root, result)
+        min_diff = result[-1]  - result[0]
+        for i in range(1, len(result)):
+            min_diff = min(min_diff, result[i] - result[i-1])
+        #print(result)
+        return min_diff
         
+    def dfs(self, node, result):
+        if node.left:
+            self.dfs(node.left, result)
+            
+        result.append(node.val)
         
-        if root.left:
-            self.minDiffInBST(root.left)
+        if node.right:
+            self.dfs(node.right, result)
         
-        self.result = min(self.result, root.val - self.prev)
-        self.diff.append(self.result)
-        self.prev = root.val
-        
-        if root.right:
-            self.minDiffInBST(root.right)
-        
-        return self.result
 
     
     

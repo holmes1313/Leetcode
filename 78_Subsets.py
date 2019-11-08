@@ -6,9 +6,7 @@ Created on Mon Oct 28 19:04:04 2019
 """
 
 # 78. Subsets
-
 """
-
 Given a set of distinct integers, nums, return all possible subsets (the power set).
 
 Note: The solution set must not contain duplicate subsets.
@@ -28,19 +26,20 @@ Output:
   []
 ]
 """
-            
+
+# https://leetcode.com/problems/subsets/discuss/27281/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning)
+
 class Solution(object):
     def subsets(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
         result = []
-        temp = []
-        self.dfs(result, temp, nums, 0)
+        start = 0
+        current = []
+        self.backtrack(nums, start, current, result)
         return result
-        
-    def dfs(self, result, path, nums, start):
-        result.append(path)
+    
+    def backtrack(self, nums, start, current, result):
+        result.append(current[:])    # make copy of current
         for i in range(start, len(nums)):
-            self.dfs(result, nums, start+1, path + [nums[i]])
+            current.append(nums[i])
+            self.backtrack(nums, i+1, current, result)   # i + 1 instead of start + 1
+            current.pop()

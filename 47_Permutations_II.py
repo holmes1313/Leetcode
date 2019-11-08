@@ -19,7 +19,7 @@ Output:
   [2,1,1]
 ]
 """
-
+import collections
 
 class Solution(object):
     def permuteUnique(self, nums):
@@ -29,14 +29,14 @@ class Solution(object):
         """
         result = []
         current = []
-        self.backtrack(nums, result, current, collections.Counter(nums))
+        # use counter to mark if a duplicate has been used
+        counter = collections.Counter(nums)
+        self.backtrack(nums, result, current, counter)
         return result
-    
     
     def backtrack(self, nums, result, current, counter):
         if len(current) == len(nums):
-            result.append(current[:])
-            
+            result.append(current[:])        
         else:
             for x in counter:
                 if counter[x] > 0:

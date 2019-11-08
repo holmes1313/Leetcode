@@ -25,7 +25,7 @@ Given the below binary tree and sum = 22,
 return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 """
 
-
+# tree value question
 import collections
 
 # Definition for a binary tree node.
@@ -48,49 +48,35 @@ class Solution(object):
             return False
         
         result = []
-        queue = collections.deque([(root, root.val)])
+        queue = collections.deque([(root, 0)])
         
         while queue:
-            
-            node, total = queue.pop()
-            
+            node, value = queue.pop()
             if not node.left and not node.right:
-                result.append(total)
-                
+                result.append(value + node.val)
             if node.left:
-                queue.append((node.left, total + node.left.val))
-                
+                queue.appendleft((node.left, value + node.val))
             if node.right:
-                queue.append((node.right, total + node.left.val))
+                queue.appendleft((node.right, value + node.val))
                 
-        return result
-        
+        return target in result
 
 # depth first search
 class Solution2(object):
     def hasPathSum(self, root, target):
-        """
-        :type root: TreeNode
-        :type sum: int
-        :rtype: bool
-        """    
         if not root:
             return False
-        
-        results = []
-        self.dfs(root, root.val, results)
-        return target in results
-        
-    def dfs(self, node, total, results):
-        
+        result = []
+        self.helper(root, 0, result)
+        return target in result
+    
+    def helper(self, node, value, result):
         if not node.left and not node.right:
-            results.append(total)
-            
+            result.append(value + node.val)
         if node.left:
-            self.dfs(node.left, total + node.left.val, results)
-            
+            self.helper(node.left, value+node.val, result)    
         if node.right:
-            self.dfs(node.right, total + node.right.val, results)
+            self.helper(node.right, value+node.val, result)
             
     
 

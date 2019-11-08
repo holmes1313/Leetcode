@@ -69,6 +69,18 @@ def findLongestChunk(word):
     return sorted(result, key=lambda kv: kv[1] - kv[0])[-1]
             
 
+def findLongestChunk2(word):
+    index = 0
+    result = 0
+    while index < len(word):
+        count = 0
+        char = word[index]
+        while (index < len(word)) and (word[index] == char):
+            count += 1
+            index += 1    
+        result = max(result, count)
+    return result
+
 
 """
 Given a list of integers, return the length of the longest sequence of consecutive numbers, 

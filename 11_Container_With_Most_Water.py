@@ -23,23 +23,31 @@ Output: 49
 # Start by evaluating the widest container, using the first and the last line. 
 # All other possible containers are less wide, so to hold more water, they need to be higher.
 
+
 class Solution(object):
     def maxArea(self, height):
         """
         :type height: List[int]
         :rtype: int
         """
-        low = 0
-        high = len(height) - 1
-        area = 0
+        if not height:
+            return 0
+        left = 0
+        right = len(height) - 1
         
-        while low < high:
-            if height[low] < height[high]:
-                area = max(area, (high - low) * height[low])     
-                low += 1
+        area = self.calculateArea(left, right, height)
+        
+        while left < right:
+            if height[left] > height[right]:
+                right -= 1
+                area = max(area, self.calculateArea(left, right, height))
+            
             else:
-                area = max(area, (high - low) * height[high])     
-                high -= 1
-                     
+                left += 1
+                area = max(area, self.calculateArea(left, right, height))
+                
         return area
-        
+                
+    def calculateArea(self, left, right, height):
+        return (right - left) * min(height[left], height[right]) 
+                

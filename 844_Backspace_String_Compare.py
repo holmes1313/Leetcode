@@ -38,23 +38,17 @@ class Solution(object):
         :type T: str
         :rtype: bool
         """
-        return self.helper(S) == self.helper(T) 
-        
-    def helper(self, word):
-        
-        word = list(word)
+        return self.helper(S) == self.helper(T)
+    
+    def helper(self, text):
         result = []
-        delete_count = 0
-        
-        
-        while word:
-            letter = word.pop()
-            
-            if letter != '#' and delete_count == 0:
-                result.append(letter)
-            elif letter != '#' and delete_count > 0:
-                delete_count -= 1
-            elif letter == '#':
-                delete_count += 1
+        for char in text:            
+            if char != '#':
+                result.append(char)            
+            else:
+                if result:
+                    result.pop()
+                else:
+                    continue                    
+        return result
                 
-        return ''.join(result[::-1])

@@ -41,7 +41,8 @@ class Solution(object):
             return []
         
         for i in range(len(nums)-2):
-            
+            # to avoid redundant current index
+            # e.g. [-4, -1, -1, -, 1, , 2]
             if i > 0 and nums[i] == nums[i-1]:
                 continue
             
@@ -60,6 +61,8 @@ class Solution(object):
                   
                 else:
                     result.append([nums[i], nums[l], nums[r]])
+                    # to avoid redundant left/right index 
+                    # e.g. [-2, 0, 0, 2, 2]
                     while l < r and nums[l] == nums[l+1]:
                         l += 1
                         

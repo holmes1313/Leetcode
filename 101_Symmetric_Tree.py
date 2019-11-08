@@ -64,3 +64,40 @@ class Solution(object):
             
         else:
             return False
+        
+        
+
+class Solution_2(object):
+    
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        
+        if not root:
+            return True
+        
+        left_path = []
+        right_path = []
+        self.dfs(root.left, left_path, True)
+        self.dfs(root.right, right_path, False)
+        print(left_path)
+        print(right_path)
+        return left_path == right_path
+        
+        
+    def dfs(self, node, result, left):
+        if not node:
+            result.append('null')
+            
+        elif left:
+            result.append(node.val)
+            self.dfs(node.left, result, True)
+            self.dfs(node.right, result, True)
+        
+        else:
+            result.append(node.val)
+            self.dfs(node.right, result, False)
+            self.dfs(node.left, result, False)
+        

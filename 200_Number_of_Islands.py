@@ -31,51 +31,32 @@ Output: 3"""
 
 import collections
 
-class Solution(object):
-    
+class Solution_200(object):
     def numIslands(self, matrix):
-        """
-        :type matrix: List[List[str]]
-        :rtype: int
-        """
         if not matrix:
             return 0
-        
-        count = 0
-        r = len(matrix)
-        c = len(matrix[0])
-        
-        for i in range(r):
-            for j in range(c):
-                
+        rn = len(matrix)
+        cn = len(matrix[0])
+        num = 0
+        for i in range(rn):
+            for j in range(cn):
                 if matrix[i][j] == '1':
-                    count += 1
-                    # breath first search
-                    self.findPartOfIsland(matrix, i, j, r, c)
-                    
-        return count
-                    
-                    
-    def findPartOfIsland(self, matrix, i, j, r, c):
-        
+                    num += 1
+                    self.bfs(matrix, i, j, rn, cn)
+        #print matrix
+        return num    
+    def bfs(self, matrix, i, j, rn, cn):
         queue = collections.deque()
         queue.appendleft((i, j))
-        
         while queue:
-            loc = queue.pop()
-            x = loc[0]
-            y = loc[1]
+            x, y = queue.pop()
+            # checking current element
             if matrix[x][y] == '1':
                 matrix[x][y] = '2'
-                self.appendToQueue(queue, x-1, y, r, c)
-                self.appendToQueue(queue, x+1, y, r, c)
-                self.appendToQueue(queue, x, y-1, r, c)
-                self.appendToQueue(queue, x, y+1, r, c)
-    
-    def appendToQueue(self, queue, x, y, r, c):
-        if (x >= 0) and (x < r) and (y >= 0) and (y < c):
-            queue.appendleft((x, y))
-        
+                # appending other elements
+                for m, n in [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]:
+                    if 0 <= m < rn and 0 <= n < cn:
+                        queue.appendleft((m, n))
 
 
 input = [['1', '1', '0'],

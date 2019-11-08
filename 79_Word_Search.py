@@ -42,32 +42,22 @@ class Solution(object):
         for i in range(rn):
             for j in range(cn):
                  if self.dfs(board, word, i, j):
-                     return True
+                    return True
         return False        
    
-    
     # check whether can find word, start at (i,j) position 
     def dfs(self, board, word, i, j):
         if len(word) == 0:  # all the characters are checked
                 return True
         
-        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]):
+        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]) or board[i][j] != word[0]:
             return False
-        
-        if board[i][j] != word[0]:
-            return False
-        else:
-            holder, board[i][j] = board[i][j], '_'   # marked as visited for situation like board = [['a', 'a']], word = 'aaa'
-    
-            up = self.dfs(board, word[1:], i-1, j)
-            down = self.dfs(board, word[1:], i+1, j)
-            left = self.dfs(board, word[1:], i, j-1)
-            right = self.dfs(board, word[1:], i, j+1)
-            
-            board[i][j] = holder
-            
-            return up or down or left or right
 
+        temp = board[i][j]   # marked as visited for situation like board = [['a', 'a']], word = 'aaa'
+        board[i][j] = '_'
+        result = self.dfs(board, word[1:], i-1, j) or self.dfs(board, word[1:], i+1, j) or self.dfs(board, word[1:], i, j-1) or self.dfs(board, word[1:], i, j+1)
+        board[i][j] = temp
+        return result
     
     
 def test():

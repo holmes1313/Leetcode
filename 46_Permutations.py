@@ -31,20 +31,15 @@ class Solution(object):
         """
         result = []
         current = []
-        nums.sort()
-        self.dfs(nums, result, current)
+        self.backtrack(nums, current, result)
         return result
     
-    
-    def dfs(self, nums, result, current):
+    def backtrack(self, nums, current, result):
         if len(current) == len(nums):
             result.append(current[:])
-            
         else:
-            for i in range(len(nums)):
-                if nums[i] in current:
-                    continue
-                current.append(nums[i])
-                self.dfs(nums, result, current)
-                current.pop()
-        
+            for n in nums:
+                if n not in current:  # new element
+                    current.append(n)
+                    self.backtrack(nums, current, result)
+                    current.pop()

@@ -37,11 +37,10 @@ def longestCommonPrefix(strs):
     
     shortest = min(strs, key=len)
     
-    for i, letter in enumerate(shortest):
+    for i, v in enumerate(shortest):
         for word in strs:
-            if word[i] != letter:
+            if word[i] != v:
                 return shortest[:i]
-            
     else:
         return shortest
     

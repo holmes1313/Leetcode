@@ -47,19 +47,16 @@ class Solution(object):
         rn, cn = len(grid), len(grid[0])
         count_one = 0
         queue = collections.deque()
+        minite = 0
         
         for i in range(rn):
             for j in range(cn):
                 if grid[i][j] == 1:
                     count_one += 1
                 elif grid[i][j] == 2:
-                    queue.appendleft((i, j))
-                    
-        if count_one == 0:
-            return 0
+                    queue.appendleft((i, j))   # add all rotting oranges into the queue
         
-        minite = 0
-        while queue and count_one:
+        while queue and count_one:  # queue represents newly rotting oranges and we continue if there's fresh one left
             for _ in range(len(queue)):   # for each batch(minute)
                 x, y = queue.pop()
                 for x, y in [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]:
@@ -73,7 +70,7 @@ class Solution(object):
         if count_one:
             return -1
         else:
-            return minute
+            return minite
                             
                         
                     

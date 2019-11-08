@@ -59,3 +59,20 @@ class Solution2(object):
     
 Solution2().countPrimes(10)
 Solution2().countPrimes(11)
+
+
+def listPrimes(n):
+    # list all prime numbers before integer n
+    if n < 3:
+        return 0
+    primes = [1] * n
+    primes[0] = 0
+    primes[1] = 0
+    result = []
+    for i in range(2, int(n**0.5)+1):
+        if primes[i] == 1:
+            primes[i*i::i] = [0] * len(primes[i*i::i])
+    for i in range(len(primes)):
+        if primes[i] == 1:
+            result.append(i)
+    return result

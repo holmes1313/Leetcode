@@ -30,16 +30,13 @@ def addStrings(num1, num2):
     carry = 0
     result = []
     
-    while num1 or num2:
+    while num1 or num2 or carry:
         n1 = ord(num1.pop()) - ord("0") if num1 else 0
         n2 = ord(num2.pop()) - ord("0") if num2 else 0
         
         s = n1 + n2 + carry
         result.append(s % 10)
         carry = s // 10
-        
-    if carry:
-        result.append(carry)
         
     return "".join([str(n) for n in result][::-1])
 

@@ -67,3 +67,25 @@ def productExceptSelf_3(nums):
         right *= nums[j]
     
     return output
+
+
+# left prod * right prod
+class Solution_238(object):
+    def productExceptSelf(self, nums):
+        left = 1
+        left_prod = []
+        right = 1
+        right_prod = []
+
+        for i in range(len(nums)):
+            left_prod.append(left)
+            left *= nums[i]
+            
+        for i in range(len(nums)-1, -1, -1):
+            right_prod.append(right)
+            right *= nums[i]
+        
+        for i in range(len(nums)):
+            left_prod[i] *= right_prod[len(nums) - i -1]
+            
+        return left_prod  

@@ -50,6 +50,7 @@ def spiralOrder(matrix):
         rest = spiralOrder(list(zip(*matrix))[::-1])
     elif len(matrix) == 1:
         rest = list(matrix[0][::-1])
+    # when matrix [[1]]
     else:
         rest = []
     return list(head) + rest

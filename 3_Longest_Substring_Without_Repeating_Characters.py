@@ -35,12 +35,19 @@ class Solution(object):
         index_hashtable = {}
         max_len = 0
         start = 0
-        
+        import pdb;pdb.set_trace()    
         for i, char in enumerate(s):
             if char in index_hashtable:
                 max_len = max(max_len, i - start)
-                 # update start of string index to the next index
+                # update start of string index to the next index
                 start = max(index_hashtable[char] + 1, start)
+                # start = index_hashtable[char] + 1 can't deal with 'abbac'
             index_hashtable[char] = i
         # return should consider the last non-repeated substring
         return max(max_len, len(s) - start)
+    
+    
+def test():
+    input = 'baabc'
+    output = Solution().lengthOfLongestSubstring(input)
+    import pdb;pdb.set_trace()

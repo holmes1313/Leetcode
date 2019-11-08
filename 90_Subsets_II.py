@@ -27,8 +27,9 @@ Output:
 ]
 """
 
-# backtracking
+# https://leetcode.com/problems/subsets/discuss/27281/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning)
 
+# backtrack
 class Solution(object):
     def subsetsWithDup(self, nums):
         """
@@ -36,16 +37,20 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         result = []
-        nums.sort()
-        self.dfs(nums, 0, [], result)
+        start = 0
+        current = []
+        nums.sort()   # unify [2, 1] to [1, 2] to skip duplicate
+        self.backtrack(nums, start, current, result)
         return result
-        
-        
-    def dfs(self, nums, index, current, result):
-        result.append(current[:])
-        for i in range(index, len(nums)):
-            if i > index and nums[i] == nums[i-1]:
-                continue
+    
+    def backtrack(self, nums, start, current, result):
+        if current not in result:
+            result.append(current[:])
+        for i in range(start, len(nums)):
+            # better way to skip duplicate
+            #if i > start and nums[i] == nums[i-1]:
+            #    continue
             current.append(nums[i])
-            self.dfs(nums, i+1, current, result)
+            self.backtrack(nums, i+1, current, result)
             current.pop()
+        

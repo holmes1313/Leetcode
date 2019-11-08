@@ -24,6 +24,7 @@ return its bottom-up level order traversal as:
 ]
 """
 
+# tree level question
 
 import collections
 
@@ -56,25 +57,28 @@ class Solution(object):
         return [hashtable[i] for i in range(len(hashtable)-1, -1, -1)]
     
     
-class Solution2(object):
+    
+class Solution_2(object):
     def levelOrderBottom(self, root):
         """
         :type root: TreeNode
         :rtype: List[List[int]]
         """
-        hashtable = collections.defaultdict(list)
-        return [hashtable[i] for i in range(len(hashtable)-1, -1, -1)]
+        if not root:
+            return []
         
-        self.dfs(root, 0, hashtable)
-        return hashtable
+        hashtable = collections.defaultdict(list)
+        level = 0
+        self.dfs(root, level, hashtable)
+        return [hashtable[i] for i in range(len(hashtable) - 1, -1, -1)]
     
     def dfs(self, node, level, hashtable):
         hashtable[level].append(node.val)
         if node.left:
             self.dfs(node.left, level+1, hashtable)
-            
         if node.right:
             self.dfs(node.right, level+1, hashtable)
+        
         
             
         

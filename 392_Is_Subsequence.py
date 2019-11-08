@@ -32,27 +32,6 @@ class Solution(object):
         :type s: str
         :type t: str
         :rtype: bool
-        
-        if not s:
-            return True
-        
-        if s and not t:
-            return False
-        
-        s_dq = collections.deque(list(s))
-        t_dq = collections.deque(list(t))
-        
-        while s_dq and t_dq:
-            while s_dq[0] != t_dq[0]:
-                t_dq.popleft()
-                if not t_dq:
-                    return False
-            s_dq.popleft()
-            t_dq.popleft()
-            if s_dq and not t_dq:
-                return False
-        
-        return True
         """
         for c in s:
             i = t.find(c)
