@@ -21,6 +21,36 @@ nums2 = [2,5,6],       n = 3
 
 Output: [1,2,2,3,5,6]"""
 
+
+# moving from end to begining
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: void Do not return anything, modify nums1 in-place instead.
+        """
+        indexMerged = m + n - 1
+        index1 = m - 1
+        index2 = n - 1
+        
+        while index1 >= 0 and index2 >= 0:
+            if nums1[index1] > nums2[index2]:
+                nums1[indexMerged] = nums1[index1]
+                index1 -= 1
+            else:
+                nums1[indexMerged] = nums2[index2]
+                index2 -= 1
+            indexMerged -= 1
+        
+        while index2 >= 0:
+            nums1[indexMerged] = nums2[index2]
+            index2 -= 1
+            indexMerged -= 1
+
+
 def merge(nums1, m, nums2, n):
     """
     :type nums1: List[int]
@@ -32,10 +62,7 @@ def merge(nums1, m, nums2, n):
     
     # make a copyt of nums1
     nums1_copy = nums1[:]
-    
     i = j = k = 0
-    
-    
     while (i < m) and (j < n):
         if nums1_copy[i] < nums2[j]:
             nums1[k] = nums1_copy[i]
@@ -52,8 +79,6 @@ def merge(nums1, m, nums2, n):
         nums1[k] = nums2[j]
         k += 1
         j += 1
-
-
 
 
 a = [2, 0]

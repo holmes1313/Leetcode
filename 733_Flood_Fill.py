@@ -46,30 +46,17 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         if not image:
-            return None
-        
-        r = len(image)
-        c = len(image[0])
-        
-        if (sr >= r) or (sc >= c):
-            return image
-        
-        queue = collections.deque()
+            return []
+
         oldColor = image[sr][sc]
-        
-        if oldColor != newColor:  # check if target color is the same as the newColor
+        if oldColor != newColor:
+            queue = collections.deque()
             queue.appendleft((sr, sc))
             while queue:
-                x, y = queue.pop()
-                if image[x][y] == oldColor:
-                    image[x][y] = newColor
-                    self.queue_append(queue, x-1, y, r, c)
-                    self.queue_append(queue, x+1, y, r, c)
-                    self.queue_append(queue, x, y-1, r, c)
-                    self.queue_append(queue, x, y+1, r, c)
+                m, n = queue.pop()
+                image[m][n] = newColor
+                for x, y in [(m-1, n), (m, n-1), (m, n+1), (m+1, n)]:
+                    if 0 <= x < len(image) and 0 <= y < len(image[0]) and image[x][y] == oldColor:
+                        queue.appendleft((x, y))
 
         return image
-                
-    def queue_append(self, queue, x, y, r, c):
-        if (x >= 0) and (x < r) and (y >= 0) and (y < c):
-            queue.appendleft((x, y))

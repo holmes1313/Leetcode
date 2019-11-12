@@ -27,32 +27,22 @@ class Solution(object):
         :type n: int
         :rtype: List[str]
         """
+        left = right = n
+        current = ''
         result = []
-        current = ""
-        left = 0
-        right = 0
-        self.backtrack(current, left, right, n, result)
+        self.dfs(left, right, current, result)
         return result
+    
+    def dfs(self, left, right, current, result):
+        if left < 0 or right < left:
+            return 
         
-        
-    def backtrack(self, current, left, right, n, result):
-        if len(current) == n * 2:
+        if not left and not right:
             result.append(current)
             
-        if left < n:
-            self.backtrack(current+'(', left+1, right, n, result)
-            
-        if right < left:
-            self.backtrack(current+')', left, right+1, n, result)
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        else:
+            self.dfs(left-1, right, current + '(', result)
+            self.dfs(left, right-1, current + ')', result)
         
         
         
