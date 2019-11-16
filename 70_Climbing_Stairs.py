@@ -31,45 +31,25 @@ Explanation: There are three ways to climb to the top.
 3. 2 steps + 1 step"""
 
 
-# self solution
-# recursion with memoization
-# memoized is outside the function 
-memoized = {1: 1, 2: 2}
-def climbStairs(n):
-    """
-    :type n: int
-    :rtype: int
-    """
-    
-    if n in memoized:
-        return memoized[n]
-    
-    ways = climbStairs(n-1) + climbStairs(n-2)
-    memoized[n] = ways
-    
-    return ways
+class Solution(object):
+        """
+        # bottom up
+        def climbStairs(self, n):
+            a = b = 1
+            for i in range(2, n+1):
+                a, b = b, a + b
+            return b
+        """
+        # top down with memo
+        def __init__(self):
+            self.memo = {}
+        def climbStairs(self, n):    
+            if n <= 1:
+                return 1
+            if n not in self.memo:
+                self.memo[n] = self.climbStairs(n-1) + self.climbStairs(n-2)
+            return self.memo[n]
 
-
-# ansewer solution
-
-def climbStairs_2(n):
-    a = b = 1
-    for i in range(n-1):
-        a, b = b, a + b
-    
-    return b
-    
-
-
-
-    
-climbStairs(35)    
-climbStairs_2(35)    
-memoized
-
-len(range(1)  )  
-    
-    
     
     
     

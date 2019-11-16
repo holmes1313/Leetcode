@@ -32,13 +32,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        nums_copy = nums[:]
-        index = 1
-        for i in range(1, len(nums_copy)):
-            if nums_copy[i] != nums_copy[i-1]:
-                nums[index] = nums_copy[i]
-                index += 1
-        return index, nums
+        if len(nums) < 2:
+            return len(nums)
+        
+        new_index = 0
+        for i in range(1, len(nums)):
+            if nums[i] != nums[new_index]:
+                new_index += 1
+                nums[new_index] = nums[i]
+                
+        return new_index + 1
     
     
 Solution().removeDuplicates([1, 1, 2])

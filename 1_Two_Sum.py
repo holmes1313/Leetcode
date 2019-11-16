@@ -11,24 +11,21 @@ Given an array of integers, return indices of the two numbers such that they add
 
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 """
-def twoSum(nums, target):
-    """
-    :type nums: List[int], e.g. [2, 7, 11, 15]
-    :type target: int, e.g. 9
-    :rtype: List[int], e.g. [0, 1]
-    """
-    for i in range(len(nums)):
-        for j in range(i, len(nums)):
-            if nums[i] + nums[i] == target:
-                return [i, j]
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        seen = {}    
+        for i, num in enumerate(nums):
+            diff = target - num
+            if diff in seen:
+                return [seen[diff], i]
+            else:
+                seen[num] = i
+        return False 
 
-def twoSum_2(nums, target):
-    seen = {}
-    for index, num in enumerate(nums):
-        diff = target - num
-        if diff in seen:
-            return [seen[diff], index]
-        else:
-            seen[num] = index
-
-twoSum_2([2, 7, 11, 15], 9)
+Solution().twoSum([2, 7, 11, 15], 9)
+Solution().twoSum([2, 7, 11, 15], 10)

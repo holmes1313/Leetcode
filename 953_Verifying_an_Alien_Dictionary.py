@@ -7,9 +7,11 @@ Created on Fri Oct  4 17:30:39 2019
 
 # 953. Verifying an Alien Dictionary
 """
-In an alien language, surprisingly they also use english lowercase letters, but possibly in a different order. The order of the alphabet is some permutation of lowercase letters.
+In an alien language, surprisingly they also use english lowercase letters, 
+but possibly in a different order. The order of the alphabet is some permutation of lowercase letters.
 
-Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only if the given words are sorted lexicographicaly in this alien language.
+Given a sequence of words written in the alien language, and the order of the alphabet, 
+return true if and only if the given words are sorted lexicographicaly in this alien language.
 
  
 
@@ -42,15 +44,19 @@ All characters in words[i] and order are english lowercase letters."""
 Approach 1: Check Adjacent Words
 Intuition
 
-The words are sorted lexicographically if and only if adjacent words are. This is because order is transitive: a <= b and b <= c implies a <= c.
+The words are sorted lexicographically if and only if adjacent words are. 
+This is because order is transitive: a <= b and b <= c implies a <= c.
 
 Algorithm
 
 Let's check whether all adjacent words a and b have a <= b.
 
-To check whether a <= b for two adjacent words a and b, we can find their first difference. For example, "applying" and "apples" have a first difference of y vs e. After, we compare these characters to the index in order.
+To check whether a <= b for two adjacent words a and b, we can find their first 
+difference. For example, "applying" and "apples" have a first difference of y vs e. 
+After, we compare these characters to the index in order.
 
-Care must be taken to deal with the blank character effectively. If for example, we are comparing "app" to "apply", this is a first difference of (null) vs "l"
+Care must be taken to deal with the blank character effectively. 
+If for example, we are comparing "app" to "apply", this is a first difference of (null) vs "l"
 """
 
 # for else combination
@@ -65,6 +71,8 @@ for obj in objects:
 else:
     print('No object found.')
 """
+
+# **
 # enumerate
 # The words are sorted lexicographically if and only if adjacent words are
 
