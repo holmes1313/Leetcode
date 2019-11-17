@@ -40,17 +40,17 @@ class Solution(object):
         :rtype: List[str]
         """
         result = []
-        hashmap = collections.defaultdict(list)
+        children = collections.defaultdict(list)
         for t in tickets:
-            heapq.heappush(hashmap[t[0]], t[1])
+            heapq.heappush(children[t[0]], t[1])
         """
         for from, to in sorted(tickets, reverse=True):
             hashmap[from].append(to)
         """
-        self.eulerian('JFK', hashmap, result) 
+        self.helper('JFK', children, result) 
         return result[::-1]
     
-    def eulerian(self, destination, hashtable, result):
-        while hashtable[destination]:
-            self.eulerian(heapq.heappop(hashtable[destination]), hashtable, result)
-        result.append(destination)
+    def helper(self, parent, children, result):
+        while children[parent]:
+            self.helper(heapq.heappop(children[parent]), children, result)
+        result.append(parent)

@@ -64,7 +64,7 @@ def getIntersectionNode_2(headA, headB):
     # if either pointer hits the end, switch head and continue the second traversal, 
     # only 2 ways to get out of the loop, they meet or the both hit the end=None
     while pa is not pb:
-        pa = pa.next if pa else headB
+        pa = pa.next if pa else headB   # can't be if pa.next then it will be infinite loop if there's no overlapping
         pb = pb.next if pb else headA
     
     return pa  
