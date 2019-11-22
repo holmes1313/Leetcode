@@ -29,9 +29,14 @@ class Solution(object):
             return []
         
         result = []
-        
-        for child in root.children:
-            result.extend(self.postorder(child))
-            
-        result.append(root.val)
+        self.helper(root, result)
         return result
+    
+    def helper(self, node, result):
+        if not node:
+            return 
+        
+        for n in node.children:
+            self.helper(n, result)
+        
+        result.append(node.val)

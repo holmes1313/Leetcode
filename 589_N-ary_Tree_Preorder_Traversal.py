@@ -21,8 +21,6 @@ class Node(object):
         self.children = children
 """
 class Solution(object):
-    
-    
     def preorder(self, root):
         """
         :type root: Node
@@ -30,12 +28,18 @@ class Solution(object):
         """
         if not root:
             return []
+        
         result = []
-        result.append(root.val)
-        for child in root.children:
-            result.extend(self.preorder(child))
-            
+        self.helper(root, result)
         return result
+        
+    def helper(self, node, result):
+        if not node:
+            return
+        result.append(node.val)
+
+        for n in node.children:
+            self.helper(n, result)
 
 
 

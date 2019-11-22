@@ -25,6 +25,8 @@ Input: [1, 3, 1, 5, 4], k = 0
 Output: 1
 Explanation: There is one 0-diff pair in the array, (1, 1)."""
 
+import collections
+
 class Solution(object):
     def findPairs(self, nums, k):
         """
@@ -32,10 +34,14 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        result = 0
         counts = collections.Counter(nums)
-        for i in counts:
-            if (k == 0 and counts[i] > 1) or (k > 0 and i - k in counts):
-                result += 1
+        result = 0
         
+        for n in counts:
+            if k == 0:
+                if counts[n] > 1:
+                    result += 1
+            elif k > 0:
+                if n - k in counts:
+                    result += 1
         return result

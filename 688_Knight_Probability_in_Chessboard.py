@@ -67,15 +67,16 @@ class Solution(object):
         """
         if r < 0 or r >= N or c < 0 or c >= N:
             return 0
-        if K == 0 and 0 <= r < N and 0 <= c < N:
+        if K == 0:
             return 1
         
         steps = [(2, -1), (2, 1), (-2, -1), (-2, 1), (1, 2), (-1, 2), (1, -2), (-1, -2)]
         
         if (r, c, K) not in self.memo:
             for step in steps:
-                self.memo[(r, c, K)] += self.knightProbability(N, K-1, r-step[0], c-step[1]) / 8.0
+                self.memo[(r, c, K)] += self.knightProbability(N, K-1, r+step[0], c+step[1]) / 8.0
+        print(self.memo)
         return self.memo[(r, c, K)] 
 
 
-Solution().knightProbability(3, 1, 0, 0)
+Solution().knightProbability(3, 0, 2, 0)

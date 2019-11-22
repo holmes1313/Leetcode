@@ -36,18 +36,19 @@ class Solution(object):
         if not s:
             return 0
         
-        dp = [0 for i in range(len(s)+1)]
+        dp = [0] * (len(s) + 1)
         dp[0] = 1
         dp[1] = 1 if s[0] != '0' else 0
-        for i in range(2, len(s)+1):
-            first = s[i-1: i]
-            second = s[i-2: i]
+        
+        for i in range(1, len(s)):
+            singleDigit = s[i]
+            doubleDigits = s[i-1: i+1]
             
-            if 0 < int(first):
-                dp[i] += dp[i-1]
+            if singleDigit != '0':
+                dp[i+1] += dp[i]
                 
-            if int(second) <= 26:
-                dp[i] += dp[i-2]
+            if 10 <= int(doubleDigits) <= 26:
+                dp[i+1] += dp[i-1]
                 
         return dp[len(s)]
                 

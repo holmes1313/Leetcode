@@ -5,8 +5,8 @@ Created on Fri Nov 15 21:40:33 2019
 @author: z.chen7
 """
 
-
 # 166. Fraction to Recurring Decimal
+
 """
 Given two integers representing the numerator and denominator of a fraction, 
 return the fraction in string format.
@@ -27,12 +27,10 @@ Input: numerator = 2, denominator = 3
 Output: "0.(6)"
 """
 
-
 """
 Use HashMap to store a remainder and its associated index while doing the 
 division so that whenever a same remainder comes up, we know there is a repeating fractional part.
 """
-
 class Solution(object):
     def fractionToDecimal(self, numerator, denominator):
         """
@@ -53,21 +51,17 @@ class Solution(object):
         integer = numerator / denominator
         reminders = {}
         remin_loc = 0
-        decimals = []
+        decimals = ''
         while reminder and reminder not in reminders:
             reminders[reminder] = remin_loc
             remin_loc += 1
-            decimals.append(str(reminder * 10 / denominator))
+            decimals += str(reminder * 10 / denominator)
             reminder = reminder * 10 % denominator
 
-        decimal = ''.join(decimals)
         if reminder:
             rep_index = reminders[reminder]
-            decimal = decimal[:rep_index] + '(' + decimal[rep_index:] + ')'
-        return "-{}.{}".format(integer, decimal) if neg else "{}.{}".format(integer, decimal) 
-            
-        
-        
+            decimals = decimals[:rep_index] + '(' + decimals[rep_index:] + ')'
+        return "-{}.{}".format(integer, decimals) if neg else "{}.{}".format(integer, decimals) 
         
         
         

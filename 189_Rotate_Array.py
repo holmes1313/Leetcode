@@ -27,11 +27,7 @@ class Solution(object):
         """
         k = k % len(nums)
         if k > 0 and len(nums) > 1:
-            
-            k = k % len(nums)
-            
-            nums_copy = nums[:]
+            nums[:k], nums[k:] = nums[-k:], nums[:-k]
+        
 
-            nums[:k] = nums_copy[-k:]
-            nums[k:] = nums_copy[:-k]
 

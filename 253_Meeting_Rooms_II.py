@@ -21,8 +21,31 @@ Output: 1
 NOTE: input types have been changed on April 15, 2019. Please reset 
 to default code definition to get new method signature.
 """
+import heapq
 
 class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        intervals.sort(key=lambda x: x[0])
+        heap = []  # stores the end time of intervals
+        
+        for i in intervals:
+            if heap and i[0] >= heap[0]:
+                # means two intervals can use the same room
+                heapq.heappop(heap)
+                heapq.heappush(heap, i[1])
+            else:
+                # earliest starting time is later than the earliest ending time
+                # a new room is allocated
+                heapq.heappush(heap, i[1])
+                
+        return len(heap)
+        
+
+class Solution2(object):
     def minMeetingRooms(self, intervals):
         """
         :type intervals: List[List[int]]
@@ -44,7 +67,7 @@ class Solution(object):
             else:
                 result[sorted(gap.items(), key=lambda kv: kv[1])[0][0]] = i[1]
             
-        print result
+        print(result)
         return len(result)
                     
         

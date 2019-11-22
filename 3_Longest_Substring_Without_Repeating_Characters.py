@@ -35,7 +35,7 @@ class Solution(object):
         index_hashtable = {}
         max_len = 0
         start = 0
-        import pdb;pdb.set_trace()    
+
         for i, char in enumerate(s):
             if char in index_hashtable:
                 max_len = max(max_len, i - start)
@@ -50,4 +50,3 @@ class Solution(object):
 def test():
     input = 'baabc'
     output = Solution().lengthOfLongestSubstring(input)
-    import pdb;pdb.set_trace()
