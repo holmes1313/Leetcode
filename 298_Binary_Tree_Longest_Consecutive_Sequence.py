@@ -46,9 +46,41 @@ Output: 2
 Explanation: Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
 """
 
-# self solution
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+import collections
+
 
 class Solution(object):
+    def longestConsecutive2(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+       
+        ans = 0
+        queue = collections.deque()
+        queue.appendleft((root, 1))
+       
+        while queue:
+            node, length = queue.pop()
+            if length > ans:
+                ans = length
+            for child in [node.left, node.right]:
+                if child:
+                    if child.val == node.val + 1:
+                        queue.appendleft((child, length + 1))
+                    else:
+                        queue.appendleft((child, 1))
+        return ans
+   
     def longestConsecutive(self, root):
         """
         :type root: TreeNode
@@ -56,23 +88,24 @@ class Solution(object):
         """
         if not root:
             return 0
-        result = []
-        self.helper(root, [], result)
-        return max(result)
-        
-    def helper(self, node, current, result):
-        if not current or node.val - 1 == current[-1]:
-            current.append(node.val)
-        else:
-            result.append(len(current))
-            current = [node.val]
-
-        if not node.left and not node.right:
-            result.append(len(current))
+       
+        result = [0]
+        self.dfs(root, 1, result)
+        return result[0]
+       
+    def dfs(self, node, length, result):
+        if length > result[0]:
+            result[0] = length
+       
         if node.left:
-            self.helper(node.left, current[:], result)
+            if node.left.val - node.val == 1:
+                self.dfs(node.left, length+1, result)
+            else:
+                self.dfs(node.left, 1, result)
+               
         if node.right:
-            self.helper(node.right, current[:], result)
-           
-        
-    
+            if node.right.val - node.val == 1:
+                self.dfs(node.right, length+1, result)
+            else:
+                self.dfs(node.right, 1, result)
+               
