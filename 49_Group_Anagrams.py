@@ -24,6 +24,8 @@ All inputs will be in lowercase.
 The order of your output does not matter.
 """
 
+import collections
+
 class Solution(object):
     def groupAnagrams(self, strs):
         """
@@ -32,6 +34,7 @@ class Solution(object):
         """
         result = collections.defaultdict(list)
         for s in strs:
+            # sorted('abc') -> ['a', 'b', 'c']
             result[''.join(sorted(s))].append(s)
             
         return result.values()

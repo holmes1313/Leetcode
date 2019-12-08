@@ -21,27 +21,26 @@ Example 3:
 
 Input: 120
 Output: 21"""
-def reverse(x):
-    """
-    :type x: int
-    :rtype: int
-    """
 
-    if x >= 0:
-        a = int(str(x)[::-1])
-    else:
-        a = -1 * int(str(x)[1:][::-1])
-    
-    mina = -2 ** 31
-    maxa = 2**31 -1
-    # # handle 32 bit overflow
-    if mina<= a <= maxa:  
-        return a  
-    else:  
-        return 0
-
-
-reverse(120)
-reverse(-123)
-
-1534236469 >= 0
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        if x < 0:
+            symbol = -1
+            str_x = str(x)[1:]
+        else:
+            symbol = 1
+            str_x = str(x)
+        
+        result = int(str_x[::-1]) * symbol
+        
+        mina = -2 ** 31
+        maxa = 2**31 -1
+        # # handle 32 bit overflow
+        if mina<= result <= maxa:  
+            return result  
+        else:  
+            return 0

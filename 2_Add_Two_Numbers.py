@@ -22,10 +22,10 @@ Explanation: 342 + 465 = 807.
 # linked list  +  string addition
 
 # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
@@ -60,12 +60,4 @@ class Solution(object):
         
         return root.next  # * as the first node is 0
             
-        
-        
-        
-        
-        
-        
-        
-        
         

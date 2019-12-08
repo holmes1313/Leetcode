@@ -39,7 +39,7 @@ class Solution(object):
             
         return res
         
-    def derivePalindromic(self, s, left, right):
+    def helper(self, s, left, right):
         # starting at l,r expand outwards to find the biggest palindrome
         while left >= 0 and right < len(s) and s[left] == s[right]:
             left -= 1

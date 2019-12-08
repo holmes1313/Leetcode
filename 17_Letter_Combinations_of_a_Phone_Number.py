@@ -41,8 +41,7 @@ class Solution(object):
     
     def backtrack(self, digits, dic, index, current, result):
         if len(current) == len(digits):
-            result.append(current[:])
-            
+            result.append(current)
         else:
             for c in dic[digits[index]]:
                 self.backtrack(digits, dic, index+1, current+c, result)
