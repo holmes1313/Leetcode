@@ -21,50 +21,18 @@ Explanation: Paint house 0 into blue, paint house 1 into green, paint house 2 in
              Minimum cost: 2 + 5 + 3 = 10."""
 
 
-# this is a case where only bottom up strategy works
-
-# wrong answer !!
-def minCost(costs):
-    """
-    :type costs: List[List[int]]
-    :rtype: int
-    """
-    memo = {}
-    
-    n = len(costs)
-    
-    if n == 0:
-        memo[n] = 0
-        return 0
-    
-    if n == 1:
-        memo[n] = min(costs[0])
-        return min(costs[0])
-    
-    if n not in memo:
-        memo[n] = min((minCost(costs[:-2]) + costs[-2][0] + min(costs[-1][1], costs[-1][2])),
-            (minCost(costs[:-2]) + costs[-2][1] + min(costs[-1][0], costs[-1][2])),
-            (minCost(costs[:-2]) + costs[-2][2] + min(costs[-1][0], costs[-1][1])))
-    
-    return memo[n]
-
-
-# correct answer
-def minCost_dp(costs):
-    """
-    :type costs: List[List[int]]
-    :rtype: int
-    """
-    n = len(costs)
-    
-    if n == 0:
-        return 0
-    
-    for i in range(1, n):
-        costs[i][0] += min(costs[i-1][1], costs[i-1][2])
-        costs[i][1] += min(costs[i-1][0], costs[i-1][2])
-        costs[i][2] += min(costs[i-1][0], costs[i-1][1])
-    
-    return min(costs[-1][0], costs[-1][1], costs[-1][2])
-    
-minCost_dp([[5,8,6],[19,14,13],[7,5,12],[14,15,17],[3,20,10]])
+class Solution(object):
+    def minCost(self, costs):
+        """
+        :type costs: List[List[int]]
+        :rtype: int
+        """
+        if not costs:
+            return 0
+        
+        for i in range(1, len(costs)):
+            costs[i][0] += min(costs[i-1][1], costs[i-1][2])
+            costs[i][1] += min(costs[i-1][0], costs[i-1][2])
+            costs[i][2] += min(costs[i-1][1], costs[i-1][0])
+        
+        return min(costs[-1])

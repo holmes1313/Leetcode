@@ -36,7 +36,7 @@ class Solution(object):
         for element in nestedList:
             if isinstance(element, list):
                 self.helper(element, depth+1, result)
-            else:
+            elif isinstance(element, int):
                 result.append(element * depth)
 
 

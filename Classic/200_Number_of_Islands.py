@@ -55,7 +55,7 @@ class Solution_200(object):
                 matrix[x][y] = '2'
                 # appending other elements
                 for m, n in [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]:
-                    if 0 <= m < rn and 0 <= n < cn:
+                    if 0 <= m < rn and 0 <= n < cn and matrix[m][n] == '1':
                         queue.appendleft((m, n))
 
 

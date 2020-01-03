@@ -53,13 +53,15 @@ class Solution(object):
         :type wordDict: List[str]
         :rtype: bool
         """
-        # d[i] is True is substring s[:i] can be segmented in to words found in wordDict
-        dp = [False for i in range(len(s)+1)]
+        # dp[i] is True is substring s[:i] can be segmented in to words found in wordDict
+        
+        dp = [False] * (len(s) + 1)
         dp[0] = True
+        
         for i in range(1, len(s)+1):
             for j in range(i):
                 if dp[j] and s[j:i] in wordDict:
                     dp[i] = True
                     break
-        return dp[len(s)]
+        return dp[-1]
     

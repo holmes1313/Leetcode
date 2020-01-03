@@ -33,15 +33,13 @@ Both numbers with value 2 are both considered as second maximum."""
 
 class Solution(object):
     def thirdMax(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if len(set(nums)) >= 3:
-            return sorted(set(nums), reverse=True)[2]
-        
-        else:
-            return sorted(nums)[-1]
+        if not nums:
+            return
+        nums = list(set(nums))
+        nums.sort(reverse=True)
+        if len(nums) <= 2:
+            return nums[0]
+        return nums[2]
 
 
 class Solution_2(object):
