@@ -21,8 +21,15 @@ nums2 = [2,5,6],       n = 3
 
 Output: [1,2,2,3,5,6]"""
 
+"""
+note:
+Interview Tip: Whenever you're trying to solve an array problem in-place, always consider the possibility of iterating backwards instead of forwards through the array. 
+It can completely change the problem, and make it a lot easier.
+"""
 
-# moving from end to begining
+from typing import List
+
+
 class Solution(object):
     def merge(self, nums1, m, nums2, n):
         """
@@ -35,7 +42,6 @@ class Solution(object):
         indexMerged = m + n - 1
         index1 = m - 1
         index2 = n - 1
-        
         while index1 >= 0 and index2 >= 0:
             if nums1[index1] > nums2[index2]:
                 nums1[indexMerged] = nums1[index1]
@@ -50,47 +56,24 @@ class Solution(object):
             index2 -= 1
             indexMerged -= 1
 
-
-def merge(nums1, m, nums2, n):
-    """
-    :type nums1: List[int]
-    :type nums2: List[int]
-    :rtype void Do not return anything, modifying nums1 in-place instead
-    """
-    #  nums1[m:m+n] = nums2[:n]
-    # nums1.sort()
-    
-    # make a copyt of nums1
-    nums1_copy = nums1[:]
-    i = j = k = 0
-    while (i < m) and (j < n):
-        if nums1_copy[i] < nums2[j]:
-            nums1[k] = nums1_copy[i]
-            i += 1
-        else:
-            nums1[k] = nums2[j]
-            j += 1
-        k += 1
-    while i < m:
-        nums1[k] = nums1_copy[i]
-        k += 1
-        i +=1
-    while j < n:
-        nums1[k] = nums2[j]
-        k += 1
-        j += 1
-
-
-a = [2, 0]
-merge(a, 1, [1], 1)
-a
-
-a = [1, 2, 3]
-b = a[:]
-b = a.copy()
-b
-c = a
-a[0] = 10
-a
-c
-b
+    def merge_2023(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        # Set p1 and p2 to point to the end of their respective arrays.
+        p1 = m - 1
+        p2 = n - 1
+        # And move p backwards through the array, each time writing the smallest value pointed at by p1 or p2.
+        for i in range(m + n - 1, -1, -1):
+            if p1 >= 0 and p2 >= 0:
+                if nums1[p1] >= nums2[p2]:
+                    nums1[i] = nums1[p1]
+                    p1 -= 1
+                else:
+                    nums1[i] = nums2[p2]
+                    p2 -= 1
+            elif p2 >= 0:
+                nums1[i] = nums2[p2]
+                p2 -= 1
+            else:
+                break

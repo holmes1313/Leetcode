@@ -21,7 +21,6 @@ Input: [2,2,1,1,1,2,2]
 Output: 2
 """
 
-import collections
 
 def majorityElement(nums):
     """
@@ -30,3 +29,19 @@ def majorityElement(nums):
     """
     # return collections.Counter(nums).most_common(1)[0][0]
     return sorted(nums)[len(nums) // 2]        
+
+
+from typing import List
+
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        counts = {}
+        half_num = len(nums) // 2
+        for num in nums:
+            if num in counts:
+                counts[num] += 1
+            else:
+                counts[num] = 1
+            if counts[num] > half_num:
+                return num

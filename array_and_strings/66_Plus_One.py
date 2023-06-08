@@ -24,7 +24,8 @@ Input: [4,3,2,1]
 Output: [4,3,2,2]
 Explanation: The array represents the integer 4321."""
 
-import collections
+from typing import List
+
 
 class Solution(object):
     def plusOne(self, digits):
@@ -35,6 +36,7 @@ class Solution(object):
         num = int(''.join([str(d) for d in digits])) + 1
         return list(str(num))
         """
+        import collections
         result = collections.deque()
         carry = 1
         while digits or carry:
@@ -45,5 +47,17 @@ class Solution(object):
             result.appendleft(s % 10)
             
         return list(result)
-            
+
+    def plusOne2(self, digits: List[int]) -> List[int]:
+        # in place method
+        for i in range(len(digits) - 1, -1, -1):
+            digits[i] += 1
+            if digits[i] == 10:
+                digits[i] = 0
+            else:
+                break
+        if digits and digits[0] == 0:
+            digits = [1] + digits
+            # or digits.insert(0, 1)
+        return digits
         

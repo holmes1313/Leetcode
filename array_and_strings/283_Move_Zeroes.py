@@ -26,9 +26,6 @@ class Solution(object):
         :rtype: void Do not return anything, modify nums in-place instead.
         
         """
-        if not nums:
-            return None
-        
         nonZeroIndex = 0
         for n in nums:
             if n != 0:

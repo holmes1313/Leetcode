@@ -19,25 +19,20 @@ Note:
 You may assume that the array does not change.
 There are many calls to sumRange function.
 """
-
-class NumArray(object):
-
-    def __init__(self, nums):
-        """
-        :type nums: List[int]
-        """
-        self.nums = nums
-
-    def sumRange(self, i, j):
-        """
-        :type i: int
-        :type j: int
-        :rtype: int
-        """
-        return sum(self.nums[i:j+1])
-        
+from typing import List
 
 
-# Your NumArray object will be instantiated and called as such:
-# obj = NumArray(nums)
-# param_1 = obj.sumRange(i,j)
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.sums = []
+        sum_till = 0
+        for n in nums:
+            sum_till += n
+            self.sums.append(sum_till)
+
+    def sumRange(self, left: int, right: int) -> int:
+        if left == 0:
+            return self.sums[right]
+        else:
+            return self.sums[right] - self.sums[left - 1]

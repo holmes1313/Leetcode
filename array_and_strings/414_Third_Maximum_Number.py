@@ -40,30 +40,3 @@ class Solution(object):
         if len(nums) <= 2:
             return nums[0]
         return nums[2]
-
-
-class Solution_2(object):
-    def thirdMax(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        max1 = None
-        max2 = None
-        max3 = None
-        
-        for num in nums:
-            
-            if num in [max1, max2, max3]:
-                continue
-            
-            if not max1 or num > max1:
-                max1, max2, max3 = num, max1, max2
-               
-            elif not max2 or num > max2:
-                max2, max3 = num, max2
-                
-            elif not max3 or num > max3:
-                max3 = num
-        
-        return max3 if max3 is not None else max1
