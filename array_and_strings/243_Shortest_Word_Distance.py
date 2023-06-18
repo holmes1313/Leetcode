@@ -24,17 +24,6 @@ from typing import List
 
 
 class Solution:
-    def shortestDistance2(self, wordsDict: List[str], word1: str, word2: str) -> int:
-        seen = {word1: [], word2: []}
-        for i, word in enumerate(wordsDict):
-            if word in seen:
-                seen[word].append(i)
-        smallest = len(wordsDict) - 1
-        for i1 in seen[word1]:
-            for i2 in seen[word2]:
-                smallest = min(smallest, abs(i1 - i2))
-        return smallest
-
     def shortestDistance(self, wordsDict: List[str], word1: str, word2: str) -> int:
         i1 = i2 = -1
         output = len(wordsDict) - 1

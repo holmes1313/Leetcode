@@ -57,3 +57,34 @@ def addBinary_2(a, b):
     
 
 addBinary_2('1', '10')
+
+
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+
+        n = max(len(a), len(b))
+        if len(a) < n:
+            for _ in range(n - len(a)):
+                a = "0" + a
+
+        if len(b) < n:
+            for _ in range(n - len(b)):
+                b = "0" + b
+
+        carry = 0
+        ans = ""
+        for i in range(n - 1, -1, -1):
+            if a[i] == "1":
+                carry += 1
+
+            if b[i] == "1":
+                carry += 1
+            # remainder
+            ans = str(carry % 2) + ans
+            # quotient
+            carry //= 2
+
+        if carry == 1:
+            ans = "1" + ans
+
+        return ans

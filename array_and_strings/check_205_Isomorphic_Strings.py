@@ -50,4 +50,22 @@ class Solution(object):
     
     def helper2(self, word):
         return [word.find(char) for char in word]
-        
+
+
+        return sorted(map1.values()) == sorted(map2.values())
+
+
+class Solution2:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        map1 = {}
+        map2 = {}
+
+        for c1, c2 in zip(s, t):
+            if (c1 not in map1) and (c2 not in map2):
+                map1[c1] = c2
+                map2[c2] = c1
+
+            else:
+                if (map1.get(c1) != c2) or (map2.get(c2) != c1):
+                    return False
+        return True

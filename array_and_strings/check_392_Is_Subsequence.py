@@ -26,17 +26,16 @@ s = "axc", t = "ahbgdc"
 
 Return false.
 """
-class Solution(object):
-    def isSubsequence(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-        start = 0
-        for c in s:
-            i = t.find(c, start)
-            if i == -1:
-                return False
-            start = i + 1
-        return True
+
+
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        p1 = 0
+        p2 = 0
+        while p1 < len(s) and p2 < len(t):
+            if s[p1] == t[p2]:
+                p1 += 1
+                p2 += 1
+            else:
+                p2 += 1
+        return p1 == len(s)

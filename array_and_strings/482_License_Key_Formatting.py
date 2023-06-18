@@ -59,4 +59,21 @@ class Solution(object):
             result += ss[i:i+K] + '-'
             
         return result[:-1]
-        
+
+
+class Solution2:
+    def licenseKeyFormatting(self, s: str, k: int) -> str:
+        ans = []
+        group = ""
+        for i in range(len(s) - 1, -1, -1):
+
+            if s[i] != "-":
+                group = s[i].upper() + group
+
+            if len(group) == k and i != 0:
+                ans.append(group)
+                group = ""
+        if group:
+            ans.append(group)
+
+        return "-".join(ans[::-1])

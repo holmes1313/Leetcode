@@ -20,12 +20,19 @@ Input: "Hello World"
 Output: 5
 """
 
-class Solution(object):
-    def lengthOfLastWord(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        words = s.split() 
-        return len(words[-1]) if words else 0
-        
+
+class Solution:
+    def lengthOfLastWord2(self, s: str) -> int:
+        words = s.strip().split(" ")
+        return len(words[-1])
+
+    def lengthOfLastWord(self, s: str) -> int:
+        p = len(s) - 1
+        while p >= 0 and s[p] == ' ':
+            p -= 1
+
+        ans = 0
+        while p >= 0 and s[p] != ' ':
+            ans += 1
+            p -= 1
+        return ans

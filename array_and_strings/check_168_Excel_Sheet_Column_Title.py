@@ -42,20 +42,19 @@ class Solution(object):
         :rtype: str
         """
         result = ""
+        distance = ord("A")
         while n > 0:
-            digit = chr((n-1) % 26 + ord('A'))
+            n -= 1
+            digit = n % 26
+            digit = chr(digit + distance)
             result = digit + result
-            n = (n-1) // 26
-            
+            n = n // 26
         return result
     
     def convertToNum(self, col):
         digit = 0
         result = 0
         for c in col[::-1]:
-            result += (26 ** digit) * (ord(c) - ord('A') +1)
+            result += (26 ** digit) * (ord(c) - ord('A') + 1)
             digit += 1
         return result
-
-    
-Solution().convertToTitle(Solution().convertToNum('ZY'))

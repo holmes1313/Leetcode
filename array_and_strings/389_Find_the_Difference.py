@@ -26,9 +26,11 @@ e
 Explanation:
 'e' is the letter that was added.
 """
+import collections
+
 
 class Solution(object):
-    def findTheDifference2(self, s, t):
+    def findTheDifference(self, s, t):
         """
         :type s: str
         :type t: str
@@ -39,14 +41,16 @@ class Solution(object):
             if not counter[c]:
                 return c
             counter[c] -= 1
-    
-    def findTheDifference(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: str
-        """
-        counter1 = collections.Counter(s)
-        counter2 = collections.Counter(t)
-        return list(counter2 - counter1)[0]
-    
+
+
+class Solution2:
+    def findTheDifference(self, s: str, t: str) -> str:
+        from collections import Counter
+        counter = Counter(t)
+
+        for c in s:
+            counter[c] -= 1
+
+        for key, value in counter.items():
+            if value > 0:
+                return key

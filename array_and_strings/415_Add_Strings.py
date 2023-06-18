@@ -27,7 +27,6 @@ class Solution(object):
         :rtype: str
         """
         # return str(int(num1) + int(num2))
-        
         num1 = list(num1)
         num2 = list(num2)
         carry = 0
@@ -42,7 +41,35 @@ class Solution(object):
             carry = s // 10
             
         return result
-            
+
+
+class Solution2:
+    def addStrings(self, num1: str, num2: str) -> str:
+
+        if len(num1) < len(num2):
+            for i in range(len(num2) - len(num1)):
+                num1 = "0" + num1
+        else:
+            for i in range(len(num1) - len(num2)):
+                num2 = "0" + num2
+
+        ans = ""
+        carry = 0
+        for i in range(len(num1) - 1, -1, -1):
+            calc = int(num1[i]) + int(num2[i]) + carry
+            if calc < 10:
+                digit = str(calc)
+                carry = 0
+            else:
+                digit = str(calc)[-1]
+                carry = 1
+
+            ans = digit + ans
+
+        if carry == 1:
+            ans = "1" + ans
+
+        return ans
 
 
 ord("5") - ord("0")

@@ -27,6 +27,8 @@ Output:
 Explanation:
 One longest palindrome that can be built is "dccaccd", whose length is 7.
 """
+import collections
+
 
 class Solution(object):
     def longestPalindrome(self, s):
@@ -34,7 +36,7 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        # palindrome has one odd frequncy element at most
+        # palindrome has one odd frequency element at most
         counter = collections.Counter(s)
         odds = 0
         for l, c in counter.items():
@@ -42,7 +44,22 @@ class Solution(object):
                 odds += 1
                 
         if odds > 1:
-            return len(s) - odds + 1
+            return len(s) - (odds - 1)
         else:
             return len(s)
 
+
+class Solution2:
+    def longestPalindrome(self, s: str) -> int:
+        counts = collections.Counter(s)
+        has_odd = False
+        ans = 0
+        for c in counts.values():
+            if c % 2 == 0:
+                ans += c
+            else:
+                ans += (c - 1)
+                has_odd = True
+        if has_odd:
+            ans += 1
+        return ans

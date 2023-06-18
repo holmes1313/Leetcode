@@ -50,54 +50,25 @@ Output: 1994
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 """
 
-"""
-self answer
-def romanToInt(s):
-    """
-    :type s: str
-    :rtype: int
-    """
-    sum_no = 0
-    
-    combos = {"IV": 4,
-     "IX": 9,
-     "XL": 40,
-     "XC": 90,
-     "CD": 400,
-     "CM": 900}
 
-    symbols = {"I": 1,
-     "V": 5,
-     "X": 10,
-     "L": 50,
-     "C": 100,
-     "D": 500,
-     "M": 1000}
-    
+class Solution:
+    values = {
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "L": 50,
+        "C": 100,
+        "D": 500,
+        "M": 1000,
+    }
+    def romanToInt(self, s: str) -> int:
+        output = 0
+        for i in range(len(s) - 1):
+            if self.values[s[i]] >= self.values[s[i + 1]]:
+                output += self.values[s[i]]
+            else:
+                output -= self.values[s[i]]
 
-    for combo in combos:
-        while combo in s:
-            s = s.replace(combo, "", 1)
-            sum_no += combos[combo] 
-            
-    for symbol in symbols:
-        while symbol in s:
-            s = s.replace(symbol, "", 1)
-            sum_no += symbols[symbol]
-    
-    return sum_no
-"""
+        output += self.values[s[-1]]
 
-def romanToInt(s):
-    roman = {'M': 1000,'D': 500 ,'C': 100,'L': 50,'X': 10,'V': 5,'I': 1}
-    sum_amount = 0
-    
-    for i in range(len(s)-1):
-        if roman[s[i]] < roman[s[i+1]]:
-            sum_amount -= roman[s[i]]
-        else:
-            sum_amount += roman[s[i]]
-            
-    return sum_amount + roman[s[-1]]
-            
-    
+        return output
