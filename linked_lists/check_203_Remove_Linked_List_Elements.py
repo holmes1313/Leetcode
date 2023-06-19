@@ -13,12 +13,15 @@ Example:
 
 Input:  1->2->6->3->4->5->6, val = 6
 Output: 1->2->3->4->5"""
+from typing import Optional
+
 
 # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 
 class Solution(object):
     def removeElements(self, head, val):
@@ -38,4 +41,21 @@ class Solution(object):
                 curr = curr.next
         
         return dummy.next
+
+    def removeElements2(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        if head is None:
+            return head
+
+        while head and head.val == val:
+            head = head.next
+
+        curr = head
+
+        while curr and curr.next:
+            if curr.next.val == val:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+
+        return head
   

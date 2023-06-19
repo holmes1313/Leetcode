@@ -23,10 +23,11 @@ Explanation: There is a cycle in the linked list, where tail connects to the sec
 # if the Linked List has a cycle slow and fast will meet at some point
 
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 
 class Solution:
     def hasCycle(self, head: ListNode):

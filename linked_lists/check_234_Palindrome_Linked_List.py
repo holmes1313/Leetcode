@@ -40,10 +40,7 @@ class Solution(object):
         :type head: ListNode
         :rtype: bool
         """
-        if not head:
-            return True
-        
-        # find the mid node
+        # find the middle node
         fast = slow = head
         while fast and fast.next:
             fast = fast.next.next
@@ -64,4 +61,3 @@ class Solution(object):
             prev = prev.next
             head = head.next
         return True
-        

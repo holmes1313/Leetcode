@@ -23,6 +23,16 @@ The linked lists must retain their original structure after the function returns
 You may assume there are no cycles anywhere in the entire linked structure.
 Your code should preferably run in O(n) time and use only O(1) memory.
 """
+from typing import Optional
+
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+
 def getIntersectionNode(headA, headB):
     """
     :type head1, head1: ListNode
@@ -52,8 +62,6 @@ def getIntersectionNode(headA, headB):
     return a    
 
 
-
-# answer solution
 def getIntersectionNode_2(headA, headB):
     """
     :type head1, head1: ListNode
@@ -67,5 +75,33 @@ def getIntersectionNode_2(headA, headB):
         pa = pa.next if pa else headB   # can't be if pa.next then it will be infinite loop if there's no overlapping
         pb = pb.next if pb else headA
     
-    return pa  
-    
+    return pa
+
+
+class Solution:
+    def getIntersectionNode2(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        while headA is not None:
+            currB = headB
+            while currB is not None:
+                if headA == currB:
+                    return headA
+                currB = currB.next
+            headA = headA.next
+        return None
+
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        currA = headA
+        currB = headB
+
+        while currA != currB:
+            if currA is not None:
+                currA = currA.next
+            else:
+                currA = headB
+
+            if currB is not None:
+                currB = currB.next
+            else:
+                currB = headA
+
+        return currA
