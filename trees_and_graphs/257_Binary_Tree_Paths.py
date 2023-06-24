@@ -27,15 +27,16 @@ Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 import collections
 
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 class Solution(object):    
     
-    # breath first search (queue)
+    # DFS (queue)
     def binaryTreePaths(self, root):
         """
         :type root: TreeNode
@@ -44,17 +45,17 @@ class Solution(object):
         if not root:
             return []    
         result = []
-        queue = collections.deque([(root, '')])
-        while queue:
-            node, path = queue.pop()
+        stack = [(root, '')]
+        while stack:
+            node, path = stack.pop()
             if not node.left and not node.right:
                 result.append(path + str(node.val))
             else:
                 path = path + str(node.val) + '->'
                 if node.left:
-                    queue.appendleft((node.left, path))
+                    stack.append((node.left, path))
                 if node.right:
-                    queue.appendleft((node.right, path))
+                    stack.append((node.right, path))
         return result
 
 

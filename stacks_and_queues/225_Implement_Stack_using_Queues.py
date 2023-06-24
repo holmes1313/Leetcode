@@ -28,6 +28,8 @@ You must use only standard operations of a queue -- which means only push to bac
 Depending on your language, queue may not be supported natively. You may simulate a queue by using a list or deque (double-ended queue), 
 as long as you use only standard operations of a queue.
 You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack)."""
+import collections
+
 
 class MyStack(object):
 
@@ -36,7 +38,6 @@ class MyStack(object):
         Initialize your data structure here.
         """
         self.stack = collections.deque()
-        
 
     def push(self, x):
         """
@@ -45,7 +46,6 @@ class MyStack(object):
         :rtype: None
         """
         self.stack.appendleft(x)
-        
 
     def pop(self):
         """
@@ -71,8 +71,24 @@ class MyStack(object):
         :rtype: bool
         """
         return not self.stack
-        
 
+
+class MyStack2:
+
+    def __init__(self):
+        self.stack = []
+
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+
+    def pop(self) -> int:
+        return self.stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def empty(self) -> bool:
+        return len(self.stack) == 0
 
 # Your MyStack object will be instantiated and called as such:
 # obj = MyStack()

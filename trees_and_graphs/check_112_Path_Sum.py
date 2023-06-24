@@ -59,6 +59,8 @@ class Solution(object):
         return self.hasPathSum(root.left, target-root.val) or self.hasPathSum(root.right, target-root.val)
         
     
+    # DFS would be better than BFS here since it works faster except the worst case.
+    # In the worst case the path root->leaf with the given sum is the last considered one and in this case DFS results in the same productivity as BFS.
     def hasPathSum(self, root, target):
         """
         :type root: TreeNode
@@ -68,17 +70,15 @@ class Solution(object):
         if not root:
             return False
         
-        queue = collections.deque()
-        queue.appendleft((root, target))
-        
-        while queue:
-            node, rest = queue.pop()
+        stack = [(root, target), ]
+        while stack:
+            node, rest = stack.pop()
             if not node.left and not node.right and node.val == rest:
                 return True
             if node.left:
-                queue.appendleft((node.left, rest - node.val))
+                stack.append((node.left, rest - node.val))
             if node.right:
-                queue.appendleft((node.right, rest - node.val))
+                stack.append((node.right, rest - node.val))
                 
         return False
             

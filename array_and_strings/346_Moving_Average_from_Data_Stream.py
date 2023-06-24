@@ -15,24 +15,22 @@ m.next(1) = 1
 m.next(10) = (1 + 10) / 2
 m.next(3) = (1 + 10 + 3) / 3
 m.next(5) = (10 + 3 + 5) / 3"""
-
-from collections import deque
-
-
 class MovingAverage:
 
     def __init__(self, size: int):
-        self.nums = deque()
-        self.sum = 0
         self.size = size
+        self.q = []
+        self.total = 0
 
     def next(self, val: int) -> float:
-        self.nums.append(val)
-        self.sum += val
-        if len(self.nums) > self.size:
-            self.sum -= self.nums[0]
-            self.nums.popleft()
-        return self.sum / len(self.nums)
+        self.q.append(val)
+        self.total += val
+
+        if len(self.q) > self.size:
+            self.total -= self.q[0]
+            self.q = self.q[1:]
+
+        return self.total / len(self.q)
 
 
 obj = MovingAverage(3)
