@@ -77,3 +77,31 @@ class Solution(object):
                 p2 -= 1
             else:
                 break
+
+    def merge3(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        nums1_copy = nums1[:]
+        curr = 0
+        p1 = 0
+        p2 = 0
+        while p1 < m and p2 < n:
+            if nums1_copy[p1] <= nums2[p2]:
+                nums1[curr] = nums1_copy[p1]
+                p1 += 1
+            else:
+                nums1[curr] = nums2[p2]
+                p2 += 1
+            curr += 1
+
+        if p2 < n:
+            for i in range(p2, n):
+                nums1[curr] = nums2[i]
+                curr += 1
+
+        if p1 < m:
+            for i in range(p1, m):
+                nums1[curr] = nums1_copy[i]
+                curr += 1
+

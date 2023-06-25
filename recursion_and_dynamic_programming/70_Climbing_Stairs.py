@@ -31,24 +31,30 @@ Explanation: There are three ways to climb to the top.
 3. 2 steps + 1 step"""
 
 
-class Solution(object):
-        """
-        # bottom up
-        def climbStairs(self, n):
-            a = b = 1
-            for i in range(2, n+1):
-                a, b = b, a + b
-            return b
-        """
-        # top down with memo
-        def __init__(self):
-            self.memo = {}
-        def climbStairs(self, n):    
-            if n <= 1:
-                return 1
-            if n not in self.memo:
-                self.memo[n] = self.climbStairs(n-1) + self.climbStairs(n-2)
-            return self.memo[n]
+class Solution:
+    memo = {1: 1, 2: 2}
+    def climbStairs2(self, n: int) -> int:
+        if n not in self.memo:
+            self.memo[n] = self.climbStairs(n-1) + self.climbStairs(n-2)
+
+        return self.memo[n]
+
+    def climbStairs(self, n: int) -> int:
+        if n == 1:
+            return 1
+
+        if n == 2:
+            return 2
+
+        curr = 0
+        prev1 = 2
+        prev2 = 1
+        for i in range(3, n+1):
+            curr = prev1 + prev2
+            prev2 = prev1
+            prev1 = curr
+
+        return curr
 
     
     

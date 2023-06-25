@@ -37,26 +37,29 @@ Then 4 is the first bad version. """
 # def isBadVersion(version):
 
 class Solution(object):
-    def firstBadVersion(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        if not n:
-            return None
-        
-        high = n 
-        low = 1
-        
-        while low <= high:
-            mid = (low + high) // 2
-            if isBadVersion(mid) == False:
-                low = mid + 1
-                
-            elif (isBadVersion(mid) == True) and (isBadVersion(mid - 1) == False):
+    def firstBadVersion1(self, n: int) -> int:
+        left = 1
+        right = n
+        while left <= right:
+            mid = (left + right) // 2
+            if isBadVersion(mid) and not isBadVersion(mid-1):
                 return mid
-            
+            elif isBadVersion(mid):
+                right = mid - 1
             else:
-                high = mid - 1
+                left = mid + 1
+
+
+        def firstBadVersion(self, n: int) -> int:
+            left = 1
+            right = n
+            while left <= right:
+                mid = (left + right) // 2
+                if isBadVersion(mid):
+                    right = mid - 1
+                else:
+                    left = mid + 1
+
+            return left
             
         

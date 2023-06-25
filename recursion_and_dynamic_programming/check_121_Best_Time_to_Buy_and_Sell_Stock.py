@@ -24,23 +24,26 @@ Example 2:
 Input: [7,6,4,3,1]
 Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0."""
+from typing import List
 
-class Solution(object):
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        if not prices:
-            return 0
-        
-        min_price = prices[0]
-        max_profit = 0
-        
-        for p in prices[1:]:
-            min_price = min(min_price, p)
-            max_profit = max(max_profit, p-min_price)    
-        return max_profit
+
+class Solution:
+    def maxProfit2(self, prices: List[int]) -> int:
+        profit = 0
+        for b in range(len(prices)-1):
+            for s in range(b+1, len(prices)):
+                profit = max(prices[s] - prices[b], profit)
+
+        return profit
+
+    def maxProfit(self, prices: List[int]) -> int:
+        minprice = prices[0]
+        maxprofit = 0
+        for i in range(1, len(prices)):
+            maxprofit = max(prices[i] - minprice, maxprofit)
+            minprice = min(prices[i], minprice)
+
+        return maxprofit
         
         
     

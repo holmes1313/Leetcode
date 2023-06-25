@@ -20,6 +20,8 @@ Follow up:
 
 Could you optimize your algorithm to use only O(k) extra space?
 """
+from typing import List
+
 
 class Solution(object):
     def getRow(self, rowIndex):
@@ -33,7 +35,7 @@ class Solution(object):
         if rowIndex == 1:
             return [1, 1]
         
-        return  [1] + self.helper(self.getRow(rowIndex - 1)) + [1]
+        return [1] + self.helper(self.getRow(rowIndex - 1)) + [1]
         
     
     def helper(self, level):
@@ -41,5 +43,20 @@ class Solution(object):
         for i in range(len(level) - 1):
             result.append(level[i] + level[i+1])
         return result
-            
+
+    def getRow2(self, rowIndex: int) -> List[int]:
+
+        if rowIndex == 0:
+            return [1]
+
+        if rowIndex == 1:
+            return [1, 1]
+
+        prev = self.getRow(rowIndex - 1)
+        curr = [1 for _ in range(rowIndex+1)]
+        for i in range(len(prev)-1):
+            curr[i+1] = prev[i] + prev[i+1]
+
+        return curr
+
         

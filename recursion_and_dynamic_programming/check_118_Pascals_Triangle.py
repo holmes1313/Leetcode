@@ -22,9 +22,10 @@ Output:
  [1,4,6,4,1]
 ]
 """
+from typing import List
+
 
 # matrix -> coordinates
-
 class Solution(object):
     def generate(self, numRows):
         """
@@ -38,6 +39,18 @@ class Solution(object):
                 result[i][j] = result[i-1][j-1] + result[i-1][j]
                 
         return result
-    
-    
-    
+
+    def generate2(self, numRows: int) -> List[List[int]]:
+        if numRows == 1:
+            return [[1]]
+
+        if numRows == 2:
+            return [[1], [1, 1]]
+
+        triangle =  [[1], [1, 1]]
+        for i in range(2, numRows):
+            row = [1 for _ in range(i+1)]
+            for k in range(1, len(row)-1):
+                row[k] = triangle[i-1][k-1] + triangle[i-1][k]
+            triangle.append(row)
+        return triangle
