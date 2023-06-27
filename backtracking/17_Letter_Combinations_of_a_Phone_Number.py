@@ -50,3 +50,32 @@ class Solution(object):
                 # self.backtrack(digits, dic, index+1, current, result)
                 # current = current[:-1]
                 
+
+class Solution2:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        letters = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl",
+                   "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
+
+        combinations = []
+        index = 0
+        path = []
+
+        def backtrack(index, path):
+            # base case
+            if len(path) == len(digits):
+                combinations.append("".join(path))
+                return
+
+            possible_letters = letters[digits[index]]
+            for letter in possible_letters:
+                path.append(letter)
+                # move on to the next digit
+                backtrack(index+1, path)
+                # Backtrack by removing the letter before moving onto the next
+                path.pop()
+
+        backtrack(index, path)
+        return combinations

@@ -20,6 +20,8 @@ For example, given n = 3, a solution set is:
   "()()()"
 ]
 """
+from typing import List
+
 
 class Solution(object):
     def generateParenthesis(self, n):
@@ -42,7 +44,28 @@ class Solution(object):
         else:
             self.dfs(left-1, right, current + '(', result)
             self.dfs(left, right-1, current + ')', result)
-        
-        
+
+
+class Solution_backtracking:
+    def generateParenthesis(self, n: int) -> List[str]:
+
+        def backtracking(curr, left_count, right_count):
+            if len(curr) == 2 * n:
+                ans.append("".join(curr))
+                return
+
+            if left_count < n:
+                curr.append("(")
+                backtracking(curr, left_count+1, right_count)
+                curr.pop()
+
+            if right_count < left_count:
+                curr.append(")")
+                backtracking(curr, left_count, right_count+1)
+                curr.pop()
+
+        ans = []
+        backtracking([], 0, 0)
+        return ans
         
         
