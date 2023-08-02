@@ -5,8 +5,6 @@ Besides the root, each house has one and only one parent house. After a tour, th
 
 Given the root of the binary tree, return the maximum amount of money the thief can rob without alerting the police.
 """
-from typing import Optional
-
 #Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -16,7 +14,7 @@ class TreeNode:
 
 
 class Solution:
-    def rob(self, root: Optional[TreeNode]) -> int:
+    def rob(self, root: TreeNode) -> int:
         # return pair [withRoot, withoutRoot]
         def dfs(node):
             if not node:

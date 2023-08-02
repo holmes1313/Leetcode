@@ -21,3 +21,25 @@ Example 3:
 Input: nums = [1,2,3]
 Output: 3
 """
+from typing import List
+
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        def rob1(input):
+            curr = 0
+            prev1 = 0
+            prev2 = 0
+            for num in input:
+                curr = max(prev1 + num, prev2)
+                prev1 = prev2
+                prev2 = curr
+            return curr
+
+        if not nums:
+            return 0
+
+        if len(nums) == 1:
+            return nums[0]
+
+        return max(rob1(nums[0:-1]), rob1(nums[1:]))

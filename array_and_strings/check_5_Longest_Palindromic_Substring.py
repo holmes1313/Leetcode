@@ -32,11 +32,10 @@ class Solution(object):
         res = s[0]
         for i in range(len(s)-1):
             # odd case, like "aba"
-            odd = self.helper(s, i, i)
+            odd = self.derivePalindromic(s, i, i)
             # even case, like "abba"
-            even = self.helper(s, i, i+1)
+            even = self.derivePalindromic(s, i, i+1)
             res = max(res, odd, even, key=len)
-            
         return res
         
     def derivePalindromic(self, s, left, right):
@@ -44,8 +43,34 @@ class Solution(object):
         while left >= 0 and right < len(s) and s[left] == s[right]:
             left -= 1
             right += 1
-            
         return s[left+1: right]
+
         
-        
-        
+class Solution2:
+    def longestPalindrome(self, s: str) -> str:
+        # Expand From Centers
+        max_len = 0
+        ans = ""
+
+        for i in range(len(s)):
+            # odd length
+            l, r = i, i
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                pa = s[l: r+1]
+                if len(pa) > max_len:
+                    ans = pa
+                    max_len = len(pa)
+                l -= 1
+                r += 1
+
+            # even length
+            l, r = i, i+1
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                pa = s[l: r+1]
+                if len(pa) > max_len:
+                    ans = pa
+                    max_len = len(pa)
+                l -= 1
+                r += 1
+
+        return ans

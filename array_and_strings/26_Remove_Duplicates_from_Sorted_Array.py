@@ -24,6 +24,7 @@ Given nums = [0,0,1,1,1,2,2,3,3,4],
 Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.
 
 It doesn't matter what values are set beyond the returned length."""
+from typing import List
 
 
 class Solution(object):
@@ -44,6 +45,14 @@ class Solution(object):
         return new_index + 1
     
     
-Solution().removeDuplicates([1, 1, 2])
-Solution().removeDuplicates([1, 1, 2, 2, 3])
-Solution().removeDuplicates([0,0,1,1,1,2,2,3,3,4])
+class Solution2:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        index = 0
+        seen = {}
+        for num in nums:
+            if num not in seen:
+                seen[num] = 1
+                nums[index] = num
+                index += 1
+
+        return index

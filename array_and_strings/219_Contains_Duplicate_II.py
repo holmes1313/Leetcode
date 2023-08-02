@@ -39,20 +39,3 @@ class Solution(object):
                 return True
             dic[val] = i
         return False
-
-
-from typing import List
-
-
-class Solution2:
-    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        seen = {}
-        for i, num in enumerate(nums):
-            if num in seen:
-                for index in seen[num]:
-                    if abs(index - i) <= k:
-                        return True
-                seen[num].append(i)
-            else:
-                seen[num] = [i]
-        return False

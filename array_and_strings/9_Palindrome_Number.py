@@ -57,9 +57,11 @@ class Solution(object):
             right -= 1
         
         return True
-        
-       
-            
+
+
+class Solution2:
+    def isPalindrome(self, x: int) -> bool:
+        return str(x) == str(x)[::-1]
         
 
 

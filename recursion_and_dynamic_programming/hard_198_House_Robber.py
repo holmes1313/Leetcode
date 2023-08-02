@@ -50,7 +50,8 @@ class Solution(object):
         if n == 0:
             return 0
         if n == 1:
-            return nums[n-1]
+            return nums[0]
+
         if n not in self.memo:
             self.memo[n] = max(self.rob(nums[:-2]) + nums[-1], self.rob(nums[:-1]))
         
@@ -70,7 +71,7 @@ def rob_topDown(nums, memo={}):
 
 
 # bottom up - dynamic programing
-class Solution2:
+class Solution_2:
     def rob(self, nums: List[int]) -> int:
         if not nums:
             return 0
@@ -78,13 +79,12 @@ class Solution2:
         if len(nums) == 1:
             return nums[0]
 
-        # rob1, rob2, i, i+1, ...
+        # prev1, prev2, num, ...
         curr = 0
-        rob1 = 0
-        rob2 = nums[0]
-        for i in range(1, len(nums)):
-            curr = max(nums[i] + rob1, rob2)
-            rob1 = rob2
-            rob2 = curr
-
+        prev1 = 0
+        prev2 = 0
+        for num in nums:
+            curr = max(num + prev1, prev2)
+            prev1 = prev2
+            prev2 = curr
         return curr

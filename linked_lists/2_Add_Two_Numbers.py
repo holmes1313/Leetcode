@@ -60,5 +60,30 @@ class Solution(object):
             carry = s // 10
         
         return root.next  # * as the first node is 0
-            
-        
+
+
+from typing import Optional
+
+
+class Solution2:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        curr = dummy
+        carry = 0
+        while l1 or l2:
+            if l1 and l2:
+                digit_sum = l1.val + l2.val + carry
+                l1 = l1.next
+                l2 = l2.next
+            elif l1:
+                digit_sum = l1.val + carry
+                l1 = l1.next
+            elif l2:
+                digit_sum = l2.val + carry
+                l2 = l2.next
+            carry = digit_sum // 10
+            curr.next = ListNode(digit_sum % 10)
+            curr = curr.next
+        if carry:
+            curr.next = ListNode(1)
+        return dummy.next

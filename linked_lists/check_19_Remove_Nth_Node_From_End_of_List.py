@@ -23,6 +23,8 @@ Follow up:
 
 Could you do this in one pass?
 """
+from typing import Optional
+
 
 # Definition for singly-linked list.
 class ListNode(object):
@@ -31,25 +33,23 @@ class ListNode(object):
         self.next = None
 
 
-class Solution(object):
-    def removeNthFromEnd(self, head, n):
-        """
-        :type head: ListNode
-        :type n: int
-        :rtype: ListNode
-        """
-        if not head:
-            return None
+class Solution:
+    # Remove the (L−n+1)(L - n + 1)(L−n+1) th node from the beginning in the list , where LLL is the list length.
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        # The "dummy" node is used to simplify some corner cases such as a list with only one node, or removing the head of the list.
+        dummy = ListNode(0)
+        dummy.next = head
         length = 0
-        curr1 = curr2 = head
-        while curr1:
+        curr = head
+        while curr is not None:
             length += 1
-            curr1 = curr1.next
-        
-        for i in range(length - n - 1):
+            curr = curr.next
+
+        curr2 = dummy
+        for _ in range(length - n):
             curr2 = curr2.next
         curr2.next = curr2.next.next
-        return head
+        return dummy.next
             
 
 # better performance
