@@ -52,7 +52,7 @@ class Solution(object):
     def backtrack(self, nums, start, current, result, target):
         if sum(current) > target:
             return
-        elif sum(current) == target: #and current not in result:
+        elif sum(current) == target:
             result.append(current[:])
         else:
             for i in range(start, len(nums)):
@@ -62,4 +62,31 @@ class Solution(object):
                 current.append(nums[i])
                 self.backtrack(nums, i+1, current, result, target)
                 current.pop()
-        
+
+
+from typing import List
+
+
+class Solution2:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+
+        def backtracking(curr, start):
+            if sum(curr) == target:
+                result.append(curr[:])
+                return
+
+            if sum(curr) > target:
+                return
+
+            for i in range(start, len(candidates)):
+                if i > start and candidates[i] == candidates[i-1]:
+                    continue
+
+                curr.append(candidates[i])
+                backtracking(curr, i+1)
+                curr.pop()
+
+        candidates.sort()
+        result = []
+        backtracking([], 0)
+        return result

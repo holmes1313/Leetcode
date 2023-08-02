@@ -25,28 +25,31 @@ Output: 3
 Explanation: The answer is "wke", with the length of 3. 
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 """
-
-class Solution(object):
-    def lengthOfLongestSubstring(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        index_hashtable = {}
-        max_len = 0
-        start = 0
-
-        for i, char in enumerate(s):
-            if char in index_hashtable:
-                max_len = max(max_len, i - start)
-                # update start of string index to the next index
-                start = max(index_hashtable[char] + 1, start)
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        left = right = 0
+        ans = 0
+        index_map = {}
+        while right < len(s):
+            if s[right] in index_map:
                 # start = index_hashtable[char] + 1 can't deal with 'abbac'
-            index_hashtable[char] = i
-        # return should consider the last non-repeated substring
-        return max(max_len, len(s) - start)
-    
-    
-def test():
-    input = 'baabc'
-    output = Solution().lengthOfLongestSubstring(input)
+                left = max(index_map[s[right]] + 1, left)
+            index_map[s[right]] = right
+            ans = max(ans, right - left + 1)
+            right += 1
+        return ans
+
+    def lengthOfLongestSubstring2(self, s: str) -> int:
+        ans = 0
+        start = 0
+        max_index = {}
+        for i, char in enumerate(s):
+            if char in max_index:
+                # start = index_hashtable[char] + 1 can't deal with 'abbac'
+                start = max(start, max_index[char] + 1)
+
+            ans = max(ans, i - start + 1)
+            max_index[char] = i
+
+        return ans
+

@@ -46,12 +46,6 @@ class Solution(object):
             length += 1
             curr1 = curr1.next
         
-        if length < n:
-            return head
-        
-        if length == n:
-            return head.next
-        
         for i in range(length - n - 1):
             curr2 = curr2.next
         curr2.next = curr2.next.next

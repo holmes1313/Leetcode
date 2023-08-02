@@ -51,7 +51,7 @@ class Solution(object):
                 # current = current[:-1]
                 
 
-class Solution2:
+class Solution_backtracking:
     def letterCombinations(self, digits: str) -> List[str]:
         if not digits:
             return []

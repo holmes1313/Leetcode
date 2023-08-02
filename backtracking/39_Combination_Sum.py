@@ -62,4 +62,26 @@ class Solution(object):
                 self.backtrack(nums, i, current, result, target)  # not i + 1 because we can reuse same elements
                 current.pop()
         
+from typing import List
 
+
+class Solution_2023:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        ans = []
+        def backtracking(path, start):
+            if sum(path) == target:
+                # make a deep copy of the current combination
+                ans.append(list(path))
+                return
+
+            if sum(path) > target:
+                return
+
+            for i in range(start, len(candidates)):
+                path.append(candidates[i])
+                # # give the current number another chance, rather than moving on
+                backtracking(path, i)
+                path.pop()
+
+        backtracking([], 0)
+        return ans

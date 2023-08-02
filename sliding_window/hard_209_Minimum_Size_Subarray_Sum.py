@@ -18,6 +18,8 @@ Explanation: the subarray [4,3] has the minimal length under the problem constra
 Follow up:
 If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log n). 
 """
+from typing import List
+
 
 class Solution(object):
     def minSubArrayLen(self, s, nums):
@@ -42,4 +44,20 @@ class Solution(object):
             index += 1
             
         return result
+
+    def minSubArrayLen2(self, target: int, nums: List[int]) -> int:
+        if sum(nums) < target:
+            return 0
+
+        start = 0
+        total = 0
+        output = len(nums)
+        for idx, num in enumerate(nums):
+            total += num
+            while total >= target:
+                output = min(output, idx-start+1)
+                total -= nums[start]
+                start += 1
+
+        return output
                 

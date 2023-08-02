@@ -31,7 +31,7 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
 Input: [2,1,1,2]
 Ouput: 4
 """
-
+from typing import List
 # odd elements list[1::2]         
 # even elements list[0::2]        
 # Top down dynamic programming (memoization) 
@@ -68,17 +68,23 @@ def rob_topDown(nums, memo={}):
         memo[n] = max(rob_topDown(nums[:-2]) + nums[-1], rob_topDown(nums[:-1]))        
     return memo[n]
 
-test1 = [2, 7, 9, 3, 1]
-rob_topDown(test1)
-len(test1)
 
+# bottom up - dynamic programing
+class Solution2:
+    def rob(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
 
-# bottom up 
-def rob_bottomUp(nums):
-    if not nums:
-        return 0
-    a = 0
-    b = nums[0]
-    for i in range(1, len(nums)):
-        b, a = max(a+nums[i], b), b
-    return b
+        if len(nums) == 1:
+            return nums[0]
+
+        # rob1, rob2, i, i+1, ...
+        curr = 0
+        rob1 = 0
+        rob2 = nums[0]
+        for i in range(1, len(nums)):
+            curr = max(nums[i] + rob1, rob2)
+            rob1 = rob2
+            rob2 = curr
+
+        return curr

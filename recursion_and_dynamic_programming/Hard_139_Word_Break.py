@@ -45,8 +45,35 @@ dp[3] = False as dp[0] and abc not in wordDict
                and dp[2] and c not in wordDict
 dp[4] = True as dp[2] and cd in wordDict
 """
+from typing import List
 
-class Solution(object):
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[0] = True
+        for i in range(1, len(dp)):
+            for w in wordDict:
+                if i >= len(w) and s[i - len(w): i] == w:
+                    dp[i] = dp[i - len(w)]
+                if dp[i]:
+                    break
+        return dp[-1]
+
+    def wordBreak2(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
+
+        for i in range(len(s) - 1, -1, -1):
+            for w in wordDict:
+                if i + len(w) <= len(s) and s[i: i+len(w)] == w:
+                    dp[i] = dp[i+len(w)]
+                if dp[i]:
+                    break
+        return dp[0]
+
+
+class Solution3(object):
     def wordBreak(self, s, wordDict):
         """
         :type s: str
@@ -54,7 +81,6 @@ class Solution(object):
         :rtype: bool
         """
         # dp[i] is True is substring s[:i] can be segmented in to words found in wordDict
-        
         dp = [False] * (len(s) + 1)
         dp[0] = True
         
@@ -64,4 +90,22 @@ class Solution(object):
                     dp[i] = True
                     break
         return dp[-1]
-    
+
+
+class Solution2:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+
+        def backtracking(curr, start):
+            if start == len(s):
+                result.append(curr[:])
+                return
+
+            for word in wordDict:
+                if s[start: min(len(s), start + len(word))] == word:
+                    curr.append(word)
+                    backtracking(curr, start + len(word))
+                    curr.pop()
+
+        result = []
+        backtracking([], 0)
+        return len(result) > 0
