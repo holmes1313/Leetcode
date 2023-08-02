@@ -75,19 +75,43 @@ class Solution(object):
         
         board[i][j] = tmp
         return result
-        
-    
-    
-def test():
-    board = [["A","B","C","E"],
-             ["S","F","C","S"],
-             ["A","D","E","E"]]
-    word = 'ABCCED'
-    output = Solution().exist(board, word)
-    assert output == True
-   
-def test2():
-    board = [["a","a"]]
-    word = 'aa'
-    output = Solution().exist(board, word)
-    assert output == True
+
+
+from typing import List
+
+
+class Solution2:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+
+        def backtracking(row, col, idx):
+
+            if idx == len(word):
+                return True
+
+            if row < 0 or row >= len(board) or col < 0 or col >= len(board[row]):
+                return False
+
+            if board[row][col] != word[idx]:
+                return False
+
+            temp = board[row][col]
+            board[row][col] = "_"
+
+            result = (backtracking(row + 1, col, idx + 1) or backtracking(row - 1, col, idx + 1) or backtracking(row,
+                                                                                                                 col + 1,
+                                                                                                                 idx + 1) or backtracking(
+                row, col - 1, idx + 1))
+
+            board[row][col] = temp
+
+            return result
+
+        for r in range(len(board)):
+            for c in range(len(board[r])):
+                if backtracking(r, c, 0):
+                    return True
+
+        return False
+
+
+

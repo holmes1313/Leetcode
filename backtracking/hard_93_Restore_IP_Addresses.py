@@ -16,23 +16,25 @@ from typing import List
 
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
+        if len(s) > 12:
+            return []
 
-        def backtracking(curr, start, dots):
-            if start == len(s) and dots == 4:
+        def backtracking(curr, start, section_count):
+            if start == len(s) and section_count == 4:
                 result.append(".".join(curr))
                 return
 
-            if dots >= 4 or start > len(s):
+            if start >= len(s) or section_count >= 4:
                 return
 
-            for i in range(start, min(start+3, len(s))):
-                digits = s[start: i+1]
-                if 0<= int(digits)<=255 and str(int(digits)) == digits:
-                    curr.append(digits)
-                    backtracking(curr, i+1, dots+1)
-                    curr.pop()
+            for i in range(start, min(start + 3, len(s))):
+                section = s[start:i + 1]
+                integer = int(section)
+                if integer <= 255 and str(integer) == section:
+                    # curr.append(section)
+                    backtracking(curr + [section], i + 1, section_count + 1)
+                    # curr.pop()
 
         result = []
         backtracking([], 0, 0)
-
         return result

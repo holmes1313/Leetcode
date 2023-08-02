@@ -25,15 +25,16 @@ from typing import List
 
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
+
         def backtracking(curr, start):
-            if len("".join(curr)) == len(s):
+            if start == len(s):
                 result.append(curr[:])
                 return
 
             for i in range(start, len(s)):
-                partition = s[start: i+1]  # a, aa, aab
-                if partition == partition[::-1]:
-                    curr.append(partition)
+                subs = s[start: i+1]
+                if subs == subs[::-1]:
+                    curr.append(subs)
                     backtracking(curr, i+1)
                     curr.pop()
 

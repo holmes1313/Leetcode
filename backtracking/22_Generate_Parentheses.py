@@ -46,26 +46,31 @@ class Solution(object):
             self.dfs(left, right-1, current + ')', result)
 
 
-class Solution_backtracking:
-    def generateParenthesis(self, n: int) -> List[str]:
+class Solution2(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        result = []
 
         def backtracking(curr, left_count, right_count):
-            if len(curr) == 2 * n:
-                ans.append("".join(curr))
+            if left_count == right_count == n:
+                result.append("".join(curr))
                 return
-
+            # always good to add a left parentheses
             if left_count < n:
                 curr.append("(")
-                backtracking(curr, left_count+1, right_count)
+                backtracking(curr, left_count + 1, right_count)
                 curr.pop()
-
+            # only good to add a right parentheses if there's more left ones
             if right_count < left_count:
                 curr.append(")")
-                backtracking(curr, left_count, right_count+1)
+                backtracking(curr, left_count, right_count + 1)
                 curr.pop()
 
-        ans = []
         backtracking([], 0, 0)
-        return ans
-        
+        return result
+
+
         

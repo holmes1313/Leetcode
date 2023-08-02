@@ -25,3 +25,7 @@ The backtracking should happen at the level of the iteration within the recursio
 Unlike brute-force search, in backtracking algorithms we are often able to determine if a partial solution candidate is worth exploring further (i.e. is_valid(next_candidate)), which allows us to prune the search zones. This is also known as the constraint, e.g. the attacking zone of queen in N-queen game.
 
 There are two symmetric functions that allow us to mark the decision (place(candidate)) and revert the decision (remove(candidate)).
+
+
+# A general approach to backtracking questions in Java (Subsets, Permutations, Combination Sum, Palind...
+https://leetcode.com/problems/subsets/discuss/27281/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning)

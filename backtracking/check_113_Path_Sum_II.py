@@ -41,6 +41,37 @@ class TreeNode(object):
         self.right = None
 
 
+class Solution(object):
+    def pathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: List[List[int]]
+        """
+        if not root:
+            return []
+
+        def backtracking(node, curr, target):
+
+            if node.val == target and node.left is None and node.right is None:
+                curr.append(node.val)
+                result.append(curr[:])
+                curr.pop()
+                return
+
+            curr.append(node.val)
+            if node.left:
+                backtracking(node.left, curr, target-node.val)
+
+            if node.right:
+                backtracking(node.right, curr, target-node.val)
+            curr.pop()
+
+        result = []
+        backtracking(root, [], targetSum)
+        return result
+
+
 class Solution_backtracking:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         def backtracking(curr, node):

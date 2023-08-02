@@ -21,61 +21,27 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 Note:
 Although the above answer is in lexicographical order, your answer could be in any order you want.
 """
-class Solution(object):
-    def letterCombinations(self, digits):
-        """
-        :type digits: str
-        :rtype: List[str]
-        """
-        if not digits:
-            return []
-        
-        dic = {"2":"abc", "3":"def", "4":"ghi", "5":"jkl", 
-               "6":"mno", "7":"pqrs", "8":"tuv", "9":"wxyz"}
-        
-        result = []
-        current = ""
-        index = 0
-        self.backtrack(digits, dic, index, current, result)
-        return result
-    
-    def backtrack(self, digits, dic, index, current, result):
-        if len(current) == len(digits):
-            result.append(current)
-        else:
-            for c in dic[digits[index]]:
-                self.backtrack(digits, dic, index+1, current+c, result)
-                # or
-                # current += c
-                # self.backtrack(digits, dic, index+1, current, result)
-                # current = current[:-1]
-                
+from typing import List
 
-class Solution_backtracking:
+
+class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         if not digits:
             return []
-
-        letters = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl",
+        mapping = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl",
                    "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
+        result = []
 
-        combinations = []
-        index = 0
-        path = []
-
-        def backtrack(index, path):
-            # base case
-            if len(path) == len(digits):
-                combinations.append("".join(path))
+        def backtracking(curr, index):
+            if len(curr) == len(digits):
+                result.append("".join(curr))
                 return
 
-            possible_letters = letters[digits[index]]
-            for letter in possible_letters:
-                path.append(letter)
-                # move on to the next digit
-                backtrack(index+1, path)
-                # Backtrack by removing the letter before moving onto the next
-                path.pop()
+            letters = mapping[digits[index]]
+            for l in letters:
+                curr.append(l)
+                backtracking(curr, index+1)
+                curr.pop()
 
-        backtrack(index, path)
-        return combinations
+        backtracking([], 0)
+        return result

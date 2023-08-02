@@ -45,3 +45,21 @@ class Solution(object):
             current.pop()
 
 
+from typing import List
+
+
+class Solution2:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+
+        def backtracking(curr, start):
+            result.append(curr[:])
+
+            for i in range(start, len(nums)):
+                if nums[i] not in curr:
+                    curr.append(nums[i])
+                    backtracking(curr, i + 1)
+                    curr.pop()
+
+        result = []
+        backtracking([], 0)
+        return result
