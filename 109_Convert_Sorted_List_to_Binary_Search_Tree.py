@@ -27,17 +27,17 @@ One possible answer is: [0,-3,9,-10,null,5], which represents the following heig
  """
  
  # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Solution(object):
     def sortedListToBST(self, head):

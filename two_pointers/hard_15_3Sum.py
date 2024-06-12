@@ -73,6 +73,32 @@ class Solution(object):
                     r -= 1
                     
         return result
-                
 
+
+from typing import List
+
+
+class Solution2:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        nums.sort()
+        for idx, num in enumerate(nums):
+            if idx > 0 and num == nums[idx - 1]:
+                continue
+
+            left = idx + 1
+            right = len(nums) - 1
+            while left < right:
+                sum3 = nums[left] + nums[right] + num
+                if sum3 == 0:
+                    ans.append([num, nums[left], nums[right]])
+                    left += 1
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+                elif sum3 > 0:
+                    right -= 1
+                else:
+                    left += 1
+
+        return ans
 

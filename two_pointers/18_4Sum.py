@@ -71,4 +71,35 @@ class Solution(object):
                     right -= 1
                 elif s < target:
                     left += 1
-                    
+
+
+from typing import List
+
+
+class Solution2:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        output = []
+        nums.sort()
+        for first_index in range(len(nums)):
+            if first_index > 0 and nums[first_index] == nums[first_index - 1]:
+                continue
+
+            for second_index in range(first_index + 1, len(nums)):
+                if second_index > first_index + 1 and nums[second_index] == nums[second_index - 1]:
+                    continue
+
+                left = second_index + 1
+                right = len(nums) - 1
+                while left < right:
+                    sum4 = nums[first_index] + nums[second_index] + nums[left] + nums[right]
+                    if sum4 == target:
+                        output.append([nums[first_index], nums[second_index], nums[left], nums[right]])
+                        left += 1
+                        while left < right and nums[left] == nums[left - 1]:
+                            left += 1
+                    elif sum4 < target:
+                        left += 1
+                    else:
+                        right -= 1
+
+        return output

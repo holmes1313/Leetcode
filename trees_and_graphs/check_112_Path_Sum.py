@@ -24,10 +24,6 @@ Given the below binary tree and sum = 22,
 7    2      1
 return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 """
-
-# tree value question
-import collections
-
 # Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, x):
@@ -36,15 +32,8 @@ class TreeNode(object):
         self.right = None
 
 
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution(object):
-    def hasPathSum2(self, root, target):
+    def hasPathSum(self, root, target):
         """
         :type root: TreeNode
         :type sum: int
@@ -61,7 +50,7 @@ class Solution(object):
     
     # DFS would be better than BFS here since it works faster except the worst case.
     # In the worst case the path root->leaf with the given sum is the last considered one and in this case DFS results in the same productivity as BFS.
-    def hasPathSum(self, root, target):
+    def hasPathSum_iterate(self, root, target):
         """
         :type root: TreeNode
         :type sum: int

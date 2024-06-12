@@ -18,36 +18,23 @@ Example:
 Input: [1,8,6,2,5,4,8,3,7]
 Output: 49
 """
-
-
-# Start by evaluating the widest container, using the first and the last line. 
+# Start by evaluating the widest container, using the first and the last line.
 # All other possible containers are less wide, so to hold more water, they need to be higher.
+from typing import List
 
 
-class Solution(object):
-    def maxArea(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
-        if not height:
-            return 0
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
         left = 0
         right = len(height) - 1
-        
-        area = self.calculateArea(left, right, height)
-        
-        while left < right:
-            if height[left] > height[right]:
-                right -= 1
-                area = max(area, self.calculateArea(left, right, height))
-            
-            else:
+        ans = 0
+
+        while right > left:
+            ans = max(ans, (right - left) * min(height[right], height[left]))
+            if height[right] > height[left]:
                 left += 1
-                area = max(area, self.calculateArea(left, right, height))
-                
-        return area
-                
-    def calculateArea(self, left, right, height):
-        return (right - left) * min(height[left], height[right]) 
+            else:
+                right -= 1
+
+        return ans
                 
