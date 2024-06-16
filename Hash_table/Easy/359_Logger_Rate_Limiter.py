@@ -38,25 +38,22 @@ logger.shouldPrintMessage(11,"foo"); returns true;
 class Logger(object):
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.dic = {}
+        self.logger_records = {}
+        
 
     def shouldPrintMessage(self, timestamp, message):
         """
-        Returns true if the message should be printed in the given timestamp, otherwise returns false.
-        If this method returns false, the message will not be printed.
-        The timestamp is in seconds granularity.
         :type timestamp: int
         :type message: str
         :rtype: bool
         """
-        if timestamp < self.dic.get(message, 0):
+        if message in self.logger_records:
+            if timestamp - self.logger_records[message] >= 10:
+                self.logger_records[message] = timestamp
+                return True
             return False
-        self.dic[message] = timestamp + 10
+        self.logger_records[message] = timestamp
         return True
-        
 
 
 # Your Logger object will be instantiated and called as such:

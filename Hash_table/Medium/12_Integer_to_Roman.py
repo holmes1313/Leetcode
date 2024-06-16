@@ -54,6 +54,8 @@ Output: "MCMXCIV"
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 """
 
+#method: math
+
 class Solution(object):
     def intToRoman(self, num):
         """
@@ -69,3 +71,23 @@ class Solution(object):
             num %= v
         
         return result
+
+
+class Solution2(object):
+    def intToRoman(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        unites = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+        mapping = {1000: "M", 900: "CM", 500: "D", 400: "CD", 
+        100: "C", 90: "XC", 50: "L", 40: "XL", 10: "X",
+        9: "IX", 5: "V", 4: "IV", 1: "I"}
+        output = ""
+        for u in unites:
+            multiple = num // u
+            output += mapping[u] * multiple
+            num %= u
+        return output
+
+        

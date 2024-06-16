@@ -25,6 +25,10 @@ Explanation:
 12 + 02 + 02 = 1
 """
 
+# 2 screnarios
+# It eventually gets to 111.
+# It eventually gets stuck in a cycle.
+
 class Solution(object):
     def isHappy(self, n):
         """

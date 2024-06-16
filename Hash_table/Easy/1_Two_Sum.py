@@ -11,6 +11,9 @@ Given an array of integers, return indices of the two numbers such that they add
 
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 """
+
+
+# method: hash table
 class Solution(object):
     def twoSum(self, nums, target):
         """

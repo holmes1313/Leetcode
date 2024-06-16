@@ -45,3 +45,25 @@ class Solution:
                 counts[num] = 1
             if counts[num] > half_num:
                 return num
+
+class Solution3(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        freq = 1
+        output = nums[0]
+
+        seen = {}
+
+        for n in nums:
+            if n in seen:
+                seen[n] += 1
+                if seen[n] > freq:
+                    output = n
+                    freq = seen[n]
+            else:
+                seen[n] = 1
+
+        return output
