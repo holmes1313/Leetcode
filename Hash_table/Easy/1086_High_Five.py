@@ -29,30 +29,29 @@ The score of the students is between 1 to 100
 For each student, there are at least 5 scores
 """
 
+class Solution(object):
+    def highFive(self, items):
+        """
+        :type items: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        mapping = {}
+        output = []
+        for item in items:
+            if item[0] not in mapping:
+                mapping[item[0]] = [item[1]]
+            else:
+                mapping[item[0]].append(item[1])
 
-def highFive(items):
-    """
-    :type items: List[List[int]]
-    :rtype: List[List[int]]
-    """
-    result = {}
-    result_list = []
-    for i in items:
-        if i[0] not in result:
-            result[i[0]] = [i]
-        else:
-            result[i[0]].append(i)
-            
-    
-    for i, v in result.items():
-        v.sort(reverse=True)
-        if len(v) > 5:
-            v = v[:5]
-        scores = [s[1] for s in v] 
-        average = sum(scores) / len(scores)
-        result_list.append([i, average])
+        for id, ss in mapping.items():
+            ss.sort(reverse=True)
+            if len(ss) > 5:
+                ss = ss[:5]
+            avg = sum(ss) / len(ss)
+            avg_item = [id, avg]
+            output.append(avg_item)
 
-    return result_list
+        return output
         
 
 test = [[1,91],[1,92],[2,93],[2,97],[1,60],[2,77],[1,65],[1,87],[1,100],[2,100],[2,76]]

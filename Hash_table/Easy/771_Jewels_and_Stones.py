@@ -27,7 +27,16 @@ Note:
 S and J will consist of letters and have length at most 50.
 The characters in J are distinct."""
 
-def numJewelsInStones(J, S):
-    return sum([True for s in S if s in J])
+class Solution(object):
+    def numJewelsInStones(self, jewels, stones):
+        """
+        :type jewels: str
+        :type stones: str
+        :rtype: int
+        """
+        output = 0
+        counts = collections.Counter(stones)
+        for cha in jewels:
+            output += counts.get(cha, 0)
 
-numJewelsInStones("aA", S="aAAbbbb")
+        return output

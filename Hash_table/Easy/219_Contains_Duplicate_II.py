@@ -27,6 +27,22 @@ Output: false
 """
 # only consider the latest index
 class Solution(object):
+    def containsNearbyDuplicate2(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        mapping = {}
+        for i, v in enumerate(nums):
+            if v not in mapping:
+                mapping[v] = i
+            else:
+                if abs(mapping[v] - i) <= k:
+                    return True
+                mapping[v] = i
+        return False
+        
     def containsNearbyDuplicate(self, nums, k):
         """
         :type nums: List[int]

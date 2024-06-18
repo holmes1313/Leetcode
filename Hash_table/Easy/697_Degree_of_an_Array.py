@@ -47,3 +47,28 @@ def findShortestSubArray(nums):
     return min(results)
    
 findShortestSubArray([1, 2, 3])
+
+
+class Solution(object):
+    def findShortestSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        index_mapping = {}
+        max_freq = 0
+        for idx, num in enumerate(nums):
+            if num in index_mapping:
+                index_mapping[num].append(idx)
+            else:
+                index_mapping[num] = [idx]
+
+            max_freq = max(len(index_mapping[num]), max_freq)
+
+        min_len = len(nums)
+
+        for idexes in index_mapping.values():
+            if len(idexes) == max_freq:
+                min_len = min(min_len, idexes[-1] - idexes[0] + 1)
+
+        return min_len
