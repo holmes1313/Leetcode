@@ -45,7 +45,7 @@ class Solution:
         return depth
 
 
-    def maxDepth(self, root: 'Node') -> int:
+    def maxDepth3(self, root: 'Node') -> int:
 
         queue = deque()
         depth = 0
@@ -61,3 +61,22 @@ class Solution:
                 queue.append((current_path+1, c))
 
         return depth
+
+    def maxDepth(self, root):
+        """
+        :type root: Node
+        :rtype: int
+        """
+        stack = []
+        stack.append((root, 0))
+        output = 0
+        while stack:
+            node, length = stack.pop()
+            if node is not None:
+                if not node.children:
+                    output = max(output, length+1)
+
+                for child in node.children:
+                    stack.append((child, length+1))
+
+        return output

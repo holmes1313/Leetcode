@@ -70,4 +70,43 @@ class Solution(object):
                 stack.append((node.right, rest - node.val))
                 
         return False
+
+
+class Solution2(object):
+    def hasPathSum2(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: bool
+        """
+        queue = collections.deque()
+        queue.append((root, 0))
+
+        while queue:
+            node, accum = queue.popleft()
+            if node is not None:
+                if node.left is None and node.right is None:
+                    if accum + node.val == targetSum:
+                        return True
+
+                queue.append((node.left, accum+node.val))
+                queue.append((node.right, accum+node.val))
+        
+        return False
+
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: bool
+        """
+        if root is None:
+            return False
+
+        if root.left is None and root.right is None and root.val == targetSum:
+            return True
+
+        return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(root.right, targetSum-root.val)
+
+
             

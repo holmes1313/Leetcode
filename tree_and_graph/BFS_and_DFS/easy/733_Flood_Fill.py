@@ -36,27 +36,45 @@ to the starting pixel.
 
 import collections
 
+
 class Solution(object):
-    def floodFill(self, image, sr, sc, newColor):
+
+    def neighbors(self, image, row, col, initial_col):
+        row_max = len(image)
+        col_max = len(image[0])
+        neighbors = []
+        if row + 1 < row_max:
+            neighbors.append((row+1, col))
+        if row - 1 >= 0:
+            neighbors.append((row-1, col))
+        if col + 1 < col_max:
+            neighbors.append((row, col+1))
+        if col - 1 >= 0:
+            neighbors.append((row, col-1))
+
+        return neighbors
+
+    def floodFill(self, image, sr, sc, color):
         """
         :type image: List[List[int]]
         :type sr: int
         :type sc: int
-        :type newColor: int
+        :type color: int
         :rtype: List[List[int]]
         """
-        if not image:
-            return []
+        queue = collections.deque()
+        queue.append((sr, sc))
+        initial_col = image[sr][sc]
+        explored = {(sr, sc)}
 
-        oldColor = image[sr][sc]
-        if oldColor != newColor:
-            queue = collections.deque()
-            queue.appendleft((sr, sc))
-            while queue:
-                m, n = queue.pop()
-                image[m][n] = newColor
-                for x, y in [(m-1, n), (m, n-1), (m, n+1), (m+1, n)]:
-                    if 0 <= x < len(image) and 0 <= y < len(image[0]) and image[x][y] == oldColor:
-                        queue.appendleft((x, y))
+        while queue:
+            row, col = queue.popleft()
+            image[row][col] = color
+
+            for loc in self.neighbors(image, row, col, initial_col):
+                if loc not in explored and image[loc[0]][loc[1]] == initial_col:
+                    explored.add(loc)
+                    queue.append(loc)
 
         return image
+    

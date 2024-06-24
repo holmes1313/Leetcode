@@ -41,7 +41,7 @@ class Solution:
         while stack:
             node = stack.pop()
 
-            if node.left and (node.left.left is None) and (node.left.right is None):
+            if node.left and (node.left.left is None) and (node.left.right is None):  # is left leaf
                 ans += node.left.val
 
             if node.right:
