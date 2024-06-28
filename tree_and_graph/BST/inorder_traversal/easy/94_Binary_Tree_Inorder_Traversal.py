@@ -32,16 +32,29 @@ class TreeNode:
 
 
 class Solution:
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    def inorderTraversal1(self, root: Optional[TreeNode]) -> List[int]:
         result = []
         self.helper(root, result)
         return result
 
-    # define a helper function to implement recursion.
-    def helper(self, node: Optional[TreeNode], result: List[int]):
-        if not node:
-            return
+    def helper(self, root, result):
+        if not root:
+            return 
+        self.helper(root.left, result)
+        result.append(root.val)
+        self.helper(root.right, result)
 
-        self.helper(node.left, result)
-        result.append(node.val)
-        self.helper(node.right, result)
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        ans = []
+
+        def inorder(node):
+            if not node:
+                return
+            
+            inorder(node.left)
+            ans.append(node.val)
+            inorder(node.right)
+
+        inorder(root)
+        return ans
+

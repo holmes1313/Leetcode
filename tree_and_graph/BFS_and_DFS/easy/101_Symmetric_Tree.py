@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec 25 12:00:06 2019
-
-@author: z.chen7
-"""
-
+REVIEW = ["6/27"]
 # 101. Symmetric Tree
 """
 Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
