@@ -23,7 +23,7 @@ Output: false
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def findTarget(self, root, k):
+    def findTarget2(self, root, k):
         """
         :type root: TreeNode
         :type k: int
@@ -45,7 +45,38 @@ class Solution(object):
 
         return False
 
+    def findTarget(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: bool
+        """
+        vals = []
+        
+        def inorder(node):
+            if not node:
+                return
+            
+            inorder(node.left)
+            vals.append(node.val)
+            inorder(node.right)
+
+        inorder(root)
+        l = 0
+        r = len(vals) - 1
+        while l < r:
+            curr_sum = vals[l] + vals[r]
+            if curr_sum == k:
+                return True
+
+            if curr_sum < k:
+                l += 1
+            else:
+                r -= 1
+        return False
+
             
 
 
+        
         

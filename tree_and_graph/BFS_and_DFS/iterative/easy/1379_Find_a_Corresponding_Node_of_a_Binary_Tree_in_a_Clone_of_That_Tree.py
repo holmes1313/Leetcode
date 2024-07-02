@@ -58,4 +58,18 @@ class Solution(object):
                 q2.append(n2.left)
                 q2.append(n2.right)
 
+
+class Solution2:
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+
+        stack = [(original, cloned)]
+        while stack:
+            n1, n2 = stack.pop()
+
+            if n1:
+                if n1 == target:
+                    return n2
+                
+                stack.append((n1.left, n2.left))
+                stack.append((n1.right, n2.right))
         

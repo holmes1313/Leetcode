@@ -39,37 +39,39 @@ Given tree t:
 Return false.
 """
 
-
 # Definition for a binary tree node.
 # class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-# similar to 100. Same Tree
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution(object):
-    def isSubtree(self, s, t):
+    def isSubtree(self, root, subRoot):
         """
-        :type s: TreeNode
-        :type t: TreeNode
+        :type root: TreeNode
+        :type subRoot: TreeNode
         :rtype: bool
         """
-        s_result = []
-        t_result = []
-        self.dfs(s, s_result)
-        self.dfs(t, t_result)
-        # print ''.join(t_result) 
-        # print ''.join(s_result)
-        return ''.join(t_result) in ''.join(s_result)
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if not node:
+                continue
+
+            if self.is_same_tree(node, subRoot):   # node == subRoot is wrong
+                return True
+
+            stack.append(node.left)
+            stack.append(node.right)
+
+        return False
         
-    
-    def dfs(self, node, result):
+    def is_same_tree(self, node1, node2):
+        if not node1 and not node2:
+            return True
         
-        if not node:
-            result.append('$')
+        if node1 and node2 and node1.val == node2.val:
+            return self.is_same_tree(node1.left, node2.left) and self.is_same_tree(node1.right, node2.right)
         else:
-            result.append('^' + str(node.val))
-            self.dfs(node.left, result)
-            self.dfs(node.right, result)
-        
+            return False
+

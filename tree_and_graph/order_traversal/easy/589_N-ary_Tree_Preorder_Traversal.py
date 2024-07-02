@@ -41,6 +41,23 @@ class Solution(object):
         for n in node.children:
             self.helper(n, result)
 
+    def preorder2(self, root):
+        """
+        :type root: Node
+        :rtype: List[int]
+        """
+        vars = []
+        def helper(node):
+            if not node:
+                return
+            
+            vars.append(node.val)
+            for child in node.children:
+                helper(child)
+        
+        helper(root)
+        return vars
+            
 
 
 

@@ -49,18 +49,17 @@ class Solution(object):
 
 class Solution:
     def increasingBST(self, root: TreeNode) -> TreeNode:
-        head = curr = TreeNode()
+        head = curr = TreeNode(0)
 
         def inorder(node):
             if not node:
                 return
+
             nonlocal curr
             inorder(node.left)
-
-            curr.right = node
+            new_node = TreeNode(node.val)
+            curr.right = new_node
             curr = curr.right
-            curr.left = None # need to understand
-
             inorder(node.right)
 
         inorder(root)

@@ -24,7 +24,7 @@ class TreeNode:
 
 
 class Solution:
-    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    def postorderTraversal1(self, root: Optional[TreeNode]) -> List[int]:
         result = []
         self.helper(root, result)
         return result
@@ -37,15 +37,15 @@ class Solution:
         self.helper(node.right, result)
         result.append(node.val)
 
-    def postorderTraversal_iteration(self, root: Optional[TreeNode]) -> List[int]:
-        if not root:
-            return []
-        ans = []
-        stack = [root]
-        while stack:
-            node = stack.pop()
-            if node:
-                ans.append(node.val)
-                stack.append(node.right)
-                stack.append(node.left)
-        return ans[::-1]
+    def postorderTraversal2(self, root: Optional[TreeNode]) -> List[int]:
+        vars = []
+        def postorder(node):
+            if not node:
+                return
+
+            postorder(node.left)
+            postorder(node.right)
+            vars.append(node.val)
+
+        postorder(root)
+        return vars

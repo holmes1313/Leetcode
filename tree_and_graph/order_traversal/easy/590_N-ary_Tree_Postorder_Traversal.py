@@ -40,3 +40,23 @@ class Solution(object):
             self.helper(n, result)
         
         result.append(node.val)
+
+
+class Solution2(object):
+    def postorder(self, root):
+        """
+        :type root: Node
+        :rtype: List[int]
+        """
+        vars = []
+
+        def helper(node):
+            if not node:
+                return
+
+            for child in node.children:
+                helper(child)
+            vars.append(node.val)
+        
+        helper(root)
+        return vars

@@ -33,19 +33,6 @@ class TreeNode:
 
 
 class Solution:
-    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        result = []
-        self.helper(root, result)
-        return result
-
-    def helper(self, root: Optional[TreeNode], result: List[int]):
-        if not root:
-            return
-
-        result.append(root.val)
-        self.helper(root.left, result)
-        self.helper(root.right, result)
-
     def preorderTraversal_iterate(self, root: Optional[TreeNode]) -> List[int]:
         result = []
         # start with the root node
@@ -60,4 +47,22 @@ class Solution:
                 stack.append(node.left)
 
         return result
+
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        vals = []
+
+        def preorder(node):
+            if not node:
+                return
+
+            vals.append(node.val)
+            preorder(node.left)
+            preorder(node.right)
+
+        preorder(root)
+        return vals
 
