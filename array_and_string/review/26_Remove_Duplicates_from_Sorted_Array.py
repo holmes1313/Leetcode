@@ -48,3 +48,18 @@ class Solution:
                 nums[left] = nums[right]
                 left += 1
         return left
+    
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        prev_val = None
+        next_idx = 0
+        for idx in range(len(nums)):
+            if nums[idx] != prev_val:
+                nums[next_idx] = nums[idx]
+                next_idx += 1
+                prev_val = nums[idx]
+
+        return next_idx

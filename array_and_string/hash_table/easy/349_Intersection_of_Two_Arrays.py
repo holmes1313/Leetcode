@@ -47,6 +47,7 @@ class Solution(object):
         s1 = set(nums1)
         s2 = set(nums2)
         return list(s1 & s2)
+        #return set(nums1).intersection(set(nums2))
 
     def intersection(self, nums1, nums2):
         """
