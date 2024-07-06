@@ -72,3 +72,43 @@ class Solution(object):
                 min_len = min(min_len, idexes[-1] - idexes[0] + 1)
 
         return min_len
+
+
+class Solution:
+    def findShortestSubArray2(self, nums: List[int]) -> int:
+        degree = 0
+        degree_nums = []
+        mapping = collections.defaultdict(list)
+        for idx, num in enumerate(nums):
+            mapping[num].append(idx)
+            if len(mapping[num]) > degree:
+                degree = len(mapping[num])
+                degree_nums = [num]
+            elif len(mapping[num]) == degree:
+                degree_nums.append(num)
+
+        ans = len(nums)
+        for num in degree_nums:
+            ans = min(ans, mapping[num][-1] - mapping[num][0] + 1)
+
+        return max(ans, 1)
+
+    def findShortestSubArray(self, nums: List[int]) -> int:
+        left_idx, right_idx = {}, {}
+        count = collections.defaultdict(int)
+        for idx, num in enumerate(nums):
+            if num not in left_idx:
+                left_idx[num] = idx
+            right_idx[num] = idx
+            count[num] += 1
+
+        ans = len(nums)
+        degree = max(count.values())
+        for num in count:
+            if count[num] == degree:
+                ans = min(ans, right_idx[num] - left_idx[num] + 1)
+
+        return max(ans, 1)
+
+
+                

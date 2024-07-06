@@ -21,7 +21,7 @@ Explanation: All elements of the array have a frequency of 1 which is the maximu
 So the number of elements in the array with maximum frequency is 5.
 """
 
-class Solution(object):
+class Solution2(object):
     def maxFrequencyElements(self, nums):
         """
         :type nums: List[int]
@@ -43,3 +43,22 @@ class Solution(object):
                 output += freq
 
         return output
+
+
+class Solution:
+    def maxFrequencyElements(self, nums: List[int]) -> int:
+        max_freq = 0
+        max_count = 0
+        count_map = collections.defaultdict(int)
+        for num in nums:
+            count_map[num] += 1
+            
+            if count_map[num] > max_freq:
+                max_freq = count_map[num]
+                max_count = 1
+            elif count_map[num] == max_freq:
+                max_count += 1
+
+        return max_freq * max_count
+
+        

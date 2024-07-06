@@ -28,20 +28,16 @@ The IDs of the students is between 1 to 1000
 The score of the students is between 1 to 100
 For each student, there are at least 5 scores
 """
-
 class Solution(object):
-    def highFive(self, items):
+    def highFive2(self, items):
         """
         :type items: List[List[int]]
         :rtype: List[List[int]]
         """
-        mapping = {}
+        mapping = collections.defaultdict(list)
         output = []
         for item in items:
-            if item[0] not in mapping:
-                mapping[item[0]] = [item[1]]
-            else:
-                mapping[item[0]].append(item[1])
+            mapping[item[0]].append(item[1])
 
         for id, ss in mapping.items():
             ss.sort(reverse=True)
@@ -52,34 +48,38 @@ class Solution(object):
             output.append(avg_item)
 
         return output
+
         
 
-test = [[1,91],[1,92],[2,93],[2,97],[1,60],[2,77],[1,65],[1,87],[1,100],[2,100],[2,76]]
-sorted(test, reverse=True)
-highFive(test)
+    def highFive(self, items):
+        """
+        :type items: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        mapping = collections.defaultdict(partial(MinHeap, size=5))
 
-
-import collections
-import heapq
-def highFive_priorityQueue(items):
-    """
-    :type items: List[List[int]]
-    :rtype: List[List[int]]
-    """
-    result = collections.defaultdict(list)
-    
-    for id, score in items:
-        heapq.heappush(result[id], score)
+        for item in items:
+            mapping[item[0]].add(item[1])
         
-        if len(result[id]) > 5:
-            heapq.heappop(result[id])
+        ordered_ids = sorted(mapping.keys())
+        result = []
+        for stu_id in ordered_ids:
+            avg = mapping[stu_id].calc_avg()
+            result.append([stu_id, avg])
+
+        return result
+        
+class MinHeap():
+    def __init__(self, size):
+        self.size = size
+        self.queue = []
+
+    def add(self, score):
+        heappush(self.queue, score)
+        if len(self.queue) > self.size:
+            heappop(self.queue)
+
+    def calc_avg(self):
+        return sum(self.queue) / len(self.queue)
+
     
-    return [[id, sum(scores)/len(score)] for id, scores in sorted(result.items())]
-
-
-a = [3, 1, 2]        
-b = []
-for i in a:
-    heapq.heappush(b, i)
-b
-heapq.heappop(b)

@@ -17,28 +17,28 @@ Input: score = [5,4,3,2,1]
 Output: ["Gold Medal","Silver Medal","Bronze Medal","4","5"]
 Explanation: The placements are [1st, 2nd, 3rd, 4th, 5th].
 """
-from typing import List
-
-
-class Solution:
-    def findRelativeRanks(self, score: List[int]) -> List[str]:
-        ranks = sorted(score, reverse=True)
-        ranks_mapping = {}
-        for i, val in enumerate(ranks):
-            if i + 1 == 1:
-                ranks_mapping[val] = "Gold Medal"
-
-            elif i + 1 == 2:
-                ranks_mapping[val] = "Silver Medal"
-
-            elif i + 1 == 3:
-                ranks_mapping[val] = "Bronze Medal"
-
+class Solution(object):
+    def findRelativeRanks(self, score):
+        """
+        :type score: List[int]
+        :rtype: List[str]
+        """
+        ordered_score = sorted(score, reverse=True)
+        order_map = {}
+        for i, val in enumerate(ordered_score):
+            if i == 0:
+                rank = "Gold Medal"
+            elif i == 1:
+                rank = "Silver Medal"
+            elif i == 2:
+                rank = "Bronze Medal"
             else:
-                ranks_mapping[val] = str(i + 1)
+                rank = str(i+1)
 
-        ans = []
-        for s in score:
-            ans.append(ranks_mapping[s])
+            order_map[val] = rank
 
-        return ans
+        result = []
+        for val in score:
+            result.append(order_map[val])
+
+        return result

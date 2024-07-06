@@ -22,17 +22,17 @@ Example 2:
 Input: [4,1,2,1,2]
 Output: 4
 """
-from typing import List
-
-
-class Solution(object):
-    def singleNumber(self, nums: List[int]) -> int:
+class Solution:
+    def singleNumber2(self, nums: List[int]) -> int:
         seen = {}
         for num in nums:
             if num in seen:
-                seen[num] += 1
+                del seen[num]
             else:
                 seen[num] = 1
-        for key, val in seen.items():
-            if val == 1:
-                return key
+        for key in seen:
+            output = key
+        return output
+
+    def singleNumber(self, nums: List[int]) -> int:
+        return sum(set(nums)) * 2 - sum(nums)
