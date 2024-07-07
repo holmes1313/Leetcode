@@ -55,3 +55,25 @@ class Solution(object):
 
         return -1
 
+
+class Solution2:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        if n == 1:
+            return 1
+        
+        mapping = {}
+        for t1, t2 in trust:
+            if t1 not in mapping:
+                mapping[t1] = [1, 0]
+            else:
+                mapping[t1][0] += 1
+            if t2 not in mapping:
+                mapping[t2] = [0, 1]
+            else:
+                mapping[t2][1] += 1
+
+        for key, value in mapping.items():
+            if value[0] == 0 and value[1] == n -1:
+                return key
+
+        return -1

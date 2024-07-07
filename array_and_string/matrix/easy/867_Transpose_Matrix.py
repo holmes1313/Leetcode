@@ -35,4 +35,20 @@ class Solution(object):
         """
         #return [[row[i] for row in A] for i in range(len(A[0]))]
         return list(zip(*A))
-        
+
+
+class Solution(object):
+    def transpose(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        rows = len(matrix)
+        cols = len(matrix[0])
+
+        ans = [[0] * rows for _ in range(cols)]
+        for row in range(len(ans)):
+            for col in range(len(ans[0])):
+                ans[row][col] = matrix[col][row]
+
+        return ans

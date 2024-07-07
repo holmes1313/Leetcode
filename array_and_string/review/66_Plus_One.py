@@ -61,3 +61,27 @@ class Solution(object):
             # or digits.insert(0, 1)
         return digits
         
+
+class Solution2(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        carry = 1
+        for i in range(len(digits) - 1, -1, -1):
+            if carry == 1:
+                digit = digits[i]
+                digit += 1
+                if digit == 10:
+                    digit = 0
+                    carry = 1
+                else:
+                    carry = 0
+
+                digits[i] = digit
+        if carry == 1:
+            digits = [1] + digits
+
+        return digits
+            

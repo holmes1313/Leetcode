@@ -72,31 +72,35 @@ else:
     print('No object found.')
 """
 
-# **
-# enumerate
-# The words are sorted lexicographically if and only if adjacent words are
+class Solution(object):
+    def isAlienSorted(self, words, order):
+        """
+        :type words: List[str]
+        :type order: str
+        :rtype: bool
+        """
+        order_mapping = {cha: idx for idx, cha in enumerate(order)}
 
-def isAlienSorted(words, order):
-    order_index = {l: i for i, l in enumerate(order)}
-    
-    for i in range(len(words)-1):
-        word1 = words[i]
-        word2 = words[i+1]
-        
-        # find the first difference word1[j] != word2[j]
-        for j in range(min(len(word1), len(word2))):
-            if word1[j] != word2[j]:
-                if order_index[word1[j]] > order_index[word2[j]]:
+        for idx in range(len(words) - 1):
+            # compare each pair of adjacent words
+            word1 = words[idx]
+            word2 = words[idx+1]
+
+            for j in range(min(len(word1), len(word2))):
+                # find the first letter that is different
+                if order_mapping[word1[j]] != order_mapping[word2[j]]:
+                    #  if words[i] has the lexicographically larger letter, then we immediately return false, because we found one pair of words that are in the wrong order.
+                    if order_mapping[word1[j]] > order_mapping[word2[j]]:
+                        return False
+                    # if words[i] has the lexicographically smaller letter, then we can exit from the iteration because we know words[i] and words[i+1] are in the right order
+                    break
+
+            else:
+                # if we didn't find a first difference
+                 # the words are like "app" and "apple"
+                #  if the latter word is shorter, then words is not sorted.
+                if len(word1) > len(word2):
                     return False
-                break
-            
-        else:
-            # if we didn't find a first difference
-            # the words are like "app" and "apple"
-            if len(word1) > len(word2):
-                return False
-            
-    return True
 
-
-isAlienSorted(["hello","leetcode"], "hlabcdefgijkmnopqrstuvwxyz")
+        return True
+        
