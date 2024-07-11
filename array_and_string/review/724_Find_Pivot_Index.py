@@ -38,23 +38,32 @@ Note:
 The length of nums will be in the range [0, 10000].
 Each element nums[i] will be an integer in the range [-1000, 1000].
 """     
-                
 class Solution(object):
+    def pivotIndex2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        for idx in range(len(nums)):
+            if sum(nums[:idx]) == sum(nums[idx+1:]):
+                return idx
+
+        return -1
+
     def pivotIndex(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        left = 0
-        right = sum(nums)
-        
-        for index, num in enumerate(nums):
-            left += num
-            if left == right:
-                return index
-            right -= num
-        
+        total = sum(nums)
+        leftsum = 0
+        for idx, num in enumerate(nums):
+            if leftsum == total - leftsum - num:
+                return idx
+            leftsum += num
+
         return -1
+        
 
                 
         
