@@ -26,27 +26,27 @@ Follow up:
 What if the given array is already sorted? How would you optimize your algorithm?
 What if nums1's size is small compared to nums2's size? Which algorithm is better?
 What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?"""
-
 import collections
+from typing import List
 
-def intersect(nums1, nums2):
-    """
-    :type nums1: List[int]
-    :type nums2: List[int]
-    :rtype: List[int]
-    """
-    count = collections.Counter(nums1)
-    result = []
-    
-    for n in nums2:
-        if count.get(n) > 0:
-            count[n] -= 1
-            result.append(n)
-            
-    return result
-            
+
+class Solution:
+    def intersect2(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        count = Counter(nums1)
+        result = []
         
+        for n in nums2:
+            if count.get(n, -1) > 0:
+                count[n] -= 1
+                result.append(n)
+                
+        return result
 
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        common = collections.Counter(nums1) & collections.Counter(nums2)
+        return common.elements()
+
+        
 
 
 
