@@ -20,14 +20,24 @@ Input:
 Output:
 [5,6]
 """
-
 class Solution(object):
+    def findDisappearedNumbers2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        complete_nums = set([i for i in range(1, len(nums)+1)])
+        nums_set = set(nums)
+        return complete_nums - nums_set
+
     def findDisappearedNumbers(self, nums):
         """
         :type nums: List[int]
         :rtype: List[int]
         """
-        # using extra space
-        
-        marked = set(nums)
-        return [i for i in range(1, len(nums) + 1) if i not in marked]
+        nums_set = set(nums)
+        result = []
+        for i in range(1, len(nums)+1):
+            if i not in nums_set:
+                result.append(i)
+        return result

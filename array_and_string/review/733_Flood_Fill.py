@@ -78,3 +78,28 @@ class Solution(object):
 
         return image
     
+
+class Solution2:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        seen = set()
+        stack = []
+        stack.append((sr, sc))
+        ori_col = image[sr][sc]
+
+        while stack:
+            row, col = stack.pop()
+            if row >= len(image) or col >= len(image[0]) or row < 0 or col < 0 or (row, col) in seen:
+                continue
+
+            if image[row][col] == ori_col:
+                image[row][col] = color
+                stack.append((row+1, col))
+                stack.append((row-1, col))
+                stack.append((row, col+1))
+                stack.append((row, col-1))
+                seen.add((row, col))
+
+        return image
+
+
+        

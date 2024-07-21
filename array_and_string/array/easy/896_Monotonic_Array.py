@@ -43,11 +43,16 @@ Note:
 -100000 <= A[i] <= 100000
 """
 
-class Solution(object):
-    def isMonotonic(self, A):
-        """
-        :type A: List[int]
-        :rtype: bool
-        """
-        return sorted(A) in (A, A[::-1])
-  
+class Solution:
+    def isMonotonic(self, nums: List[int]) -> bool:
+        is_asec = True
+        is_desc = True
+        for i in range(len(nums)-1):
+            if nums[i] > nums[i+1]:
+                is_asec = False
+
+            elif nums[i] < nums[i+1]:
+                is_desc = False
+
+        return is_asec or is_desc
+        
