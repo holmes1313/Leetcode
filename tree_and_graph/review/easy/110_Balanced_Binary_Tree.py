@@ -69,3 +69,32 @@ class Solution(object):
         if node not in self.memo:
             self.memo[node] = max(self.maxDepth(node.left), self.maxDepth(node.right)) + 1
         return self.memo[node]
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        ans = True
+
+        def depth(node):
+            if not node:
+                return 0
+
+            nonlocal ans
+
+            left_depth = depth(node.left)
+            right_depth = depth(node.right)
+
+            if abs(left_depth - right_depth) > 1:
+                ans = False
+
+            return max(left_depth, right_depth) + 1
+
+        depth(root)
+        return ans
+
