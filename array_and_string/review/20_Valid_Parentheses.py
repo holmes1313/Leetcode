@@ -63,3 +63,25 @@ class Solution(object):
                 if not stack or stack.pop() != right[p]:
                     return False
         return not stack
+
+
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        stack = []
+        mappings = {")": "(", "]": "[", "}": "{"}
+        for cha in s:
+            if cha in mappings:
+                if not stack:
+                    return False
+                top_cha = stack.pop()
+                if top_cha != mappings[cha]:
+                    return False
+            else:
+                stack.append(cha)
+
+        return len(stack) == 0 
+        
