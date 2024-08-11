@@ -26,20 +26,33 @@ Output: ["c","o"]"""
 import collections
 from typing import List
 
-
-class Solution:
-    def commonChars(self, words: List[str]) -> List[str]:
-        result = []
+class Solution(object):
+    def commonChars2(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
         common_counts = collections.Counter(words[0])
-
         for word in words:
-            # Intersection of two Counters
             common_counts &= collections.Counter(word)
 
+        return common_counts.elements()
+            
+    def commonChars(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        common_counts = collections.Counter(words[0])
+        for word in words:
+            current_counts = collections.Counter(word)
+
+            for letter in common_counts.keys():
+                common_counts[letter] = min(common_counts[letter], current_counts[letter])
+
+        result = []
         for letter, count in common_counts.items():
             for _ in range(count):
                 result.append(letter)
-        
-        #return common_counts.elements()
+
         return result
-        

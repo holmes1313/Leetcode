@@ -29,29 +29,29 @@ What if elements of nums2 are stored on disk, and the memory is limited such tha
 import collections
 from typing import List
 
+class Solution(object):
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        intersection = collections.Counter(nums1) & collections.Counter(nums2)
+        return intersection.elements()
 
-class Solution:
-    def intersect2(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        count = Counter(nums1)
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        common_counts = collections.Counter(nums1)
+        current_counts = collections.Counter(nums2)
+        for letter in common_counts.keys():
+            common_counts[letter] = min(common_counts[letter], current_counts[letter])
         result = []
-        
-        for n in nums2:
-            if count.get(n, -1) > 0:
-                count[n] -= 1
-                result.append(n)
-                
+        for key, count in common_counts.items():
+            for _ in range(count):
+                result.append(key)
+
         return result
-
-    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        common = collections.Counter(nums1) & collections.Counter(nums2)
-        return common.elements()
-
-        
-
-
-
-
-
-
-
-
