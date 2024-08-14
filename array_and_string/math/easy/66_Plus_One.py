@@ -24,46 +24,8 @@ Input: [4,3,2,1]
 Output: [4,3,2,2]
 Explanation: The array represents the integer 4321."""
 
-from typing import List
-
-
 class Solution(object):
-    def plusOne(self, digits):
-        """
-        :type digits: List[int]
-        :rtype: List[int]
-        
-        num = int(''.join([str(d) for d in digits])) + 1
-        return list(str(num))
-        """
-        import collections
-        result = collections.deque()
-        carry = 1
-        while digits or carry:
-            num = digits.pop() if digits else 0
-            s = num + carry
-            
-            carry = s // 10
-            result.appendleft(s % 10)
-            
-        return list(result)
-
-    def plusOne2(self, digits: List[int]) -> List[int]:
-        # in place method
-        for i in range(len(digits) - 1, -1, -1):
-            digits[i] += 1
-            if digits[i] == 10:
-                digits[i] = 0
-            else:
-                break
-        if digits and digits[0] == 0:
-            digits = [1] + digits
-            # or digits.insert(0, 1)
-        return digits
-        
-
-class Solution2(object):
-    def plusOne(self, digits):
+    def plusOne1(self, digits):
         """
         :type digits: List[int]
         :rtype: List[int]
@@ -84,4 +46,29 @@ class Solution2(object):
             digits = [1] + digits
 
         return digits
+
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        n = len(digits)
+        ones = [0] * n
+        ones[-1] = 1
+
+        ans = []
+        carry = 0
+        for i in range(n - 1, -1, -1):
+            carry += ones[i]
+            carry += digits[i]
+
+            ans.append(carry % 10)
+            carry //= 10
+
+        if carry:
+            ans.append(1)
+
+        return ans[::-1]
+
             
+        

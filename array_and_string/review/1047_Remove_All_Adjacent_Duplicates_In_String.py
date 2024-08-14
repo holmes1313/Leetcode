@@ -30,27 +30,14 @@ Note:
 1 <= S.length <= 20000
 S consists only of English lowercase letters."""
 
-class Solution(object):
-    def removeDuplicates(self, S):
-        """
-        :type S: str
-        :rtype: str
-        """
-        """
-        letters = set(S) 
-        while [letter for letter in letters if letter*2 in S]:
-            for letter in [letter for letter in letters if letter*2 in S]:
-                S = S.replace(letter*2, '')
-        return S
-        """
-        
-        result = []
-        
-        for s in S:
-            if result and result[-1] == s:
-                result.pop()
-                
+class Solution:
+    def removeDuplicates(self, s: str) -> str:
+        stack = []
+
+        for cha in s:
+            if stack and stack[-1] == cha:
+                stack.pop()
             else:
-                result.append(s)
-                
-        return ''.join(result)
+                stack.append(cha)
+
+        return "".join(stack)

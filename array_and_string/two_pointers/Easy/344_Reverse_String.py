@@ -11,18 +11,22 @@ Write a function that reverses a string. The input string is given as an array o
 
 Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory."""
 s = ["h","e","l","l","o"]
-s[::-1]
-s
-
-def reserverString(string):
-    """ Do not return anything, modify s in-place instead"""
-    left, right = 0, len(s) - 1
-    while left < right:
-        s[left], s[right] = s[right], s[left]
-        left += 1
-        right -= 1
-            
-reserverString(s)
+s = s[::-1]
 print(s)
 
+from typing import List
+
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        p1 = 0
+        p2 = len(s) - 1
+        while p1 < p2:
+            s[p1], s[p2] = s[p2], s[p1]
+            p1 += 1
+            p2 -= 1
+
+        return s
 
