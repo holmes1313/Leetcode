@@ -34,17 +34,22 @@ Output: 701
 """
 
 class Solution(object):
-    def titleToNumber(self, s):
+class Solution(object):
+    def titleToNumber(self, columnTitle):
         """
-        :type s: str
+        :type columnTitle: str
         :rtype: int
         """
-        if not s:
-            return None
-        
+        # Decimal 65 in ASCII corresponds to char 'A'
+        alpha_map = {chr(i + 65): i + 1 for i in range(26)}
+
         result = 0
-        for i, l in enumerate(list(s[::-1])):
-            value = ord(l) - ord('A') + 1
-            result += (26 ** i) * value
+        factor = 0
+        for digit in columnTitle[::-1]:
+            result += alpha_map[digit] * (26 ** factor)
+            factor += 1
+
         return result
+
+
         

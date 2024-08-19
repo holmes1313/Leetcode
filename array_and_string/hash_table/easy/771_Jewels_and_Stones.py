@@ -40,3 +40,20 @@ class Solution(object):
             output += counts.get(cha, 0)
 
         return output
+
+
+class Solution2(object):
+    def numJewelsInStones(self, jewels, stones):
+        """
+        :type jewels: str
+        :type stones: str
+        :rtype: int
+        """
+        ans = 0
+        jewels = set(jewels)
+        for s in stones:
+            if s in jewels:
+                ans += 1
+
+        return ans
+        
