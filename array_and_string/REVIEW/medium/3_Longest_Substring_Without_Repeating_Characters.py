@@ -26,7 +26,7 @@ Explanation: The answer is "wke", with the length of 3.
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 """
 class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
+    def lengthOfLongestSubstring1(self, s: str) -> int:
         left = right = 0
         ans = 0
         index_map = {}
@@ -53,3 +53,16 @@ class Solution:
 
         return ans
 
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        left = right = 0
+        ans = 0
+        count_map = collections.defaultdict(int)
+        while right < len(s):
+            count_map[s[right]] += 1
+            while count_map[s[right]] == 2:
+                count_map[s[left]] -= 1
+                left += 1
+            ans = max(ans, right - left + 1)
+            right += 1
+
+        return ans

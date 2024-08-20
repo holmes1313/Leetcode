@@ -58,3 +58,18 @@ class Solution(object):
             result += (26 ** digit) * (ord(c) - ord('A') + 1)
             digit += 1
         return result
+
+
+class Solution(object):
+    def convertToTitle(self, columnNumber):
+        """
+        :type columnNumber: int
+        :rtype: str
+        """
+        ans = ""
+        while columnNumber > 0:
+            offset = (columnNumber - 1) % 26
+            ans += chr(ord("A") + offset)
+            columnNumber = (columnNumber - 1) // 26
+        return ans[::-1]
+        
