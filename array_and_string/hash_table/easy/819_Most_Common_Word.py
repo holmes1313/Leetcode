@@ -28,7 +28,7 @@ import collections
 
 
 class Solution(object):
-    def mostCommonWord(self, paragraph, banned):
+    def mostCommonWord2(self, paragraph, banned):
         """
         :type paragraph: str
         :type banned: List[str]
@@ -47,5 +47,28 @@ class Solution(object):
                     max_word = word
 
         return max_word
+
+    def mostCommonWord(self, paragraph, banned):
+        """
+        :type paragraph: str
+        :type banned: List[str]
+        :rtype: str
+        """
+        norm_para = "".join([c.lower() if c.isalnum() else " " for c in paragraph])
+        words = norm_para.split()
+        banned_words = set(banned)
+        counts = collections.defaultdict(int)
+        max_count = 0
+        max_count_word = ""
+        # one pass
+        for word in words:
+            if word not in banned_words:
+                counts[word] += 1
+                if counts[word] > max_count:
+                    max_count = counts[word]
+                    max_count_word = word
+                    
+        return max_count_word
+
 
         
