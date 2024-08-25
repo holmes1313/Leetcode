@@ -24,7 +24,7 @@ One of the ways we can obtain the resultant array is by using the following oper
 We can no longer perform any operations, so ["abba","cd"] is the final answer.
 """
 class Solution(object):
-    def removeAnagrams(self, words):
+    def removeAnagrams2(self, words):
         """
         :type words: List[str]
         :rtype: List[str]
@@ -40,5 +40,29 @@ class Solution(object):
 
             if words == prev:
                 return words
+
+
+    def removeAnagrams(self, words):
+        """
+        :type words: List[str]
+        :rtype: List[str]
+        """
+        left = right = 0
+        first_count = collections.Counter(words[0])
+        ans = []
+        while right < len(words):
+
+            right_count = collections.Counter(words[right])
+            if right_count != first_count:
+                first_count = right_count
+                ans.append(words[left])
+                left = right
+            
+            right += 1
+
+        ans.append(words[left])
+                
+        return ans
+        
 
         

@@ -25,31 +25,27 @@ that punctuation is ignored (even if adjacent to words, such as "ball,"),
 and that "hit" isn't the answer even though it occurs more because it is banned.
 """
 import collections
-import re
-
-def mostCommonWord(paragraph, banned):
-    """
-    :type paragraph: str
-    :type banned: List[str]
-    :rtype: str
-    """
-    # remove all puctuations
-    words = re.findall(r'\w+', paragraph.lower())
-    counts = collections.Counter([w for w in words if w not in banned])
-    return counts.most_common(1)[0][0]
 
 
+class Solution(object):
+    def mostCommonWord(self, paragraph, banned):
+        """
+        :type paragraph: str
+        :type banned: List[str]
+        :rtype: str
+        """
+        norm_para = "".join([c.lower() if c.isalnum() else " " for c in paragraph])
+        words = norm_para.split()
+        banned_words = set(banned)
+        counts = collections.Counter(words)
+        max_count = 0
+        max_word = ""
+        for word, count in counts.items():
+            if word not in banned_words:
+                if count > max_count:
+                    max_count = count
+                    max_word = word
 
-collections.Counter({'a': 1, 'b': 2}).most_common(1)[0][0]
+        return max_word
 
-# remove all punctuations
-p = "Bob hit a ball the hit BALL flew far after it was hit."
-re.findall(r'\w+', p.lower())
-re.sub(r'[^a-zA-Z]', ' ', p)
-
-
-def test():
-    paragraph = "Bob hit a ball the hit BALL flew far after it was hit."
-    banned = ["hit"]
-    output = mostCommonWord(paragraph, banned)
-    
+        
