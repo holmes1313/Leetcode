@@ -37,6 +37,23 @@ class Solution:
             head = head.next
         return root.next
 
+    def deleteDuplicates1(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return head
+        left = right = head
+        while right:
+            if right.val != left.val:
+                left.next = right
+                left = left.next
+            right = right.next
+        left.next = None
+
+        return head
+
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         curr = head
         while curr and curr.next:

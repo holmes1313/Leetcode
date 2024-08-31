@@ -14,12 +14,12 @@ Example:
 Input:  1->2->6->3->4->5->6, val = 6
 Output: 1->2->3->4->5"""
 
+
 # Definition for singly-linked list.
 # class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution(object):
     def removeElements(self, head, val):
         """
@@ -27,15 +27,15 @@ class Solution(object):
         :type val: int
         :rtype: ListNode
         """
-        dummy = ListNode(0)
+        dummy = ListNode()
         dummy.next = head
         curr = dummy
-        
+
         while curr and curr.next:
             if curr.next.val == val:
                 curr.next = curr.next.next
-            else:  # 1 -> 2 -> 2 -> 3 -> null  val=2
+            else:
                 curr = curr.next
-        
+
         return dummy.next
-  
+        
