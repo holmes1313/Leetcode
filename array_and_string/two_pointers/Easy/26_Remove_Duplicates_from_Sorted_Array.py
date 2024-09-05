@@ -28,19 +28,6 @@ from typing import List
 
 
 class Solution:
-    # hash table
-    def removeDuplicates2(self, nums: List[int]) -> int:
-        index = 0
-        seen = {}
-        for num in nums:
-            if num not in seen:
-                seen[num] = 1
-                nums[index] = num
-                index += 1
-
-        return index
-
-    # two pointers
     def removeDuplicates(self, nums: List[int]) -> int:
         left = 1
         for right in range(1, len(nums)):
@@ -50,16 +37,11 @@ class Solution:
         return left
     
     def removeDuplicates(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        prev_val = None
-        next_idx = 0
-        for idx in range(len(nums)):
-            if nums[idx] != prev_val:
-                nums[next_idx] = nums[idx]
-                next_idx += 1
-                prev_val = nums[idx]
-
-        return next_idx
+        p1 = p2 = 0
+        while p2 < len(nums):
+            if nums[p1] != nums[p2]:
+                p1 += 1
+                nums[p1] = nums[p2]
+            p2 += 1
+        return p1 + 1
+        

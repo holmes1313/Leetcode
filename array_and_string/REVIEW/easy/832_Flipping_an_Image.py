@@ -40,6 +40,19 @@ class Solution(object):
         :type A: List[List[int]]
         :rtype: List[List[int]]
         """
-        return [[1 - v for v in row[::-1]] for row in A]
-                    
-        
+        return [[1 - v for v in row[::-1]] for row in A]                  
+
+class Solution2(object):
+    def flipAndInvertImage(self, image):
+        """
+        :type image: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        for row in image:
+            p1 = 0
+            p2 = len(row) - 1
+            while p1 <= p2:
+                row[p1], row[p2] = 1 - row[p2], 1 - row[p1]
+                p1 += 1
+                p2 -= 1
+        return image

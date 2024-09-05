@@ -32,23 +32,20 @@ Explanation: S becomes "c" while T becomes "b".
 """
 
 class Solution(object):
-    def backspaceCompare(self, S, T):
+    def backspaceCompare(self, s, t):
         """
-        :type S: str
-        :type T: str
+        :type s: str
+        :type t: str
         :rtype: bool
         """
-        return self.helper(S) == self.helper(T)
-    
-    def helper(self, text):
-        result = []
-        for char in text:            
-            if char != '#':
-                result.append(char)            
-            else:
-                if result:
-                    result.pop()
-                else:
-                    continue                    
-        return result
-                
+        return self.build_stack(s) == self.build_stack(t)
+
+    def build_stack(self, s):
+        stack = []
+        for cha in s:
+            if cha != "#":
+                stack.append(cha)
+            elif stack:
+                stack.pop()
+
+        return stack
