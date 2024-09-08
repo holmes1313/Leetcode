@@ -32,7 +32,7 @@ Output: 3
 """
 
 class Solution(object):
-    def countStudents(self, students, sandwiches):
+    def countStudents1(self, students, sandwiches):
         """
         :type students: List[int]
         :type sandwiches: List[int]
@@ -48,3 +48,20 @@ class Solution(object):
                 return student_left
 
         return 0
+
+
+    def countStudents(self, students, sandwiches):
+        """
+        :type students: List[int]
+        :type sandwiches: List[int]
+        :rtype: int
+        """
+        counts = collections.Counter(students)
+        for san in sandwiches:
+            if san in counts and counts[san] > 0:
+                counts[san] -= 1
+            else:
+                return counts[0] + counts[1]
+
+        return 0
+

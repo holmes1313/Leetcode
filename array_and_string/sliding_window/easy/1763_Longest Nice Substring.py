@@ -24,33 +24,31 @@ Explanation: There are no nice substrings.
 
 """
 
-    lower_set = set()
-            upper_set = set()
-            for char in sub:
-                if char.islower():
-                    lower_set.add(char)
-                elif char.isupper():
-                    upper_set.add(char)
-            
-            for char in lower_set:
-                if char.upper() not in upper_set:
-                    return False
-            for char in upper_set:
-                if char.lower() not in lower_set:
-                    return False
-            return True
-        
+class Solution(object):
+    def longestNiceSubstring(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        def is_nice(sub):
+            seen_lower = set()
+            seen_upper = set()
+
+            for cha in sub:
+                if cha.islower():
+                    seen_lower.add(cha)
+                elif cha.isupper():
+                    seen_upper.add(cha.lower())
+
+            return seen_upper == seen_lower
+
         n = len(s)
-        max_length = 0
-        longest_substr = ""
-        
-        # Check all possible substrings
+        longest = ""
         for start in range(n):
-            for end in range(start + 1, n + 1):
-                substr = s[start:end]
-                if is_nice(substr):
-                    if len(substr) > max_length:
-                        max_length = len(substr)
-                        longest_substr = substr
-        
-        return longest_substr
+            for end in range(start+1, n+1):
+                sub = s[start:end]
+                if is_nice(sub):
+                    if len(sub) > len(longest):
+                        longest = sub
+
+        return longest

@@ -1,7 +1,5 @@
 """
-Given a string s, return the maximum length of a 
-substring
- such that it contains at most two occurrences of each character.
+Given a string s, return the maximum length of a substring such that it contains at most two occurrences of each character.
  
 
 Example 1:
@@ -38,4 +36,22 @@ class Solution:
             right += 1
 
         return ans
+
+    def maximumLengthSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        n = len(s)
+        max_len = 0
+        for i in range(len(s)):
+            counter = collections.defaultdict(int)
+            for j in range(i, len(s)):
+                counter[s[j]] += 1
+                if counter[s[j]] > 2:
+                    break
+                else:
+                    max_len = max(max_len, j-i+1)
+        return max_len
+
         
