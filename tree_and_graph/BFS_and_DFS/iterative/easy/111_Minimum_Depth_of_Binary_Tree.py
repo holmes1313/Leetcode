@@ -33,29 +33,6 @@ return its minimum depth = 2.
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def minDepth3(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        if not root:
-            return 0
-        
-        queue = collections.deque()
-        queue.append((root, 0))
-        min_dept = float('inf')
-        
-        while queue:
-            node, dept = queue.popleft()
-            if node is not None:
-                if node.left is None and node.right is None:
-                    min_dept = min(min_dept, dept+1)
-
-                queue.append((node.left, dept+1))
-                queue.append((node.right, dept+1))
-
-        return min_dept
-
     """
     since we are traversing nodes level-wise, the first node which is a leaf, i.e. both left and right children are null; We will know that this is the node with the minimum depth.
     """
@@ -95,3 +72,29 @@ class Solution(object):
 
         if not root.right and not root.left:
             return 1
+
+
+    def minDepth1(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        stack = [(root, 0)]
+        min_len = float("inf")
+        while stack:
+            node, depth = stack.pop()
+            if node:
+                depth += 1
+                if depth > min_len:
+                    continue
+
+                if node.left is None and node.right is None:
+                    min_len = min(min_len, depth)
+
+                stack.append((node.left, depth))
+                stack.append((node.right, depth))
+
+        return min_len
+

@@ -30,56 +30,51 @@ Note:
 The size of the BST will be between 2 and 100.
 The BST is always valid, each node's value is an integer, and each node's value is different.
 """
-
 # Definition for a binary tree node.
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-
-class Solution2(object):
-    def minDiffInBST2(self, root):
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def minDiffInBST1(self, root):
         """
         :type root: TreeNode
         :rtype: int
         """
-        values = []
-
         def inorder(node):
             if not node:
-                return None
+                return 0
 
             inorder(node.left)
-            values.append(node.val)
+            nums.append(node.val)
             inorder(node.right)
 
+        nums = []
         inorder(root)
-        min_diff = values[-1] - values[0]
-        for i in range(len(values) - 1):
-            min_diff = min(min_diff, values[i+1] - values[i])
+        min_diff = float("inf")
+        for i in range(len(nums) - 1):
+            min_diff = min(min_diff, nums[i+1] - nums[i])
         return min_diff
 
-from typing import Optional
-
-class Solution:
-    def minDiffInBST(self, root: Optional[TreeNode]) -> int:
-        prev_val = None
-        min_diff = float('inf')
-
+    def minDiffInBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
         def inorder(node):
             if not node:
-                return
+                return 0
+
+            inorder(node.left)
             
-            nonlocal prev_val, min_diff
-            inorder(node.left)
-
-            if prev_val is not None:
-                min_diff = min(min_diff, node.val - prev_val)
-            prev_val = node.val
-
+            if pre[0] is not None:
+                min_diff[0] = min(min_diff[0], node.val - pre[0])
+            pre[0] = node.val
             inorder(node.right)
 
+        min_diff = [float('inf')]
+        pre = [None]
         inorder(root)
-        return min_diff
+        return min_diff[0]
+

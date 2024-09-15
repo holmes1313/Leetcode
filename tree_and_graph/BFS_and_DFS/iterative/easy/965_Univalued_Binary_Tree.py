@@ -15,22 +15,6 @@ Example 1:
 Input: [1,1,1,1,1,null,1]
 Output: true"""
 
-def isUnivalTree(self, root):
-    def isUnivalTree(self, root):
-        if not root:
-            return True
-        
-        result = []
-        self.dfs(root, result)
-        return len(set(result)) == 1
-        
-    def dfs(self, node, result):
-        if node:
-            result.append(node.val)
-            self.dfs(node.left, result)
-            self.dfs(node.right, result)
-
-
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -43,20 +27,17 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        values = set()
+        if not root:
+            return True
 
-        queue = collections.deque()
-        queue.append(root)
-
-        while queue:
-            node = queue.popleft()
+        stack = [root]
+        val = root.val
+        while stack:
+            node = stack.pop()
             if node:
-                values.add(node.val)
-                if len(values) > 1:
+                if node.val != val:
                     return False
-
-                queue.append(node.left)
-                queue.append(node.right)
+                stack.append(node.left)
+                stack.append(node.right)
 
         return True
-        

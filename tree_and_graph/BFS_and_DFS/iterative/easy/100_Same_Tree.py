@@ -60,33 +60,12 @@ class Solution(object):
         if p is None and q is None:
             return True
 
-        if p is None and q is not None:
-            return False
-
-        if q is None and p is not None:
-            return False
-
-        if p is not None and q is not None:
-            if p.val != q.val:
-                return False
-            else:
-                return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-
-    def isSameTree2(self, p, q):
-        """
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: bool
-        """
-        if p is None and q is None:
-            return True
-
         if p is not None and q is not None and p.val == q.val:
             return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
         else:
             return False
 
-    def isSameTree3(self, p, q):
+    def isSameTree(self, p, q):
         """
         :type p: TreeNode
         :type q: TreeNode
@@ -104,29 +83,6 @@ class Solution(object):
             if t1 and t2 and t1.val == t2.val:
                 stack.append((t1.left, t2.left))
                 stack.append( (t1.right, t2.right))
-            else:
-                return False
-
-        return True
-
-    def isSameTree(self, p, q):
-        """
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: bool
-        """
-        queue = deque()
-        queue.append((p, q))
-
-        while queue:
-            t1, t2 = queue.popleft()
-            
-            if t1 is None and t2 is None:
-                continue
-
-            if t1 and t2 and t1.val == t2.val:
-                queue.append((t1.left, t2.left))
-                queue.append((t1.right, t2.right))
             else:
                 return False
 

@@ -1,5 +1,3 @@
-
-success = ["6/27"]
 """
 Given the root of a binary tree with unique values and the values of two different nodes of the tree x and y, return true if the nodes corresponding to the values x and y in the tree are cousins, or false otherwise.
 
@@ -26,7 +24,6 @@ Input: root = [1,2,3,null,4], x = 2, y = 3
 Output: false
 
 """
-
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -34,26 +31,6 @@ Output: false
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def isCousins2(self, root, x, y):
-        """
-        :type root: TreeNode
-        :type x: int
-        :type y: int
-        :rtype: bool
-        """
-        depth_map = {}
-        stack = [(root, None, 0)]
-
-        while stack:
-            node, parent, dep = stack.pop()
-            if node is not None:
-                depth_map[node.val] = [parent, dep]
-                stack.append((node.left, node, dep+1))
-                stack.append((node.right, node, dep+1))
-
-        return (depth_map[x][1] == depth_map[y][1]) and (depth_map[x][0] != depth_map[y][0])
-        
-
     def isCousins(self, root, x, y):
         """
         :type root: TreeNode
@@ -61,22 +38,16 @@ class Solution(object):
         :type y: int
         :rtype: bool
         """
-        queue = deque()
-        queue.append((root, None, 0))
         results = []
-
-        while queue:
-            node, parent, depth = queue.popleft()
-            if node is not None:
-                if node.val in {x, y}:
-                    results.append((parent, depth))
+        stack = [(root, 1, None)]
+        while stack:
+            node, depth, parent = stack.pop()
+            if node:
+                if node.val == x or node.val == y:
+                    results.append((depth, parent))
                     if len(results) == 2:
                         break
-                queue.append((node.left, node, depth+1))
-                queue.append((node.right, node, depth+1))
+                stack.append((node.left, depth+1, node))
+                stack.append((node.right, depth+1, node))
 
-        node_x, node_y = results
-        return node_x[0] != node_y[0] and node_x[1] == node_y[1]
-                
-
-            
+        return results[0][0] == results[1][0] and results[0][1] != results[1][1]

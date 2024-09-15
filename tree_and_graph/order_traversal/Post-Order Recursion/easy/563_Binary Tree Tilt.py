@@ -17,31 +17,27 @@ Tilt of node 1 : |2-3| = 1 (left subtree is just left child, so sum is 2; right 
 Sum of every tilt : 0 + 0 + 1 = 1
 """
 # Definition for a binary tree node.
-# class TreeNode:
+# class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
-    def findTilt(self, root: Optional[TreeNode]) -> int:
+class Solution(object):
+    def findTilt(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        total_tilt = [0]
+        def valueSum(node):
         # we will traverse the tree in the post-order DFS
         # we visit a node's left and right subtrees before processing the value of the current node.
-        total_tilt = 0
-
-        def valueSum(node):
             if not node:
                 return 0
-
-            nonlocal total_tilt
-
             left_sum = valueSum(node.left)
             right_sum = valueSum(node.right)
             tilt = abs(left_sum - right_sum)
-            total_tilt += tilt
+            total_tilt[0] += tilt
             return left_sum + right_sum + node.val
-        
         valueSum(root)
-        
-        return total_tilt
-
-        
+        return total_tilt[0]
