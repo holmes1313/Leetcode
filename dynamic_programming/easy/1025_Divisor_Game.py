@@ -35,12 +35,21 @@ Note:
 
 1 <= N <= 1000
 """
-
-
-def divisorGame(N):
-    """
-    :type N: int
-    :rtype: bool
-    """
-    return N % 2 == 0
+class Solution:
+    def divisorGame(self, n: int) -> bool:
+        dp = [False] * (n + 1)
     
+        # Base case: If n = 1, Alice loses
+        dp[1] = False
+        
+        # Fill the DP table
+        for i in range(2, n + 1):
+            # Check all possible moves
+            for x in range(1, i):
+                if i % x == 0:
+                    if not dp[i - x]:
+                        dp[i] = True
+                        break
+        
+        return dp[n]
+        
