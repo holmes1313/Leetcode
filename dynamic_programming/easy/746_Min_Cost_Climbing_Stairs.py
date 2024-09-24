@@ -23,6 +23,8 @@ Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3]
 Note:
 cost will have a length in the range [2, 1000].
 Every cost[i] will be an integer in the range [0, 999]."""
+
+
 class Solution(object):
 
     # bottom-up (tabulation)
@@ -44,59 +46,21 @@ class Solution(object):
 
         return min_costs[-1]
 
-    # top-down (recursion + memoization)
-    def minCostClimbingStairs_topdown(self, cost):
-        """
-        :type cost: List[int]
-        :rtype: int
-        """
-        def min_cost(i):
-            if i <= 1:
-                return 0
-
-            if i in memo:
-                return memo[i]
-
-            down_one = cost[i-1] + min_cost(i-1)
-            down_two = cost[i-2] + min_cost(i-2)
-            memo[i] = min(down_one, down_two)
-            return memo[i]
-
-        memo = {}
-        return min_cost(len(cost))
-
-    # top-down (cache)
-    def minCostClimbingStairs_cache(self, cost):
-        """
-        :type cost: List[int]
-        :rtype: int
-        """
-        from functools import lru_cache
-        @lru_cache(maxsize=None)
-        def min_cost(i):
-            if i <= 1:
-                return 0
-
-            down_one = cost[i-1] + min_cost(i-1)
-            down_two = cost[i-2] + min_cost(i-2)
-            return min(down_one, down_two)
-
     def minCostClimbingStairs(self, cost):
         """
         :type cost: List[int]
         :rtype: int
         """
-        down_one = down_two = 0
-        for i in range(2, len(cost)+1):
-            temp = down_one
-            down_one = min(down_one + cost[i-1], down_two + cost[i-2])
-            down_two = temp
+        def min_cost(n):
+            if n <= 1:
+                return 0
 
-        return down_one
+            if n not in cache:
+                one_step = min_cost(n-1) + cost[n-1]
+                two_step = min_cost(n-2) + cost[n-2]
+                cache[n] = min(one_step, two_step)
+            return cache[n]
 
-
-
-
-
-
+        cache = {}
+        return min_cost(len(cost))
             

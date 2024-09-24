@@ -22,36 +22,10 @@ Input: n = 6, edges = [[0,1],[0,2],[3,5],[5,4],[4,3]], source = 0, destination =
 Output: false
 Explanation: There is no path from vertex 0 to vertex 5.
 """
+import collections
+
+
 class Solution(object):
-    def validPath2(self, n, edges, source, destination):
-        """
-        :type n: int
-        :type edges: List[List[int]]
-        :type source: int
-        :type destination: int
-        :rtype: bool
-        """
-        graph = collections.defaultdict(list)
-        for a, b in edges:
-            graph[a].append(b)
-            graph[b].append(a)
-
-        queue = collections.deque()
-        queue.append(source)
-        explored = {source}
-        
-        while queue:
-            node = queue.popleft()
-            if node == destination:
-                return True
-
-            for next_node in graph[node]:
-                if next_node not in explored:
-                    explored.add(next_node)
-                    queue.append(next_node)
-
-        return False
-
     def validPath(self, n, edges, source, destination):
         """
         :type n: int
@@ -60,23 +34,20 @@ class Solution(object):
         :type destination: int
         :rtype: bool
         """
+        # Store all edges according to nodes in 'graph'.
         graph = collections.defaultdict(list)
-        for a, b in edges:
-            graph[a].append(b)
-            graph[b].append(a)
+        for n1, n2 in edges:
+            graph[n1].append(n2)
+            graph[n2].append(n1)
 
         stack = [source]
-        explored = {source}
-
+        seen = {source}
         while stack:
             node = stack.pop()
-
             if node == destination:
                 return True
-
             for next_node in graph[node]:
-                if next_node not in explored:
-                    explored.add(next_node)
+                if next_node not in seen:
                     stack.append(next_node)
-
+                    seen.add(next_node)
         return False

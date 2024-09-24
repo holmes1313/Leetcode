@@ -40,9 +40,8 @@ Input: nums = [3,4,5,6,7,8]
 Output: 480
 Explanation: The sum of all XOR totals for every subset is 480.
 """
-
 class Solution(object):
-    def subsetXORSum2(self, nums):
+    def subsetXORSum(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -72,29 +71,29 @@ class Solution(object):
             for num in subset:
                 subset_XOR_total ^= num
             result += subset_XOR_total
-
         return result
-
     def subsetXORSum(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
+        def backtrack(nums, start, curr, subsets):
+            subsets.append(curr[:])
 
-        def generate_subsets(nums, index, current_XOR):
-            if index == len(nums):
-                # Return current_XOR when all elements in nums are already considered
-                return current_XOR
+            for i in range(start, len(nums)):
+                curr.append(nums[i])
+                backtrack(nums, i+1, curr, subsets)
+                curr.pop()
 
-            # calculate sum of subset xor with current element
-            with_element = generate_subsets(nums, index+1, current_XOR ^ nums[index])
+        subsets = []
+        backtrack(nums, 0, [], subsets)
 
-            # calculate sum of xor without current element
-            without_element = generate_subsets(nums, index+1, current_XOR)
+        result = 0
+        for subset in subsets:
+            subset_xor_total = 0
+            for num in subset:
+                subset_xor_total ^= num
+            result += subset_xor_total
 
-            # return sum of xor totals
-            return with_element + without_element
-
-        return generate_subsets(nums, 0, 0)
-
+        return result
         

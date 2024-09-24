@@ -20,51 +20,36 @@ Example:
 
 There are two left leaves in the binary tree, with values 9 and 15 respectively. Return 24.
 """
-from typing import Optional
-
 
 # Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def isLeaf(self, node):
+        return node is not None and node.left is None and node.right is None
 
+    def sumOfLeftLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        stack = []
+        stack.append(root)
+        total = 0
 
-class Solution:
-    def sumOfLeftLeaves2(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
-
-        ans = 0
-        stack = [root, ]
         while stack:
             node = stack.pop()
 
-            if node.left and (node.left.left is None) and (node.left.right is None):  # is left leaf
-                ans += node.left.val
+            if node is not None:
 
-            if node.right:
+                if self.isLeaf(node.left):
+                    total += node.left.val
+
+                stack.append(node.left)
                 stack.append(node.right)
 
-            if node.left:
-                stack.append(node.left)
-
-        return ans
-
-    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
-
-        def helper(node, left_leaves):
-
-            if node.left and (node.left.left is None) and (node.left.right is None):
-                left_leaves.append(node.left.val)
-
-            if node.left:
-                helper(node.left, left_leaves)
-
-            if node.right:
-                helper(node.right, left_leaves)
-
-        left_leaves = []
-        helper(root, left_leaves)
-        return sum(left_leaves)
+        return total
+        

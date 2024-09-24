@@ -39,7 +39,24 @@ class Solution(object):
         return result
 
 
-intervals = [[0,30],[5,10],[15,20]]
-intervals.sort()
-intervals
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        intervals.sort(key=lambda x: x[0])
+        curr_start, curr_end = intervals[0]
+        result = []
+        for i in range(len(intervals)):
+            start, end = intervals[i]
+            if curr_end >= start:
+                curr_end = max(curr_end, end)
+            else:
+                result.append([curr_start, curr_end])
+                curr_start = start
+                curr_end = end
+        result.append([curr_start, curr_end])
+       
+        return result
 
