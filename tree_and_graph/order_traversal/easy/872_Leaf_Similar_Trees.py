@@ -64,5 +64,26 @@ class Solution:
         return leaf_values == leaf_values2
 
 
-        
+class Solution(object):
+    def leafSimilar(self, root1, root2):
+        """
+        :type root1: TreeNode
+        :type root2: TreeNode
+        :rtype: bool
+        """
+        def inorder(node, seq):
+            if not node:
+                return
+            inorder(node.left, seq)
+            if node.left is None and node.right is None:
+                seq.append(node.val)
+            inorder(node.right, seq)
+
+        seq1 = []
+        seq2 = []
+        inorder(root1, seq1)
+        inorder(root2, seq2)
+        return seq1 == seq2
+
+            
 

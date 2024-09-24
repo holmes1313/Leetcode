@@ -19,7 +19,7 @@ Explanation: The value 101 appears 2 times and the length of the array is 4.
 Thus, 101 is not a majority element because 2 > 4/2 is false.
 """
 class Solution(object):
-    def isMajorityElement(self, nums, target):
+    def isMajorityElement2(self, nums, target):
         """
         :type nums: List[int]
         :type target: int
@@ -57,5 +57,22 @@ class Solution(object):
 
         return False if left_idx  == -1 else (right_idx - left_idx + 1) > len(nums) / 2
 
+    def isMajorityElement(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        if target not in nums:
+            return False
 
-        
+        mid_idx = len(nums) // 2
+
+        first_idx = nums.index(target)
+        if first_idx > mid_idx:
+            return False
+        last_idx = len(nums) - nums[::-1].index(target) - 1
+        if last_idx < mid_idx:
+            return False
+        count = last_idx - first_idx + 1
+        return count > len(nums) / 2
