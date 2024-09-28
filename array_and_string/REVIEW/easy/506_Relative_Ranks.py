@@ -42,3 +42,29 @@ class Solution(object):
             result.append(order_map[val])
 
         return result
+
+    def findRelativeRanks(self, score):
+        """
+        :type score: List[int]
+        :rtype: List[str]
+        """
+        # max heap
+        heap = []
+        for i, val in enumerate(score):
+            heapq.heappush(heap, (-val, i))
+
+        ans = [0] * len(score)
+        rank = 1
+        while heap:
+            origin_index = heapq.heappop(heap)[1]
+            if rank == 1:
+                ans[origin_index] = "Gold Medal"
+            elif rank == 2:
+                ans[origin_index] = "Silver Medal"
+            elif rank == 3:
+                ans[origin_index] = "Bronze Medal"
+            else:
+                ans[origin_index] = str(rank)
+            rank += 1
+
+        return ans
