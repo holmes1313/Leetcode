@@ -44,6 +44,8 @@ The number of soldiers in each row is:
 - Row 3: 1 
 The rows ordered from weakest to strongest are [0,2,3,1].
 """
+import heapq
+
 
 class Solution(object):
     def kWeakestRows(self, mat, k):
@@ -52,57 +54,29 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        def bisect_right(array):
-            lo, hi = 0, len(array)
-
-            while lo < hi:
-                mid = (lo + hi) //2
-                if array[mid] == 1:
-                    lo = mid + 1
-                else:
-                    hi = mid
-            return lo
-
-        def bisect_left(array):
-            lo, hi = 0, len(array) - 1
-
-            while lo <= hi:
-                mid = (lo + hi) //2
-                if array[mid] == 0:
-                    hi = mid - 1
-                else:
-                    lo = mid + 1
-            return lo
-
-        def binary_first(array):
-            left = 0
-            right = len(array) - 1
-            while left <= right:
-                mid = (left + right) // 2
-                if array[mid] == 0:
-                    right = mid - 1
-                else:
-                    left = mid + 1
-            return left
-                    
-
-        soldiers_mapping = collections.defaultdict(list)
-        soldiers_set = set()
-        for i, row in enumerate(mat):
-            last_soldier = binary_first(row)
-            soldiers_mapping[last_soldier+1].append(i)
-            soldiers_set.add(last_soldier+1)
-
-        ans = []
-        for val in sorted(soldiers_set):
-            ans += soldiers_mapping[val]
-
-        return ans[:k]
-
-
-
-
+        soldier_counts = [(sum(row), i) for i, row in enumerate(mat)]
+        soldier_counts.sort(key=lambda x: (x[0], x[1]))
         
+        ans = [i for _, i in soldier_counts[:k]]
+        return ans
+
+    def kWeakestRows(self, mat, k):
+        """
+        :type mat: List[List[int]]
+        :type k: int
+        :rtype: List[int]
+        """
+        min_heap = []
+        for i, row in enumerate(mat):
+            heapq.heappush(min_heap, (sum(row), i))
+
+        k_weakest = []
+        for _ in range(k):
+            if min_heap:
+                k_weakest.append(heapq.heappop(min_heap)[1])
+
+        return k_weakest
+
 
 
 

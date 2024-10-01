@@ -41,6 +41,9 @@ Explanation:
 
 All substrings of s satisfy the k-constraint.
 """
+import collections
+
+
 class Solution(object):
     def countKConstraintSubstrings2(self, s, k):
         """
@@ -123,4 +126,30 @@ class Solution(object):
                 else:
                     ans += 1                 
         return ans
+
+    def countKConstraintSubstrings(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        ans = 0
+        n = len(s)
+        for left in range(n):
+            zeros = 0
+            ones = 0
+            right = left
+            while right < n:
+                if s[right] == "1":
+                    ones += 1
+                else:
+                    zeros += 1
                 
+                if zeros <= k or ones <= k:
+                    ans += 1
+                else:
+                    break
+
+                right += 1
+
+        return ans

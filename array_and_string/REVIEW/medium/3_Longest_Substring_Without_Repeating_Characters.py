@@ -25,35 +25,56 @@ Output: 3
 Explanation: The answer is "wke", with the length of 3. 
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 """
-class Solution:
-    def lengthOfLongestSubstring1(self, s: str) -> int:
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        max_len = 0
+        for left in range(len(s)):
+            cha_set = set()
+            curr_len = 0
+            right = left
+            while right < len(s):
+                if s[right] not in cha_set:
+                    cha_set.add(s[right])
+                    curr_len += 1
+                    right += 1
+                else:
+                    break
+            max_len = max(max_len, curr_len)
+
+        return max_len
+
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
         left = right = 0
-        ans = 0
         index_map = {}
+        max_len = 0
         while right < len(s):
-            if s[right] in index_map:
-                # start = index_hashtable[char] + 1 can't deal with 'abbac'
-                left = max(index_map[s[right]] + 1, left)
-            index_map[s[right]] = right
-            ans = max(ans, right - left + 1)
+            cha = s[right]
+            if cha not in index_map:
+                index_map[cha] = right
+            else:
+                left = max(index_map[cha] + 1, left)
+                index_map[cha] = right
+            max_len = max(max_len, right - left + 1)
+
             right += 1
-        return ans
 
-    def lengthOfLongestSubstring2(self, s: str) -> int:
-        ans = 0
-        start = 0
-        max_index = {}
-        for i, char in enumerate(s):
-            if char in max_index:
-                # start = index_hashtable[char] + 1 can't deal with 'abbac'
-                start = max(start, max_index[char] + 1)
+        return max_len
+                
 
-            ans = max(ans, i - start + 1)
-            max_index[char] = i
-
-        return ans
-
-    def lengthOfLongestSubstring(self, s: str) -> int:
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
         left = right = 0
         ans = 0
         count_map = collections.defaultdict(int)
@@ -66,3 +87,6 @@ class Solution:
             right += 1
 
         return ans
+                
+
+
