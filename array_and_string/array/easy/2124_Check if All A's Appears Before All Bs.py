@@ -63,4 +63,4 @@ class Solution(object):
             if s[i] == "b":
                 first_b = min(i, first_b)
 
-        return first_b == len(s) or last_a == -1 or last_a < first_b
+        return last_a < first_b
