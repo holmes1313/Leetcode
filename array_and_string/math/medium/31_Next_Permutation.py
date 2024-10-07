@@ -25,38 +25,34 @@ outputs are in the right-hand column.
 """
 
 # https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
-
 class Solution(object):
     def nextPermutation(self, nums):
         """
         :type nums: List[int]
         :rtype: None Do not return anything, modify nums in-place instead.
         """
-        # 1. find the longest non-increasing suffix
-        i = len(nums) - 1
-        while i > 0 and nums[i-1] >= nums[i]:
-            i -= 1
-        # 2. check if nums are in descending order
-        if i == 0:  
+
+        n = len(nums)
+        pivot = -1
+
+        # find the pivot
+        for i in range(n-2, -1, -1):
+            if nums[i] < nums[i+1]:
+                pivot = i
+                break
+
+        # if not pivot, reserve the array
+        if pivot == -1:
             nums.reverse()
             return
-        
-        # 3. identify pivot
-        pivot = i - 1
-        
-        # 4. find rightmost successor to pivot in the suffix
-        j = len(nums) - 1
-        while nums[j] <= nums[pivot]:
-            j -= 1
-            
-        # 5. swap with pivot
-        nums[pivot], nums[j] = nums[j], nums[pivot]
-        
-        # 6. reserse the suffix
-        l, r = i, len(nums) - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l += 1
-            r -= 1
+
+        # find the successor
+        for i in range(n-1, pivot, -1):
+            if nums[i] > nums[pivot]:
+                nums[i], nums[pivot] = nums[pivot], nums[i]
+                break
+
+        # reverse the suffix
+        nums[pivot+1: ] = reversed(nums[pivot+1: ])
         
         
