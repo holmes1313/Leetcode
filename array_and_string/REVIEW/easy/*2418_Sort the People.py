@@ -41,13 +41,9 @@ class Solution(object):
         """
         :type names: List[str]
         :type heights: List[int]
-        :rtype: List[str]
+        :rtype:
         """
-        # Create a dictionary to store height-name pairs
-        height_to_name_map = dict(zip(heights, names))
-
-        sorted_heights = sorted(heights, reverse=True)
-
-        sorted_names = [height_to_name_map[height] for height in sorted_heights]
-        
-        return sorted_names
+        combined = list(zip(names, heights))
+        combined.sort(key=lambda x: x[1], reverse=True)
+        ans = [name for name, _ in combined]
+        return ans

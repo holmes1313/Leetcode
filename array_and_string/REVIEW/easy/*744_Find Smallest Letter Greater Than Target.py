@@ -27,28 +27,15 @@ class Solution(object):
         """
         :type letters: List[str]
         :type target: str
-        :rtype: str
+        :rtype
         """
-        def bisect_right(array, target):
-            lo = 0
-            hi = len(array)
-            while lo < hi:
-                mid = (lo + hi) // 2
-                if array[mid] > target:
-                    hi = mid
-                else:
-                    lo = mid + 1
-            return lo
-
-        letters_num = [ord(l) for l in letters]
-        target_num = ord(target)
-
-        index = bisect_right(letters_num, target_num)
-        if index == len(letters):
-            return letters[0]
-        else:
-            return letters[index]
-
-        
-
+        left, right = 0, len(letters)-1
+        while left <= right:
+            mid = (left + right) // 2
+            if letters[mid] <= target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        # If left is out of bounds (i.e., all characters are less than or equal to target), we return the first character in the letters array by using left % len(letters).
+        return letters[left % len(letters)]
         

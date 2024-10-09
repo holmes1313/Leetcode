@@ -25,7 +25,7 @@ Explanation: The empty subsequence is the only subsequence that has a sum less t
 
 
 """
-from bisect import bisect_right
+
 class Solution(object):
     def answerQueries(self, nums, queries):
         """
@@ -34,68 +34,22 @@ class Solution(object):
         :rtype: List[int]
         """
         nums.sort()
-        for i in range(1, len(nums)):
-            nums[i] += nums[i-1]
-        ans = []
+        
+        prefix_sum = [0] * len(nums)
+        prefix_sum[0] = nums[0]
 
-        def bisect_right(array, num):
-            left = 0
-            right = len(array) - 1
+        for i in range(1, len(nums)):
+            prefix_sum[i] = prefix_sum[i-1] + nums[i]
+
+        ans = []
+        for query in queries:
+            left, right = 0, len(prefix_sum) - 1
             while left <= right:
                 mid = (left + right) // 2
-                if array[mid] == num:
-                    left = mid + 1
-                elif array[mid] < num:
+                if prefix_sum[mid] <= query:
                     left = mid + 1
                 else:
                     right = mid - 1
-            return left
-
-        def bisect_right1(array, num):
-            left = 0
-            right = len(array)
-            while left < right:
-                mid = (left + right) // 2
-                if array[mid] <= num:
-                    left = mid + 1
-                else:
-                    right = mid - 1
-            return left
-
-
-        for query in queries:
-            idx1 = bisect_right(nums, query)
-            idx = bisect_right1(nums, query)
-            ans.append(idx)
+            ans.append(left)
 
         return ans
-
-
-    def answerQueries1(self, nums, queries):
-        """
-        :type nums: List[int]
-        :type queries: List[int]
-        :rtype: List[int]
-        """
-        nums.sort()
-        for i in range(1, len(nums)):
-            nums[i] += nums[i-1]
-
-        ans = []
-
-        for query in queries:
-            found = 0
-            for idx, num in enumerate(nums):
-                if query - num < 0:
-                    ans.append(idx)
-                    found = 1
-                    break
-
-            if not found:
-                ans.append(len(nums))
-                
-
-        return ans
-                
-
-        

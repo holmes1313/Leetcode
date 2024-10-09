@@ -25,23 +25,8 @@ Input: nums = [1,2,5,2,3], target = 5
 Output: [4]
 Explanation: After sorting, nums is [1,2,2,3,5].
 """
+
 class Solution(object):
-    def targetIndices1(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        nums.sort()
-        ans = []
-        for i, num in enumerate(nums):
-            if num == target:
-                ans.append(i)
-            elif num > target:
-                break
-
-        return ans
-
     def targetIndices(self, nums, target):
         """
         :type nums: List[int]
@@ -49,35 +34,32 @@ class Solution(object):
         :rtype: List[int]
         """
         nums.sort()
-        def find_first_index(nums, target):
-            left = 0
-            right = len(nums) - 1
-            while left <= right:
-                mid = (left + right) // 2
-                if nums[mid] == target:
-                    right = mid - 1
-                elif nums[mid] < target:
-                    left = mid + 1
-                else:
-                    right = mid - 1
-            return left
 
-        def find_last_index(nums, target):
-            left = 0
-            right = len(nums) - 1
-            while left <= right:
-                mid = (left + right) // 2
-                if nums[mid] == target:
-                    left = mid + 1
-                elif nums[mid] < target:
-                    left = mid + 1
-                else:
-                    right = mid - 1
-            return right
+        result = []
+        left = 0
+        right = len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
 
-        first_index = find_first_index(nums, target)
-        last_index = find_last_index(nums, target)
+            if nums[mid] < target:
+                left = mid + 1
 
-        return [] if first_index == -1 else [i for i in range(first_index, last_index+1)]
+            elif nums[mid] > target:
+                right = mid - 1
+
+            else:
+                first_index = mid
+                while first_index >= 0 and nums[first_index] == target:
+                    first_index -= 1
+                first_index += 1
+
+                last_index = mid
+                while last_index < len(nums) and nums[last_index] == target:
+                    last_index += 1
+                
+                result.extend(range(first_index, last_index))
+                break
+
+        return result
 
         
