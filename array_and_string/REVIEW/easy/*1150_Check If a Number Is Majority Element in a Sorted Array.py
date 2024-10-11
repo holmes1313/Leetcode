@@ -76,3 +76,25 @@ class Solution(object):
             return False
         count = last_idx - first_idx + 1
         return count > len(nums) / 2
+
+
+class Solution(object):
+    def isMajorityElement(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        n = len(nums)
+        left, right = 0, n - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        
+        first_idx = left
+        last_idx = left + n // 2
+
+        return last_idx < n and nums[last_idx] == target

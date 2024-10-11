@@ -22,6 +22,8 @@ Output: [5,-1,4,4,-6,-6,1,1,1]
 
 
 """
+import collections
+
 
 class Solution(object):
     def frequencySort(self, nums):
@@ -30,17 +32,6 @@ class Solution(object):
         :rtype: List[int]
         """
         counts = collections.Counter(nums)
-        # convert to list of tuple
-        counts_list = [(key, value) for key, value in counts.items()]
 
-        # sort them in decreasing order.
-        counts_list.sort(key=lambda x: x[0], reverse=True)
-        # sort based on the frequency of the values
-        counts_list.sort(key=lambda x: x[1])
-
-        result = []
-        for val, freq in counts_list:
-            for i in range(freq):
-                result.append(val)
-
-        return result
+        nums.sort(key=lambda x: (counts[x], -x))
+        return nums        
