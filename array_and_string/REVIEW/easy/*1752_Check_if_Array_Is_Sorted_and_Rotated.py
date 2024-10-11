@@ -32,10 +32,12 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        ordered = sorted(nums)
-        for i in range(len(nums)):
-            orig = nums[i:] + nums[:i]
-            if orig == ordered:
-                return True
+        drop_count = 0
+        n = len(nums)
 
-        return False
+        for i in range(n):
+            if nums[i] > nums[(i+1) % n]:  # Compare current with the next (circular)
+                drop_count += 1
+                if drop_count > 1:
+                    return False
+        return True

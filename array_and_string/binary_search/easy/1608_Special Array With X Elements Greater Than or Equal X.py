@@ -29,13 +29,36 @@ class Solution(object):
         :rtype: int
         """
         nums.sort(reverse=True)
-        for i in range(len(nums)+1):
+        for x in range(len(nums)+1):
             count = 0
             for num in nums:
-                if num >= i:
+                if num >= x:
                     count += 1
+                    if count > x:
+                        break
                 else:
                     break
-            if count == i:
-                return i
+            if count == x:
+                return x
+        return -1
+
+    def specialArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        n = len(nums)
+        for x in range(n+1):
+            left, right = 0, n-1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] < x:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+
+            if n - left == x:
+                return x
+
         return -1
