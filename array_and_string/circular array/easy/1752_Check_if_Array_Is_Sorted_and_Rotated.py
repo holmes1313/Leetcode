@@ -41,3 +41,20 @@ class Solution(object):
                 if drop_count > 1:
                     return False
         return True
+
+
+class Solution(object):
+    def check(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        concat = nums + nums
+        falls = 0
+        for i in range(len(concat)-1):
+            if concat[i] > concat[i+1]:
+                falls += 1
+                if falls > 2:
+                    return False
+
+        return True

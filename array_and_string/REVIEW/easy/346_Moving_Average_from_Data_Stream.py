@@ -15,6 +15,7 @@ m.next(1) = 1
 m.next(10) = (1 + 10) / 2
 m.next(3) = (1 + 10 + 3) / 3
 m.next(5) = (10 + 3 + 5) / 3"""
+import collections
 
 
 class MovingAverage(object):
@@ -24,21 +25,23 @@ class MovingAverage(object):
         :type size: int
         """
         self.size = size
-        self.queue = collections.deque()
-        self.window_sum = 0        
+        self.window = collections.deque()
+        self.curr_sum = 0.0
+        
 
     def next(self, val):
         """
         :type val: int
         :rtype: float
         """
-        self.queue.append(val)
-        if len(self.queue) > self.size:
-            tail = self.queue.popleft()
-        else:
-            tail = 0
-        self.window_sum = self.window_sum + val - tail
-        return self.window_sum / float(len(self.queue))
+        self.window.append(val)
+        self.curr_sum += val
+
+        if len(self.window) > self.size:
+            self.curr_sum -= self.window.popleft()
+
+        return self.curr_sum / len(self.window)
+        
 
 
 # Your MovingAverage object will be instantiated and called as such:

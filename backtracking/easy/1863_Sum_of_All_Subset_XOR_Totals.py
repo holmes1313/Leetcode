@@ -40,60 +40,29 @@ Input: nums = [3,4,5,6,7,8]
 Output: 480
 Explanation: The sum of all XOR totals for every subset is 480.
 """
+
 class Solution(object):
     def subsetXORSum(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        def generate_subsets(nums, index, subset, subsets):
-            # base case: index reached end of nums
-            # add the current subset to subsets
-            if index == len(nums):
-                subsets.append(subset[:])
-                return
+        def backtrack(start, path, result, nums):
+            result.append(path[:])
 
-            # generate subsets with nums[index]
-            subset.append(nums[index])
-            generate_subsets(nums, index+1, subset, subsets)
-            subset.pop()
+            for i in range(start, len(nums)):
+                path.append(nums[i])
+                backtrack(i+1, path, result, nums)
+                path.pop()
 
-            # generate subsets without nums[index]
-            generate_subsets(nums, index+1, subset, subsets)
-
-        # generate all of the subsets
-        subsets = []
-        generate_subsets(nums, 0, [], subsets)
-
-        result = 0
-        for subset in subsets:
+        result = []
+        backtrack(0, [], result, nums)
+        
+        ans = 0
+        for subset in result:
             subset_XOR_total = 0
             for num in subset:
                 subset_XOR_total ^= num
-            result += subset_XOR_total
-        return result
-    def subsetXORSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        def backtrack(nums, start, curr, subsets):
-            subsets.append(curr[:])
+            ans += subset_XOR_total
 
-            for i in range(start, len(nums)):
-                curr.append(nums[i])
-                backtrack(nums, i+1, curr, subsets)
-                curr.pop()
-
-        subsets = []
-        backtrack(nums, 0, [], subsets)
-
-        result = 0
-        for subset in subsets:
-            subset_xor_total = 0
-            for num in subset:
-                subset_xor_total ^= num
-            result += subset_xor_total
-
-        return result
-        
+        return ans
