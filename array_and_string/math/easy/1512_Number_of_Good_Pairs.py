@@ -20,6 +20,8 @@ Example 3:
 Input: nums = [1,2,3]
 Output: 0
 """
+import collections
+
 
 class Solution(object):
     def numIdenticalPairs(self, nums):
@@ -27,15 +29,12 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        # In general, whenever we encounter a number, it can form k good pairs with previously traversed numbers, 
-        # where k is the number of times we have seen the number previously.
-        count = {}
-        ans = 0
-        for num in nums:
-            if num not in count:
-                count[num] = 1
-            else:
-                ans += count[num]
-                count[num] += 1
+        counts = collections.Counter(nums)
 
-        return ans
+        result = 0
+        for count in counts.values():
+            if count > 1:
+                result += count* (count-1) / 2
+
+        return result
+        

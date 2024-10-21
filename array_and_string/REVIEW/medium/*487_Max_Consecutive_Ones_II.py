@@ -20,24 +20,25 @@ Explanation:
 - If we flip the second zero, nums becomes [1,0,1,1,1,1] and we have 4 consecutive ones.
 The max number of consecutive ones is 4.
 """
-from typing import List
+class Solution(object):
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left = right = 0
+        zero_count = 0
+        max_len = 0
 
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                zero_count += 1
 
-class Solution:
-    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
-        start = 0
-        output = 0
-        first_zero = True
-        zero_idx = 0
-        for idx, num in enumerate(nums):
+            while zero_count > 1:
+                if nums[left] == 0:
+                    zero_count -= 1
+                left += 1
 
-            if num == 0 and first_zero:
-                first_zero = False
-                zero_idx = idx
-            elif num == 0 and not first_zero:
-                start = zero_idx + 1
-                zero_idx = idx
+            max_len = max(max_len, right - left + 1)
 
-            output = max(output, idx - start + 1)
-
-        return output
+        return max_len

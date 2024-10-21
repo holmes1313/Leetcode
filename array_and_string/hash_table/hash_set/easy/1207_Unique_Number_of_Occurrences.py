@@ -21,27 +21,10 @@ import collections
 
 
 class Solution(object):
-    def uniqueOccurrences2(self, arr):
-        """
-        :type arr: List[int]
-        :rtype: bool
-        """
-        count = collections.Counter(arr)
-        seen = {}
-        for c in count.values():
-            if c in seen:
-                return False
-            seen[c] = 1
-        return True
-
     def uniqueOccurrences(self, arr):
         """
         :type arr: List[int]
         :rtype: bool
         """
-        count = collections.Counter(arr)
-
-        if len(set(count.keys())) != len(set(count.values())):
-            return False
-        
-        return True
+        counts = collections.Counter(arr)
+        return len(counts.values()) == len(set(counts.values()))

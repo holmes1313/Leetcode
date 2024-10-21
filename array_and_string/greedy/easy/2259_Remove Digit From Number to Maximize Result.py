@@ -18,24 +18,6 @@ Explanation: We can remove the first '1' to get "231" or remove the second '1' t
 Since 231 > 123, we return "231".
 """
 class Solution(object):
-    def removeDigit2(self, number, digit):
-        """
-        :type number: str
-        :type digit: str
-        :rtype: str
-        """
-        digit_index = []
-        for i, val in enumerate(number):
-            if val == digit:
-                digit_index.append(i)
-
-        nums = []
-        for idx in digit_index:
-            num = number[:idx] + number[idx+1:]
-            nums.append(num)
-
-        return str(max(nums))
-
     def removeDigit(self, number, digit):
         """
         :type number: str

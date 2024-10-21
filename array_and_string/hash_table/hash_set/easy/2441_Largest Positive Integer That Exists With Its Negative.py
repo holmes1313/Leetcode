@@ -36,3 +36,28 @@ class Solution(object):
             mapping.add(num)
 
         return ans if ans > 0 else -1
+    
+
+class Solution(object):
+    def findMaxK(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        left = 0
+        right = len(nums) - 1
+        
+        while left <= right and nums[right] > 0:
+            if -nums[left] == nums[right]:
+                return nums[right]
+
+            elif -nums[left] < nums[right]:
+                right -= 1
+            
+            else:
+                left += 1
+
+        return -1
+
+        

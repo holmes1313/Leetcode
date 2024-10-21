@@ -30,3 +30,17 @@ class Solution(object):
             nums[i] += nums[i-1]
         return nums
         
+
+class Solution(object):
+    def runningSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        ans = []
+        cumulative_sum = 0
+        for num in nums:
+            cumulative_sum += num
+            ans.append(cumulative_sum)
+
+        return ans

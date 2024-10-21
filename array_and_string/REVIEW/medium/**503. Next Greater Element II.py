@@ -23,6 +23,8 @@ Constraints:
 1 <= nums.length <= 104
 -109 <= nums[i] <= 109
 """
+# nums is not distinct
+
 class Solution(object):
     def nextGreaterElements(self, nums):
         """
@@ -40,4 +42,21 @@ class Solution(object):
             stack.append(i)
 
         return ans[:len(nums)]
+        
+
+class Solution(object):
+    def nextGreaterElements(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        concat = nums + nums
+        stack = []
+        n = len(concat)
+        next_greater_idx = {}
+        for i in range(n):
+            while stack and concat[stack[-1]] < concat[i]:
+                next_greater_idx[stack.pop()] = i
+            stack.append(i)
+        return [concat[next_greater_idx[i]] if i in next_greater_idx else -1 for i in range(len(nums))]
         

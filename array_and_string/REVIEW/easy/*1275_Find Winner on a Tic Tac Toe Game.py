@@ -20,38 +20,40 @@ Input: moves = [[0,0],[2,0],[1,1],[2,1],[2,2]]
 Output: "A"
 Explanation: A wins, they always play first.
 """
-class Solution:
-    def tictactoe(self, moves: List[List[int]]) -> str:
-        n = 3
-        board = [[0] * n for _ in range(n)]
+class Solution(object):
+    def tictactoe(self, moves):
+        """
+        :type moves: List[List[int]]
+        :rtype: str
+        """
+        board = [[' ' for _ in range(3)] for _ in range(3)]
 
-        player = 1
-        for row, col in moves:
-            board[row][col] = player
+        for i, move in enumerate(moves):
+            row, col = move
+            board[row][col] = 'X' if i % 2 == 0 else '0'
 
-            if sum(board[row]) == player * 3:
-                return "A" if player == 1 else "B"
+            if self.check_winner(board):
+                return "A" if i % 2 == 0 else "B"
 
-            col_sum = 0
-            for i in range(n):
-                col_sum += board[i][col]
-            if col_sum == player * 3:
-                return "A" if player == 1 else "B"
+        if len(moves) < 9:
+            return "Pending"
+        else:
+            return "Draw"
 
-            if row == col:
-                diag_sum = 0
-                for i in range(n):
-                    diag_sum += board[i][i]
-                if diag_sum == player * 3:
-                    return "A" if player == 1 else "B"
 
-            if row + col == n - 1:
-                ant_diag_sum = 0
-                for i in range(n):
-                    ant_diag_sum += board[i][n-1-i]
-                if ant_diag_sum == player * 3:
-                    return "A" if player == 1 else "B"
+    def check_winner(self, board):
+        for i in range(3):
+            if board[i][0] == board[i][1] == board[i][2] != ' ':
+                return True
 
-            player *= -1
+            if board[0][i] == board[1][i] == board[2][i] != ' ':
+                return True
 
-        return "Draw" if len(moves) == n*n else "Pending"   
+        if board[0][0] == board[1][1] == board[2][2] != ' ':
+            return True
+
+        if board[0][2] == board[1][1] == board[2][0] != ' ':
+            return True
+    
+        return False
+        

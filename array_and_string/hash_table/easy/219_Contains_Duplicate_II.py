@@ -25,33 +25,20 @@ Example 3:
 Input: nums = [1,2,3,1,2,3], k = 2
 Output: false
 """
-# only consider the latest index
 class Solution(object):
-    def containsNearbyDuplicate2(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: bool
-        """
-        mapping = {}
-        for i, v in enumerate(nums):
-            if v not in mapping:
-                mapping[v] = i
-            else:
-                if abs(mapping[v] - i) <= k:
-                    return True
-                mapping[v] = i
-        return False
-        
     def containsNearbyDuplicate(self, nums, k):
         """
         :type nums: List[int]
         :type k: int
         :rtype: bool
         """
-        dic = {}
+        idx_map = {}
+
         for i, val in enumerate(nums):
-            if val in dic and i - dic[val] <= k:
-                return True
-            dic[val] = i
+            if val in idx_map:
+                if abs(idx_map[val] - i) <= k:
+                    return True
+            idx_map[val] = i
+
         return False
+        
