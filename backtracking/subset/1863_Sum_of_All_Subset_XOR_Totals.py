@@ -40,29 +40,29 @@ Input: nums = [3,4,5,6,7,8]
 Output: 480
 Explanation: The sum of all XOR totals for every subset is 480.
 """
-
 class Solution(object):
     def subsetXORSum(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        def backtrack(start, path, result, nums):
+        def subsets(start, path):
             result.append(path[:])
 
             for i in range(start, len(nums)):
                 path.append(nums[i])
-                backtrack(i+1, path, result, nums)
+                subsets(i+1, path)
                 path.pop()
 
         result = []
-        backtrack(0, [], result, nums)
-        
-        ans = 0
-        for subset in result:
-            subset_XOR_total = 0
-            for num in subset:
-                subset_XOR_total ^= num
-            ans += subset_XOR_total
+        subsets(0, [])
 
-        return ans
+        output = 0
+        for subset in result:
+            subset_xor_total = 0
+            for num in subset:
+                subset_xor_total ^= num
+            output += subset_xor_total
+
+        return output
+        

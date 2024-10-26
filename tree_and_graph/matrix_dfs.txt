@@ -1,0 +1,13 @@
+# Matrix - DFS - in batches
+994. Rotting Oranges
+
+# Tree - DFS/BFS - carry extra info
+314. Binary Tree Vertical Order Traversal  
+col/row-wise order
+
+
+
+# Recursion
+1382. Balance a Binary Search Tree
+BST -> sorted array
+sorted array -> balanced BST

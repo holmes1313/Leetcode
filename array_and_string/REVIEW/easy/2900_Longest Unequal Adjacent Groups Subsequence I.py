@@ -28,12 +28,44 @@ class Solution(object):
         :type groups: List[int]
         :rtype: List[str]
         """
+        if not words:
+            return []
+        
+        found_one = False
+        found_zero = False
         ans = [words[0]]
-        prev = groups[0]
-        for i in range(len(groups)):
-            if groups[i] != prev:
+        if groups[0] == 0:
+            found_zero = True
+        else:
+            found_one = True
+
+        for i in range(1, len(words)):
+            if groups[i] == 0 and found_one:
                 ans.append(words[i])
-                prev = groups[i]
+                found_zero = True
+                found_one = False
+            elif groups[i] == 1 and found_zero:
+                ans.append(words[i])
+                found_one = True
+                found_zero = False
 
         return ans
 
+    def getLongestSubsequence(self, words, groups):
+        """
+        :type words: List[str]
+        :type groups: List[int]
+        :rtype: List[str]
+        """
+        ans = []
+
+        if words:
+            ans.append(words[0])
+
+        for i in range(1, len(words)):
+            if groups[i] != groups[i-1]:
+                ans.append(words[i])
+
+        return ans
+
+        
