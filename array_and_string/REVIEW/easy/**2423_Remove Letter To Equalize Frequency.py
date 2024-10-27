@@ -21,6 +21,8 @@ Output: false
 Explanation: We must delete a character, so either the frequency of "a" is 1 and the frequency of "z" is 2, or vice versa. It is impossible to make all present letters have equal frequency.
 
 """
+import collections
+
 
 class Solution(object):
     def equalFrequency(self, word):
@@ -32,7 +34,7 @@ class Solution(object):
         for cha in word:
             counts[cha] -= 1
             if counts[cha] == 0:
-                counts.pop(cha)
+                del counts[cha]
 
             if len(set(counts.values())) == 1:
                 return True

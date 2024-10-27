@@ -55,3 +55,30 @@ class Solution(object):
         
         return result
 
+    def decrypt(self, code, k):
+        """
+        :type code: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        n = len(code)
+        output = [0] * n
+
+        if k == 0:
+            return output
+
+        concat = code + code
+        for i in range(n):
+            sum_val = 0
+            if k > 0:
+                for j in range(1, 1+k):
+                    sum_val += concat[i+j]
+            else:
+                for j in range(k, 0):
+                    sum_val += concat[i+j]
+
+            output[i] = sum_val
+
+        return output
+
+            

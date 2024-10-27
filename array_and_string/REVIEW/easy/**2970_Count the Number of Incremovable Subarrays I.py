@@ -24,10 +24,11 @@ class Solution(object):
         :rtype: int
         """
         count = 0
-        for i in range(len(nums)):
-            for j in range(i, len(nums)):
-                sub = nums[:i] + nums[j+1:]
-                if sub == sorted(sub) and len(sub) == len(set(sub)):
+        n = len(nums)
+        for start in range(n):
+            for end in range(start+1, n+1):
+                rest = nums[:start] + nums[end:]
+                if rest == sorted(rest) and len(rest) == len(set(rest)):
                     count += 1
 
-        return count         
+        return count

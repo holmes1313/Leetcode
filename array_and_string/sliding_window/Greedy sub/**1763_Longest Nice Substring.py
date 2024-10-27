@@ -23,27 +23,26 @@ Output: ""
 Explanation: There are no nice substrings.
 
 """
-
 class Solution(object):
     def longestNiceSubstring(self, s):
         """
         :type s: str
         :rtype: str
         """
-        def is_nice(sub):
-            seen_lower = set()
-            seen_upper = set()
-
-            for cha in sub:
-                if cha.islower():
-                    seen_lower.add(cha)
-                elif cha.isupper():
-                    seen_upper.add(cha.lower())
-
-            return seen_upper == seen_lower
-
         n = len(s)
         longest = ""
+
+        def is_nice(sub):
+            sub_set = set(sub)
+            for cha in sub_set:
+                if cha.islower() and cha.upper() not in sub_set:
+                    return False
+                if cha.isupper() and cha.lower() not in sub_set:
+                    return False
+            return True
+
+        # Greedy sliding window
+        # check ALL substrings to see if it's nice
         for start in range(n):
             for end in range(start+1, n+1):
                 sub = s[start:end]
@@ -52,3 +51,4 @@ class Solution(object):
                         longest = sub
 
         return longest
+

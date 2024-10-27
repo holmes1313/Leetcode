@@ -26,6 +26,7 @@ Explanation: [1,2,3] is the original sorted array.
 You can rotate the array by x = 0 positions (i.e. no rotation) to make nums.
 
 """
+# Traverse the array and count how many times the current element is greater than the next element
 class Solution(object):
     def check(self, nums):
         """

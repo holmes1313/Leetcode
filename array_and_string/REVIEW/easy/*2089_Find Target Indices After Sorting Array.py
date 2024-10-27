@@ -25,7 +25,6 @@ Input: nums = [1,2,5,2,3], target = 5
 Output: [4]
 Explanation: After sorting, nums is [1,2,2,3,5].
 """
-
 class Solution(object):
     def targetIndices(self, nums, target):
         """
@@ -62,4 +61,35 @@ class Solution(object):
 
         return result
 
-        
+
+    def targetIndices(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        nums.sort()
+
+        def find_first(nums, target):
+            left, right = 0, len(nums) - 1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return left
+
+        def find_last(nums, target):
+            left, right = 0, len(nums) - 1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] <= target:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return left
+
+        first_index = find_first(nums, target)
+        last_index = find_last(nums, target)
+        return list(range(first_index, last_index))

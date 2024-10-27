@@ -30,24 +30,34 @@ Example 2:
 Input: students = [1,1,1,0,0,1], sandwiches = [1,0,0,0,1,1]
 Output: 3
 """
+import collections
+
 
 class Solution(object):
-    def countStudents1(self, students, sandwiches):
+    def countStudents(self, students, sandwiches):
         """
         :type students: List[int]
         :type sandwiches: List[int]
         :rtype: int
         """
-        counts = collections.Counter(students)
-        student_left = len(students)
-        for san in sandwiches:
-            if san in counts and counts[san] > 0:
-                counts[san] -= 1
-                student_left -= 1
-            else:
-                return student_left
+        queue = collections.deque(students)  # Convert the list of students into a queue
+        sandwich_index = 0       # Index for the current sandwich on top of the stack
+        n = len(sandwiches)      # Total number of sandwiches
+        count = 0                # Count of students who can't eat
 
-        return 0
+        while count < n and queue:
+            # If the student at the front of the queue prefers the top sandwich
+            if queue[0] == sandwiches[sandwich_index]:
+                # The student takes the sandwich and leaves the queue
+                queue.popleft()
+                sandwich_index += 1  # Move to the next sandwich
+                count = 0             # Reset count since a student took a sandwich
+            else:
+                # The student does not want the top sandwich
+                queue.append(queue.popleft())
+                count += 1           # Increment the count of students who didn't take a sandwich
+
+        return len(queue)  # Return the number of students left in the queue
 
 
     def countStudents(self, students, sandwiches):
@@ -56,12 +66,10 @@ class Solution(object):
         :type sandwiches: List[int]
         :rtype: int
         """
-        counts = collections.Counter(students)
-        for san in sandwiches:
-            if san in counts and counts[san] > 0:
-                counts[san] -= 1
+        counter = collections.Counter(students)
+        for sand in sandwiches:
+            if counter.get(sand, 0) > 0:
+                counter[sand] -= 1
             else:
-                return counts[0] + counts[1]
-
-        return 0
-
+                return sum(counter.values())
+        return sum(counter.values())

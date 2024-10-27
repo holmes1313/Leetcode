@@ -30,28 +30,6 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        left_sums = []
-        right_sums = []
-        n = len(nums)
-
-        for i in range(n):
-            left_sums.append(sum(nums[:i]))
-
-        for i in range(n-1, -1, -1):
-            right_sums.append(sum(nums[i+1:]))
-        right_sums = right_sums[::-1]
-
-        ans = []
-        for i in range(len(left_sums)):
-            ans.append(abs(left_sums[i] - right_sums[i]))
-
-        return ans
-
-    def leftRightDifference(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
         n = len(nums)
 
         left_sums= [0] * n
@@ -67,3 +45,23 @@ class Solution(object):
             ans[i] = abs(right_sums[i] - left_sums[i])
 
         return ans
+
+    def leftRightDifference(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        left_sum = 0
+        total = sum(nums)
+        n = len(nums)
+
+        left_sums = []
+        right_sums = []
+
+        for i in range(n):
+            left_sums.append(left_sum)
+            right_sum = total - nums[i] - left_sum
+            right_sums.append(right_sum)
+            left_sum += nums[i]
+
+        return [abs(left_sums[i] - right_sums[i]) for i in range(n)]

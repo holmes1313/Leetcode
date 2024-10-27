@@ -32,31 +32,6 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        stack = []
-        max_count = 0
-        count = 0
-        flag = 0
-        for digit in s:
-            if digit == "0":
-                if flag:
-                    stack = []
-                    flag = 0
-                count = 0
-                stack.append(digit)
-            elif digit == "1":
-                if stack:
-                    flag = 1
-                    stack.pop()
-                    count += 1
-                    max_count = max(max_count, count)
-
-        return max_count * 2
-
-    def findTheLongestBalancedSubstring2(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
         ans = 0
 
         for i in range(len(s) - 1):

@@ -22,27 +22,7 @@ The earlier year between them is 1960.
 
 """
 class Solution(object):
-    def maximumPopulation2(self, logs):
-        """
-        :type logs: List[List[int]]
-        :rtype: int
-        """
-        mapping = collections.defaultdict(int)
-        max_years = []
-        max_pop = 0
-        for log in logs:
-            for year in range(log[0], log[1]):
-                mapping[year] += 1
-                if mapping[year] > max_pop:
-                    max_pop = mapping[year]
-                    max_years = [year]
-                elif mapping[year] == max_pop:
-                    max_years.append(year)
-
-
-        return min(max_years)
-
-    def maximumPopulation3(self, logs):
+    def maximumPopulation(self, logs):
         dates = []
         for birth, death in logs:
             dates.append((birth, 1))
@@ -58,3 +38,31 @@ class Solution(object):
                 max_year = year
         
         return max_year
+
+    def maximumPopulation(self, logs):
+        birth_years = []
+        death_years = []
+        for birth_y, death_y in logs:
+            birth_years.append(birth_y)
+            death_years.append(death_y)
+
+        birth_years.sort()
+        death_years.sort()
+
+        p1 = p2 = 0
+        max_pop = 0
+        max_year = 0
+        curr_pop = 0
+        while p1 < len(birth_years):
+            if birth_years[p1] < death_years[p2]:
+                curr_pop += 1
+                if curr_pop > max_pop:
+                    max_pop = curr_pop
+                    max_year = birth_years[p1]
+                p1 += 1
+            else:
+                curr_pop -= 1
+                p2 += 1
+        
+        return max_year
+

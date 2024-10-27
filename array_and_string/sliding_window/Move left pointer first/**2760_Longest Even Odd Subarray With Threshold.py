@@ -32,46 +32,27 @@ Explanation: In this example, we can select the subarray that starts at l = 0 an
 It satisfies all the conditions.
 Hence, the answer is the length of the subarray, 3. We can show that 3 is the maximum possible achievable length.
 """
+
 class Solution(object):
-    def longestAlternatingSubarray(self, nums, threshold):
+    def longestAlternatingSubarray1(self, nums, threshold):
         """
         :type nums: List[int]
         :type threshold: int
         :rtype: int
         """
-        max_len = 0
         start = 0
+        longest_len = 0
         n = len(nums)
         while start < n:
-            if nums[start] % 2 == 1 or  nums[start] > threshold:
+            if nums[start] % 2 != 0 or nums[start] > threshold:
                 start += 1
                 continue
 
+            #Valid Window Expansion
             end = start
-            while end < n and nums[end] <= threshold and (end == start or nums[end] % 2 != nums[end-1] % 2):        
+            while end < n and (end == start or nums[end] % 2 != nums[end-1] % 2) and nums[end] <= threshold:
                 end += 1
-
-            max_len = max(max_len, end - start )
+            longest_len = max(longest_len, end - start + 1)
             start = end
 
-        return max_len
-
-    def longestAlternatingSubarray(self, nums, threshold):
-        """
-        :type nums: List[int]
-        :type threshold: int
-        :rtype: int
-        """
-        # if + while
-        n = len(nums)
-        max_len = 0
-        for l in range(n):
-            if nums[l] % 2 != 0 or nums[l] > threshold:
-                continue
-            r = l
-            while r < n and nums[r] <= threshold and (r == l or nums[r] % 2 != nums[r-1] % 2):
-                r += 1
-
-            max_len = max(max_len, r - l)
-
-        return max_len
+        return longest_len
