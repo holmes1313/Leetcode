@@ -22,10 +22,12 @@ Continue with the same procedure until reaching the tail of the Linked List.
 Head of the linked list after removing nodes is returned.
 """
 # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
 class Solution(object):
     def deleteNodes(self, head, m, n):
         """
@@ -34,22 +36,20 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        curr = head
-        m_count = 1
-        n_count = 0
+        dummy = ListNode(0)
+        dummy.next = head
+        curr = dummy
         while curr:
-            if m_count < m:
-                curr = curr.next
-                m_count += 1
-            else:
-                if n_count < n and curr.next:
-                    curr.next = curr.next.next
-                    n_count += 1
-                else:
+            for _ in range(m):
+                if curr:
                     curr = curr.next
-                    m_count = 1
-                    n_count = 0
+                else:
+                    return head
 
+            for _ in range(n):
+                if curr and curr.next:
+                    curr.next = curr.next.next
+                else:
+                    return head
 
         return head
-        

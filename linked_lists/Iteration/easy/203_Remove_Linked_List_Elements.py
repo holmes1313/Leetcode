@@ -16,6 +16,12 @@ Output: 1->2->3->4->5"""
 
 
 # Definition for singly-linked list.
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+# Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, val=0, next=None):
 #         self.val = val
@@ -38,4 +44,22 @@ class Solution(object):
                 curr = curr.next
 
         return dummy.next
-        
+
+
+    def removeElements(self, head, val):
+        """
+        :type head: ListNode
+        :type val: int
+        :rtype: ListNode
+        """
+        while head and head.val == val:
+            head = head.next
+
+        curr = head
+        while curr and curr.next:
+            if curr.next.val == val:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+
+        return head

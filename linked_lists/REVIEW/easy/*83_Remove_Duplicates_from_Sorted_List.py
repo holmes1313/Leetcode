@@ -28,15 +28,6 @@ class ListNode:
 
 
 class Solution:
-    def deleteDuplicates2(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        root = curr = ListNode(-101)
-        while head:
-            if head.val != curr.val:
-                curr.next = ListNode(head.val)
-                curr = curr.next
-            head = head.next
-        return root.next
-
     def deleteDuplicates1(self, head):
         """
         :type head: ListNode
