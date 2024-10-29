@@ -24,7 +24,7 @@ Output:
 """
 
 class Solution(object):
-    def permute(self, nums):
+    def permute1(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
@@ -50,7 +50,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        def backtrack(path, used):
+        def backtrack(path):
             if len(path) == len(nums):
                 result.append(path[:])
                 return
@@ -62,14 +62,14 @@ class Solution(object):
                 used[i] = True
                 path.append(nums[i])
 
-                backtrack(path, used)
+                backtrack(path)
 
                 used[i] = False
                 path.pop()
 
         result = []
         used = [False] * len(nums)
-        backtrack([], used)
+        backtrack([])
         return result
         
     def permute(self, nums):
@@ -78,7 +78,7 @@ class Solution(object):
         :rtype: List[List[int]]
         """
 
-        def backtrack(path, counter):
+        def backtrack(path):
             if len(path) == len(nums):
                 result.append(path[:])
                 return
@@ -87,11 +87,11 @@ class Solution(object):
                 if counter[num] > 0:
                     path.append(num)
                     counter[num] -= 1
-                    backtrack(path, counter)
+                    backtrack(path)
                     path.pop()
                     counter[num] += 1
 
         counter = collections.Counter(nums)
         result = []
-        backtrack([], counter)
+        backtrack([])
         return result
