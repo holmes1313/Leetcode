@@ -32,23 +32,32 @@ class Node(object):
         self.right = right
         self.next = next
 """
+
 class Solution(object):
     def connect(self, root):
         """
         :type root: Node
         :rtype: Node
         """
-        self.helper(root)
-        return root
-    
-    def helper(self, root):
         if not root:
-            return
-        if root.left and root.right:
-            root.left.next = root.right
-            if root.next:
-                root.right.next = root.next.left
-            self.helper(root.left)
-            self.helper(root.right)
-            
+            return None
+
+        queue = collections.deque([root])
+
+        while queue:
+            level_size = len(queue)
+
+            for i in range(level_size):
+                node = queue.popleft()
+
+                if i <  level_size-1:
+                    node.next = queue[0]
+
+                if node.left:
+                    queue.append(node.left)
+
+                if node.right:
+                    queue.append(node.right)
+
         return root
+        

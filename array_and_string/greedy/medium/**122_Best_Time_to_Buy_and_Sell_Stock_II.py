@@ -33,12 +33,10 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        """
-        return sum([max(prices[i+1]-prices[i], 0) for i in range(len(prices)-1)])
-        """
-        profit = 0
-        for i in range(len(prices) - 1):
-            profit += max(prices[i+1] - prices[i], 0)            
-        return profit
-    
-    
+        total_profit = 0
+
+        for i in range(1, len(prices)):
+            total_profit += max(prices[i]-prices[i-1], 0)
+
+        return total_profit
+        

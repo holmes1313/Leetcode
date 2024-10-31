@@ -45,7 +45,6 @@ dp[3] = False as dp[0] and abc not in wordDict
                and dp[2] and c not in wordDict
 dp[4] = True as dp[2] and cd in wordDict
 """
-
 class Solution(object):
     def wordBreak(self, s, wordDict):
         """
@@ -53,15 +52,17 @@ class Solution(object):
         :type wordDict: List[str]
         :rtype: bool
         """
-        # dp[i] is True is substring s[:i] can be segmented in to words found in wordDict
+        word_set = set(wordDict)
+        n = len(s)
+        dp = [False] * (n+1)      # dp[i] indicates whether the substring s[0:i] can be segmented into words from the dictionary.
+        dp[0] = True   # Base case: empty string can be segmented
         
-        dp = [False] * (len(s) + 1)
-        dp[0] = True
-        
-        for i in range(1, len(s)+1):
+        for i in range(1, n+1):
+            # For each position in the string, check possible previous positions to see if a valid word can form the substring.
             for j in range(i):
-                if dp[j] and s[j:i] in wordDict:
+                if dp[j] and s[j:i] in word_set:
+                    # If dp[j] is True and the substring from j to i is in the word dictionary, then set dp[i] to True.
                     dp[i] = True
-                    break
-        return dp[-1]
-    
+                    break.  # Early exit for this i
+
+        return dp[n]

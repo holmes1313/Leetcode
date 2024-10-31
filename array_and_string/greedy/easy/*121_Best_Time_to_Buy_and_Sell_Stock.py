@@ -26,32 +26,18 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0."""
 
 class Solution(object):
-    # We need to find out the maximum difference (which will be the maximum profit) between two numbers in the given array. 
-    # Also, the second number (selling price) must be larger than the first one (buying price).
-    def maxProfit2(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        max_profit = 0
-        for buy in range(len(prices) - 1):
-            for sell in range(buy+1, len(prices)):
-                max_profit = max(max_profit, prices[sell] - prices[buy])
-
-        return max_profit
-
     def maxProfit(self, prices):
         """
         :type prices: List[int]
         :rtype: int
         """
+        min_price = prices[0]
         max_profit = 0
-        min_price = float('inf')
-        for p in prices:
-            min_price = min(min_price, p)                # keep updating min price
-            max_profit = max(max_profit, p - min_price)  # max profit = curr price - previous min price
-        return max_profit            
 
-        
-    
- 
+        for i in range(1, len(prices)):
+            if prices[i] > min_price:
+                max_profit = max(max_profit, prices[i]-min_price)
+            else:
+                min_price = prices[i]
+
+        return max_profit
