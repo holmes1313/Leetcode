@@ -32,7 +32,7 @@ class Solution(object):
         :rtype: int
         """
         low = 0
-        high = x
+        high = x // 2 + 1
 
         while low <= high:
             mid = (low + high) // 2

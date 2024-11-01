@@ -20,33 +20,7 @@ Example 2:
 Input: [2,2,1,1,1,2,2]
 Output: 2
 """
-
 class Solution(object):
-    def majorityElement2(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        majority_count = len(nums) // 2
-        seen = {}
-
-        for n in nums:
-            if n in seen:
-                seen[n] += 1
-            else:
-                seen[n] = 1
-
-            if seen[n] > majority_count:
-                    return n
-
-    def majorityElement3(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        counts = collection.Counter(nums)
-        return max(counts.keys(), key=counts.get)
-
     def majorityElement(self, nums):
         """
         :type nums: List[int]
@@ -55,3 +29,21 @@ class Solution(object):
         nums.sort()
         return nums[len(nums)//2]
     
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        candidate = None
+        count = 0
+
+        for num in nums:
+            if count == 0:
+                candidate = num
+                count = 1
+            elif num == candidate:
+                count += 1
+            else:
+                count -= 1
+
+        return candidate

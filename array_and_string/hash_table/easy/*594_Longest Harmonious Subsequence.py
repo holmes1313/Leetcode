@@ -23,26 +23,6 @@ Output: 0
  
 """
 class Solution(object):
-    def findLHS1(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        nums.sort()
-        left = right = 0
-        ans = 0
-        while right < len(nums):
-            if nums[right] - nums[left] == 0:
-                right += 1
-            elif nums[right] - nums[left] == 1:
-                curr = right - left + 1
-                ans = max(ans, curr)
-                right += 1
-            else:
-                while nums[right] - nums[left] > 1:
-                    left += 1
-        return ans
-
     def findLHS(self, nums):
         """
         :type nums: List[int]

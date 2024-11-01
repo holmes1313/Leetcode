@@ -63,6 +63,6 @@ class Solution(object):
                 if dp[j] and s[j:i] in word_set:
                     # If dp[j] is True and the substring from j to i is in the word dictionary, then set dp[i] to True.
                     dp[i] = True
-                    break.  # Early exit for this i
+                    break  # Early exit for this i
 
         return dp[n]
