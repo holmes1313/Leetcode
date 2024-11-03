@@ -28,22 +28,43 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: List[int]
         """
-        lucky_numbers = []
-    
-        # Iterate over each row in the matrix
+        ans = []
+
         for row in matrix:
-            # Find the minimum value in the row and its index
-            min_value = min(row)
-            min_index = row.index(min_value)
-            
-            # Check if the minimum value is the maximum in its column
+            min_val = min(row)
+            col_idx = row.index(min_val)
+
             is_lucky = True
-            for r in range(len(matrix)):
-                if matrix[r][min_index] > min_value:
+            for row_idx in range(len(matrix)):
+                if matrix[row_idx][col_idx] > min_val:
                     is_lucky = False
                     break
-            
+
             if is_lucky:
-                lucky_numbers.append(min_value)
-        
-        return lucky_numbers
+                ans.append(min_val)
+
+        return ans
+
+    def luckyNumbers(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[int]
+        """
+        lucky_nums = []
+        row_mins = []
+        col_maxes = {}
+        for row in matrix:
+            min_val = min(row)
+            min_idx = row.index(min_val)
+            row_mins.append((min_val, min_idx))
+
+        for min_val, col_idx in row_mins:
+            if col_idx not in col_maxes:
+                col_maxes[col_idx] = float("-inf")
+                for i in range(len(matrix)):
+                    col_maxes[col_idx] = max(col_maxes[col_idx], matrix[i][col_idx])
+            if min_val == col_maxes[col_idx]:
+                lucky_nums.append(min_val)
+
+        return lucky_nums
+            

@@ -18,6 +18,7 @@ Example 3:
 Input: str1 = "LEET", str2 = "CODE"
 Output: ""
 """
+
 class Solution(object):
     def gcdOfStrings(self, str1, str2):
         """
@@ -25,15 +26,14 @@ class Solution(object):
         :type str2: str
         :rtype: str
         """
-        l1 = len(str1) 
+        l1 = len(str1)
         l2 = len(str2)
-        shortest = min(str1, str2, key=len)
-        for i in range(len(shortest), 0, -1):
-            divisor = shortest[:i]
-            if l2 % len(divisor) == 0 and l2 % len(divisor) == 0:
-                f1 = l1 // len(divisor)
-                f2 = l2 // len(divisor)
-                if divisor * f1 == str1 and divisor * f2 == str2:
-                        return divisor
-        return ""
+        for i in range(min(l1, l2), 0, -1):
+            if l1 % i == 0 and l2 % i == 0:
+                n1 = l1 // i
+                n2 = l2 // i
+                base = str1[:i]
+                if str1 == base * n1 and str2 == base * n2:
+                    return base
 
+        return ""

@@ -15,25 +15,7 @@ Output: -1
 Explanation: In this case it is not possible to get a pair sum less that 15.
 
 """
-class Solution(object):
-    def twoSumLessThanK2(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        nums.sort()
-        ans = -1
-        for i in range(len(nums) - 1):
-            for j in range(i+1, len(nums)):
-                sub_sum = nums[i] + nums[j]
-                if sub_sum < k:
-                    ans = max(ans, sub_sum)
-                else:
-                    break
-
-        return ans
-        
+class Solution(object):        
     def twoSumLessThanK(self, nums, k):
         """
         :type nums: List[int]

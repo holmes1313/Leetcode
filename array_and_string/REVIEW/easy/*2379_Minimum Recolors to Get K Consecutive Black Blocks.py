@@ -41,7 +41,6 @@ class Solution(object):
         min_count = curr_count
 
         for j in range(k, len(blocks)):
-            diff = 0
             if blocks[j] == "W":
                 curr_count += 1
             if blocks[j-k] == "W":

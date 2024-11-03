@@ -42,21 +42,19 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        # use a min heap to find the k largest elements
-        min_heap = []
-        for num in nums:
-            heapq.heappush(min_heap, num)
-            if len(min_heap) > k:
-                heapq.heappop(min_heap)
-
-        # create a set
-        counter = collections.Counter(min_heap)
-
-        ans = []
-        for num in nums:
-            if num in counter and counter[num] > 0:
-                ans.append(num)
-                counter[num] -= 1
-
-        return ans
+        # Step 1: Pair each number with its index
+        indexed_nums = [(num, i) for i, num in enumerate(nums)]
         
+        # Step 2: Sort the pairs by number (descending) to get the largest k elements
+        indexed_nums.sort(key=lambda x: x[0], reverse=True)
+        
+        # Step 3: Take the first k elements from the sorted list
+        largest_k = indexed_nums[:k]
+        
+        # Step 4: Sort the selected elements by their original indices
+        largest_k.sort(key=lambda x: x[1])
+        
+        # Step 5: Extract the numbers from the sorted tuples
+        result = [num for num, index in largest_k]
+        
+        return result

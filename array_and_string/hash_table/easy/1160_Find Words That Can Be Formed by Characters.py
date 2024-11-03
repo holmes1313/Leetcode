@@ -18,6 +18,9 @@ Input: words = ["hello","world","leetcode"], chars = "welldonehoneyr"
 Output: 10
 Explanation: The strings that can be formed are "hello" and "world" so the answer is 5 + 5 = 10.
 """
+import collections
+
+
 class Solution(object):
     def countCharacters2(self, words, chars):
         """
@@ -40,27 +43,3 @@ class Solution(object):
 
         return ans
 
-
-    def countCharacters(self, words, chars):
-        """
-        :type words: List[str]
-        :type chars: str
-        :rtype: int
-        """
-        counts = collections.Counter(chars)
-        ans = 0
-        for word in words:
-            recover = counts.copy()
-            is_good = True
-            for cha in word:
-                counts[cha] -= 1
-                if counts[cha] < 0:
-                    is_good = False
-                    break
-            if is_good:
-                ans += len(word)
-            counts = recover
-
-        return ans
-
-            
