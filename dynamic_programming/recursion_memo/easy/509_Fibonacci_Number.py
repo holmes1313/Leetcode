@@ -36,28 +36,24 @@ Note:
 
 0 ≤ N ≤ 30."""
 
+class Solution(object):
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        def _helper(n):
+            if n in memo:
+                return memo[n]
 
-class Solution:
-    cache = {0: 0, 1: 1}
+            if n==0:
+                return 0
 
-    def fib1(self, n: int) -> int:
-        if n not in self.cache:
-            self.cache[n] = self.fib(n - 1) + self.fib(n - 2)
-        return self.cache[n]
+            if n==1:
+                return 1
 
-    def fib(self, n: int) -> int:
-        if n == 0:
-            return 0
+            memo[n] = _helper(n-1) + _helper(n-2)
+            return memo[n]
 
-        if n == 1:
-            return 1
-
-        curr = 0
-        prev1 = 1
-        prev2 = 0
-        for i in range(2, n + 1):
-            curr = prev1 + prev2
-            prev2 = prev1
-            prev1 = curr
-
-        return curr
+        memo = {}
+        return _helper(n)

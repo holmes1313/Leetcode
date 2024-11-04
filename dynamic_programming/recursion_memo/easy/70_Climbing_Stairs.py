@@ -31,35 +31,24 @@ Explanation: There are three ways to climb to the top.
 3. 2 steps + 1 step"""
 
 
-class Solution:
-    memo = {1: 1, 2: 2}
-    def climbStairs2(self, n: int) -> int:
-        if n not in self.memo:
-            self.memo[n] = self.climbStairs(n-1) + self.climbStairs(n-2)
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        def _climb(n):
+            if n in memo:
+                return memo[n]
 
-        return self.memo[n]
+            if n==1:
+                return 1
 
-    def climbStairs(self, n: int) -> int:
-        if n == 1:
-            return 1
+            if n==2:
+                return 2
 
-        if n == 2:
-            return 2
+            memo[n] = _climb(n-1) + _climb(n-2)
+            return memo[n]
 
-        curr = 0
-        prev1 = 2
-        prev2 = 1
-        for i in range(3, n+1):
-            curr = prev1 + prev2
-            prev2 = prev1
-            prev1 = curr
-
-        return curr
-
-    
-    
-    
-    
-    
-    
-    
+        memo = {}
+        return _climb(n)
