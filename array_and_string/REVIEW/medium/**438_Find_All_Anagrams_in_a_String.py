@@ -22,31 +22,29 @@ The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
 """
 import collections
-from typing import List
 
 
-class Solution:
-    def findAnagrams(self, s: str, p: str) -> List[int]:
-        if len(s) < len(p):
-            return []
-
-        output = []
-        start = 0
-        char_count = {}
+class Solution(object):
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
         p_count = collections.Counter(p)
-        for idx, char in enumerate(s):
-            if char not in char_count:
-                char_count[char] = 1
-            else:
-                char_count[char] += 1
+        window_count = collections.Counter()
+        ans = []
 
-            if idx >= len(p):
-                char_count[s[start]] -= 1
-                if char_count[s[start]] == 0:
-                    del char_count[s[start]]
-                start += 1
+        for i in range(len(s)):
+            window_count[s[i]] += 1
 
-            if char_count == p_count:
-                output.append(start)
+            if i >= len(p):
+                start_cha = s[i-len(p)]
+                window_count[start_cha] -= 1
+                if window_count[start_cha] == 0:
+                    del window_count[start_cha]
 
-        return output
+            if window_count == p_count:
+                ans.append(i-len(p)+1)
+
+        return ans

@@ -62,7 +62,7 @@ Output:
 +------------+----------+--------+
 Explanation: Max and Jim both have the highest salary in the IT department and Henry has the highest salary in the Sales department.
 */
-
+# Write your MySQL query statement below
 SELECT 
     d.name AS Department, 
     e.name AS Employee, 
@@ -71,9 +71,8 @@ FROM
     Employee e
 JOIN 
     Department d ON e.departmentId = d.id
-JOIN 
+WHERE
+    (e.departmentId, salary) IN
     (SELECT departmentId, MAX(salary) as max_salary 
      FROM Employee
-     GROUP BY departmentId) AS max_salaries
-ON 
-    e.departmentId = max_salaries.departmentId AND e.salary = max_salaries.max_salary;
+     GROUP BY departmentId) 

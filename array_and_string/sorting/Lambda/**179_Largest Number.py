@@ -45,3 +45,17 @@ class Solution(object):
             return "0"
 
         return "".join(nums_str)
+    
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        nums = list(map(str, nums))
+        nums.sort(key=lambda x: x*10, reverse=True)
+
+        result = "".join(nums)
+        if result[0] == "0":
+            return "0"
+        
+        return result

@@ -17,19 +17,20 @@ Example 2:
 Input: s = "AAAAAAAAAAAAA"
 Output: ["AAAAAAAAAA"]
 """
-from typing import List
-
-
-class Solution:
-    def findRepeatedDnaSequences(self, s: str) -> List[str]:
-        if len(s) <= 10:
-            return []
-
+class Solution(object):
+    def findRepeatedDnaSequences(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
         seen = set()
         ans = set()
-        for i in range(len(s) - 10 + 1):
-            seq = s[i: i+10]
-            if seq in seen:
-                ans.add(seq)
-            seen.add(seq)
-        return ans
+
+        for end in range(len(s)):
+            if end >= 9:
+                substr = s[end-9: end+1]
+                if substr in seen:
+                    ans.add(substr)
+                else:
+                    seen.add(substr)
+        return list(ans)

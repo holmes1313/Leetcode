@@ -1,0 +1,5 @@
+For each element in the array, we want to explore how many subarrays ending at that element meets the requirement
+
+We maintain a sliding window with 2 pointers, start and end. 
+The end pointer expands the window by moving to the right, and the start pointer moves to the right when the current window doesn't meet the requirement.
+
