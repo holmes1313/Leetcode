@@ -10,17 +10,33 @@ Output: 2
 Explanation: Because the 3rd row is incomplete, we return 2.
 """
 
-
-class Solution:
-    def arrangeCoins(self, n: int) -> int:
-        left = 1
-        right = n
+class Solution(object):
+    def arrangeCoins(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        i = 0
+        while n >= 0:
+            i += 1
+            n -= i
+        return i - 1
+    
+    def arrangeCoins(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        # use binary search to find the largest k such that: k*(k+1)//2 <= n
+        left, right = 0, n
         while left <= right:
             mid = (left + right) // 2
-            curr = (mid + 1) * mid // 2
-            if curr <= n < curr + mid + 1:
+            total = mid * (mid+1) // 2
+
+            if total == n:
                 return mid
-            if curr < n:
+            elif total < n:
                 left = mid + 1
             else:
                 right = mid - 1
+        return left - 1
