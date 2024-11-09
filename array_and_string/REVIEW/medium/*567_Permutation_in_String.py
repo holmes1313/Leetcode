@@ -27,27 +27,27 @@ Output: False
 
 import collections
 
+
 class Solution(object):
-    def checkInclusion(self, s1, s2):
+    def checkInclusion(self, p, s):
         """
         :type s1: str
         :type s2: str
         :rtype: bool
         """
-        if len(s2) < len(s1):
-            return False
-        
-        # sliding window
-        count1 = collections.Counter(s1)
-        count2 = collections.Counter(s2[:len(s1)])
-        
-        for index in range(len(s1), len(s2)):
-            if count1 == count2:
+        p_count = collections.Counter(p)
+        window_count = collections.Counter()
+
+        for i in range(len(s)):
+            window_count[s[i]] += 1
+
+            if i >= len(p):
+                start_cha = s[i-len(p)]
+                window_count[start_cha] -= 1
+                if window_count[start_cha] == 0:
+                    del window_count[start_cha]
+
+            if window_count == p_count:
                 return True
-            
-            count2[s2[index]] += 1
-            count2[s2[index - len(s1)]] -= 1
-            if count2[s2[index - len(s1)]] == 0:
-                del count2[s2[index - len(s1)]]
-                
-        return count1 == count2
+
+        return False

@@ -29,23 +29,21 @@ class Solution(object):
             while left >= 0 and right < len(s) and s[left] == s[right]:
                 left -= 1
                 right += 1
-            return (right - 1) - (left + 1) + 1
+            return [left + 1, right - 1]
         
         max_len = 0
         max_sub = ""
         for i in range(len(s)):
-            odd_len = expand_from_center(i, i)
+            odd_left, odd_right = expand_from_center(i, i)
 
-            even_len = expand_from_center(i, i+1)
+            even_left, even_right = expand_from_center(i, i+1)
 
-            if odd_len > max_len:
-                dist = (odd_len - 1) // 2
-                max_sub = s[i-dist: i+dist+1]
-                max_len = odd_len
+            if odd_right - odd_left + 1 > max_len:
+                max_sub = s[odd_left: odd_right+1]
+                max_len = odd_right - odd_left + 1
 
-            if even_len > max_len:
-                dist = (even_len-2) // 2
-                max_sub = s[i-dist: i+1+dist+1]
-                max_len = even_len
-
+            if even_right - even_left + 1 > max_len:
+                max_sub = s[even_left: even_right+1]
+                max_len = even_right - even_left + 1
+        
         return max_sub

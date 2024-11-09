@@ -33,7 +33,6 @@ matrix = [
 target = 13
 Output: false
 """
-
 class Solution(object):
     def searchMatrix(self, matrix, target):
         """
@@ -43,26 +42,20 @@ class Solution(object):
         """
         if not matrix:
             return False
-        
-        nrow = len(matrix)
-        ncol = len(matrix[0])
-        
-        low = 0
-        high = nrow * ncol - 1
-        
-        while low <= high:
-            mid = (low + high) // 2
-            middle = matrix[mid // ncol][mid % ncol]    # convert 1D index to 2D coordinate
-            
-            if middle == target:
-                return True
-            
-            if target < middle:
-                high = mid - 1
-            
+
+        m = len(matrix)
+        n = len(matrix[0])
+        left, right = 0, m*n-1
+
+        while left <= right:
+            mid = (left + right) // 2
+            mid_val = matrix[mid//n][mid%n]
+            if mid_val < target:
+                left = mid + 1
+            elif mid_val > target:
+                right = mid - 1
             else:
-                low = mid + 1
-                
+                return True
+
+
         return False
-                
-       
