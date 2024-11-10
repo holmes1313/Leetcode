@@ -34,54 +34,6 @@ class Solution(object):
         :type l2: Optional[ListNode]
         :rtype: Optional[ListNode]
         """
-        carry = 0
-        dummy = ListNode(0)
-        curr = dummy
-        while l1 and l2:
-            digit_sum = l1.val + l2.val + carry
-            if digit_sum < 10:
-                curr.next = ListNode(digit_sum)
-                carry = 0
-            else:
-                curr.next = ListNode(digit_sum % 10)
-                carry = 1
-            curr = curr.next
-            l1 = l1.next
-            l2 = l2.next
-
-        while l1:
-            digit_sum = l1.val + carry
-            if digit_sum < 10:
-                curr.next = ListNode(digit_sum)
-                carry = 0
-            else:
-                curr.next = ListNode(digit_sum % 10)
-                carry = 1
-            curr = curr.next
-            l1 = l1.next
-
-        while l2:
-            digit_sum = l2.val + carry
-            if digit_sum < 10:
-                curr.next = ListNode(digit_sum)
-                carry = 0
-            else:
-                curr.next = ListNode(digit_sum % 10)
-                carry = 1
-            curr = curr.next
-            l2 = l2.next
-
-        if carry:
-            curr.next = ListNode(1)
-
-        return dummy.next
-
-    def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: Optional[ListNode]
-        :type l2: Optional[ListNode]
-        :rtype: Optional[ListNode]
-        """
         dummy = ListNode(0)
         curr = dummy
         carry = 0

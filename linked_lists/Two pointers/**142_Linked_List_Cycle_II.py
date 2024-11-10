@@ -15,43 +15,28 @@ Input: head = [1,2], pos = 0
 Output: tail connects to node index 0
 Explanation: There is a cycle in the linked list, where tail connects to the first node.
 """
-from typing import Optional
-
-
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-class Solution:
-    def detectCycle2(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        fast = head
-        slow = head
-
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        slow = fast = head
         while fast and fast.next:
+            slow = slow.next
             fast = fast.next.next
-            slow = slow.next
 
-            if fast == slow:
-                break
+            if slow == fast:
+                pointer = head
+                while pointer != slow:
+                    pointer = pointer.next
+                    slow = slow.next
+                return pointer
 
-        if not fast or not fast.next:
-            return None
-
-        fast = head
-        while fast != slow:
-            fast = fast.next
-            slow = slow.next
-
-        return fast
-
-    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        seen = set()
-        curr = head
-        while curr:
-            if curr in seen:
-                return curr
-            seen.add(curr)
-            curr = curr.next
         return None
