@@ -53,41 +53,25 @@ Input: 1994
 Output: "MCMXCIV"
 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 """
-
-#method: math
-
 class Solution(object):
     def intToRoman(self, num):
         """
         :type num: int
         :rtype: str
         """
-        values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
-        symbols = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']
-        
-        result = ''
-        for v, s in zip(values, symbols):
-            result += (num // v) * s
-            num %= v
-        
-        return result
+        roman_map = [
+            (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
+            (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
+            (10, "X"), (9, "IX"), (5, "V"), (4, "IV"),
+            (1, "I")
+        ]
+        result = []
+        for value, symbol in roman_map:
+            count = num // value
+            num %= value
 
+            result.append(symbol * count)
 
-class Solution2(object):
-    def intToRoman(self, num):
-        """
-        :type num: int
-        :rtype: str
-        """
-        unites = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
-        mapping = {1000: "M", 900: "CM", 500: "D", 400: "CD", 
-        100: "C", 90: "XC", 50: "L", 40: "XL", 10: "X",
-        9: "IX", 5: "V", 4: "IV", 1: "I"}
-        output = ""
-        for u in unites:
-            multiple = num // u
-            output += mapping[u] * multiple
-            num %= u
-        return output
+        return "".join(result)
 
         

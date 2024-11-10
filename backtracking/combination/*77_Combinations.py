@@ -22,7 +22,6 @@ Output:
   [1,4],
 ]
 """
-
 class Solution(object):
     def combine(self, n, k):
         """
@@ -30,21 +29,19 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
-        nums = [i for i in range(1, n+1)]
-        current = []
-        result = []
-        start = 0
-        self.backtrack(nums, k, start, current, result)
-        return result
-        
-        
-    def backtrack(self, nums, k, start, current, result):
-        if len(current) == k:
-            result.append(current[:])
-            
-        else:
+        nums = list(range(1, n+1))
+
+        def backtrack(start, path):
+            if len(path) == k:
+                result.append(path[:])
+                return
+
             for i in range(start, len(nums)):
-                current.append(nums[i])
-                self.backtrack(nums, k, i+1, current, result)
-                current.pop()
+                path.append(nums[i])
+                backtrack(i+1, path)
+                path.pop()
+
+        result = []
+        backtrack(0, [])
+        return result
         

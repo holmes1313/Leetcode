@@ -21,27 +21,36 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 Note:
 Although the above answer is in lexicographical order, your answer could be in any order you want.
 """
-from typing import List
-
-
-class Solution:
-    def letterCombinations(self, digits: str) -> List[str]:
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
         if not digits:
             return []
-        mapping = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl",
-                   "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
+        phone_map = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+
         result = []
 
-        def backtracking(curr, index):
-            if len(curr) == len(digits):
-                result.append("".join(curr))
+        def backtrack(index, path):
+            if len(path) == len(digits):
+                result.append(path)
                 return
 
-            letters = mapping[digits[index]]
-            for l in letters:
-                curr.append(l)
-                backtracking(curr, index+1)
-                curr.pop()
+            digit = digits[index]
+            letters = phone_map[digit]
+            for letter in letters:
+                backtrack(index+1, path+letter)
 
-        backtracking([], 0)
+        backtrack(0, "")
         return result

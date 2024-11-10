@@ -21,42 +21,32 @@ At index 5: There is no non-equal neighbor of 5 on the right, so index 5 is neit
 There are 3 hills and valleys so we return 3.
 """
 class Solution(object):
-    def countHillValley2(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        prev = None
-        uniques = []
-        for num in nums:
-            if num != prev:
-                uniques.append(num)
-                prev = num
-        
-        if len(uniques) < 3:
-            return 0
-
-        output = 0
-        for i in range(1, len(uniques)-1):
-            if uniques[i] > uniques[i-1] and uniques[i] > uniques[i+1]:
-                output += 1
-            if uniques[i] < uniques[i-1] and uniques[i] < uniques[i+1]:
-                output += 1
-
-        return output
-
     def countHillValley(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        left_num = nums[0]
-        ans = 0
-        for i in range(1, len(nums)-1):
-            if nums[i] < min(left_num, nums[i+1]) or nums[i] > max(left_num, nums[i+1]):
-                ans += 1
+        n = len(nums)
+        if n < 3:
+            return 0
 
-            if nums[i] != nums[i+1]:
-                left_num = nums[i]
+        count = 0
+        for i in range(1, n-1):
+            if nums[i] == nums[i-1]:
+                continue
 
-        return ans
+            left = i -1
+            while left >= 0 and nums[left] == nums[i]:
+                left -= 1
+
+            right = i + 1
+            while right < n and nums[right] == nums[i]:
+                right += 1
+
+            if left >= 0 and right < n:
+                if nums[left] > nums[i] and nums[right] > nums[i]:
+                    count += 1
+                if nums[left] < nums[i] and nums[right] < nums[i]:
+                    count += 1
+
+        return count
