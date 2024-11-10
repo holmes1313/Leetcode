@@ -25,6 +25,8 @@ Output: 3
 Explanation: The answer is "wke", with the length of 3. 
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 """
+import collections
+
 
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
@@ -32,61 +34,21 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
+        start = 0
         max_len = 0
-        for left in range(len(s)):
-            cha_set = set()
-            curr_len = 0
-            right = left
-            while right < len(s):
-                if s[right] not in cha_set:
-                    cha_set.add(s[right])
-                    curr_len += 1
-                    right += 1
-                else:
-                    break
-            max_len = max(max_len, curr_len)
+        cha_count = collections.defaultdict(int)
+        for end in range(len(s)):
+            cha = s[end]
+            cha_count[cha] += 1
+
+            while cha_count[cha] > 1:
+                cha_count[s[start]] -= 1
+                start += 1
+
+            max_len = max(max_len, end - start + 1)
 
         return max_len
 
-    def lengthOfLongestSubstring(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        left = right = 0
-        index_map = {}
-        max_len = 0
-        while right < len(s):
-            cha = s[right]
-            if cha not in index_map:
-                index_map[cha] = right
-            else:
-                left = max(index_map[cha] + 1, left)
-                index_map[cha] = right
-            max_len = max(max_len, right - left + 1)
 
-            right += 1
-
-        return max_len
-                
-
-    def lengthOfLongestSubstring(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        left = right = 0
-        ans = 0
-        count_map = collections.defaultdict(int)
-        while right < len(s):
-            count_map[s[right]] += 1
-            while count_map[s[right]] == 2:
-                count_map[s[left]] -= 1
-                left += 1
-            ans = max(ans, right - left + 1)
-            right += 1
-
-        return ans
-                
 
 
