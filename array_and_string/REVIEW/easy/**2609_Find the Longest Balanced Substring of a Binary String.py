@@ -25,7 +25,6 @@ Input: s = "111"
 Output: 0
 Explanation: There is no balanced substring except the empty substring, so the answer is 0.
 """
-
 class Solution(object):
     def findTheLongestBalancedSubstring(self, s):
         """
@@ -50,7 +49,30 @@ class Solution(object):
 
         return ans * 2
                 
+    def findTheLongestBalancedSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if not s:
+            return 0
+        grouping = []
+        curr_count = 1
+        for i in range(1, len(s)):
+            if s[i] == s[i-1]:
+                curr_count += 1
+            else:
+                grouping.append((curr_count, s[i-1]))
+                curr_count = 1
+        grouping.append((curr_count, s[-1]))
 
+        max_len = 0
+        for i in range(1, len(grouping)):
+            if grouping[i][1] == "1":
+                max_len = max(max_len, min(grouping[i-1][0],grouping[i][0] ))
 
+        return max_len * 2
 
-        
+            
+
+  

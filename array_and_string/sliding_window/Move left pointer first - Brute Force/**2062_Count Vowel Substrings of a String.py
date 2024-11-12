@@ -26,32 +26,16 @@ class Solution(object):
         :type word: str
         :rtype: int
         """
-        vowels = {'a', 'e', 'i', 'o', 'u'}
         count = 0
-        for i in range(len(word)):
-            j = i
-            vowel_set = set()
-            while j < len(word) and word[j] in vowels:
-                vowel_set.add(word[j])
-                if vowel_set == vowels:
-                    count += 1
-                j += 1
-        return count
-
-    def countVowelSubstrings(self, word):
-        """
-        :type word: str
-        :rtype: int
-        """
-        count = 0
+        vowels = set('aeiou')
         n = len(word)
         for start in range(n):
-            vowels = {"a": 0, "e": 0, "i": 0, "o": 0, "u": 0}
-            end = start
-            while end < n and word[end] in vowels:
-                vowels[word[end]] += 1
-                if 0 not in vowels.values():
+            found_vowels = set()
+            for end in range(start, n):
+                if word[end] in vowels:
+                    found_vowels.add(word[end])
+                else:
+                    break
+                if len(found_vowels) == len(vowels):
                     count += 1
-                end += 1
-
         return count

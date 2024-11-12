@@ -37,7 +37,7 @@ class Solution:
 
         return ans
 
-    def maximumLengthSubstring(self, s):
+    def maximumLengthSubstring2(self, s):
         """
         :type s: str
         :rtype: int

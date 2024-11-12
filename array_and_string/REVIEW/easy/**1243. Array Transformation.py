@@ -36,9 +36,9 @@ class Solution(object):
         while True:
             prev = arr[:]
             for i in range(1,len(arr)-1):
-                if arr[i] < prev[i-1] and arr[i] < prev[i+1]:
+                if prev[i] < prev[i-1] and prev[i] < prev[i+1]:
                     arr[i] += 1
-                if arr[i] > prev[i-1] and arr[i] > prev[i+1]:
+                if prev[i] > prev[i-1] and prev[i] > prev[i+1]:
                     arr[i] -= 1
             if prev == arr:
                 return arr

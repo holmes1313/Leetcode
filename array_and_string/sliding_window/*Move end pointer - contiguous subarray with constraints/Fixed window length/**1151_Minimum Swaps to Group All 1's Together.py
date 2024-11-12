@@ -45,4 +45,23 @@ class Solution(object):
         return min_swaps
 
 
+    def minSwaps(self, data):
+        """
+        :type data: List[int]
+        :rtype: int
+        """
+        total_ones = sum(data)
+        start = 0
+        max_ones = 0
+        curr_ones = 0
+        for end in range(len(data)):
+            curr_ones += data[end]
+
+            if end >= total_ones:
+                curr_ones -= data[start]
+                start += 1
+
+            max_ones = max(max_ones, curr_ones)
+
+        return total_ones - max_ones
 

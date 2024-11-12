@@ -24,7 +24,6 @@ Output: 2
 Explanation: The square root of 8 is 2.82842..., and since 
              the decimal part is truncated, 2 is returned.
 """
-
 class Solution(object):
     def mySqrt(self, x):
         """
@@ -32,16 +31,15 @@ class Solution(object):
         :rtype: int
         """
         low = 0
-        high = x
+        high = x//2 + 1
 
         while low <= high:
             mid = (low + high) // 2
-            if mid ** 2 == x:
-                return mid
-            elif mid ** 2 < x:
+            # if mid ** 2 == x:
+            #     return mid
+            if mid ** 2 <= x:
                 low = mid + 1
             else:
                 high = mid - 1
 
-        return high
-        
+        return low - 1 

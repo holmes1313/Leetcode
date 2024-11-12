@@ -98,3 +98,45 @@ class Solution(object):
                 ans.append("".join(newline))
                 
         return ans
+
+    def removeComments(self, source):
+        """
+        :type source: List[str]
+        :rtype: List[str]
+        """
+        ans = []
+        in_block = False
+        new_line = []
+        for line in source:
+            
+            i = 0
+
+            while i < len(line):
+
+                # /*
+                if not in_block and line[i:i+2] == "/*":
+                    in_block = True
+                    i += 2
+
+                # */
+                elif in_block and line[i:i+2] == "*/":
+                    in_block = False
+                    i += 2
+
+                # //
+                elif not in_block and line[i:i+2] == "//":
+                    break
+
+                # else
+                elif not in_block:
+                    new_line.append(line[i])
+                    i += 1
+                
+                else:
+                    i += 1
+
+            if new_line and not in_block:
+                ans.append("".join(new_line))
+                new_line = []
+
+        return ans

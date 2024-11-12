@@ -87,3 +87,29 @@ class Solution(object):
                     break
         return count
 
+    def countKConstraintSubstrings(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        ones = 0
+        zeros = 0
+        start = 0
+        count = 0
+        for end in range(len(s)):
+            if s[end] == "0":
+                zeros += 1
+            else:
+                ones += 1
+
+            while ones > k and zeros > k:
+                if s[start] == "0":
+                    zeros -= 1
+                else:
+                    ones -= 1
+                start += 1
+
+            count += end - start + 1
+
+        return count

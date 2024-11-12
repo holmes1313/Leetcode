@@ -29,31 +29,15 @@ class Solution(object):
         :type digits: List[int]
         :rtype: List[int]
         """
-        n = len(digits)
-        for i in range(n-1, -1, -1):
-            if digits[i] < 9:
-                digits[i] += 1
-                return digits
-
-            digits[i] = 0
-
-        return [1] + digits
-
-
-class Solution(object):
-    def plusOne(self, digits):
-        """
-        :type digits: List[int]
-        :rtype: List[int]
-        """
-        n = len(digits)
         carry = 1
-        for i in range(n-1, -1, -1):
-            digit = digits[i] + carry
-            digits[i] = digit % 10
-            carry = digit // 10
+        for i in range(len(digits)-1, -1, -1):
+            if carry == 1:
+                digit_sum  = digits[i] + carry
+                carry = digit_sum // 10
+                digits[i] = digit_sum % 10
+            else:
+                break
 
         if carry == 1:
             digits = [1] + digits
-
         return digits

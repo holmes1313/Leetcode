@@ -30,38 +30,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        n = len(nums)
-
-        left_sums= [0] * n
-        for i in range(1, n):
-            left_sums[i] = left_sums[i-1] + nums[i-1]
-
-        right_sums = [0] * n
-        for i in range(n-2, -1 , -1):
-            right_sums[i] = right_sums[i+1] + nums[i+1]
-
-        ans = [0] * n
-        for i in range(n):
-            ans[i] = abs(right_sums[i] - left_sums[i])
-
-        return ans
-
-    def leftRightDifference(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
         left_sum = 0
         total = sum(nums)
-        n = len(nums)
-
-        left_sums = []
         right_sums = []
+        ans = []
 
-        for i in range(n):
-            left_sums.append(left_sum)
-            right_sum = total - nums[i] - left_sum
-            right_sums.append(right_sum)
-            left_sum += nums[i]
-
-        return [abs(left_sums[i] - right_sums[i]) for i in range(n)]
+        for num in nums:
+            right_sum = total - num - left_sum
+            ans.append(abs(left_sum - right_sum))
+            left_sum += num
+            
+        return ans
