@@ -11,3 +11,6 @@ ROW_NUMBER() OVER (PARTITION BY o.customer_id order by o.order_date desc) as ord
  concat(upper(substring(name, 1, 1)),lower(substring(name, 2))) as name
  CHAR_LENGTH(content)> 15
  mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*\\@leetcode\\.com$';
+
+ -- DATE
+ date_format(trans_date, '%Y-%m') as month,
