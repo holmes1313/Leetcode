@@ -60,3 +60,30 @@ class Solution(object):
             return -1
         else:
             return station
+        
+
+class Solution(object):
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        total_gas = sum(gas)
+        total_cost = sum(cost)
+
+        if total_gas < total_cost:
+            return -1
+
+        # if total_gas >= total_cost, then there is always a solution
+        curr_gas = 0
+        start_idx = 0
+        n = len(gas)
+        for i in range(n):
+            curr_gas += gas[i] - cost[i]
+
+            if curr_gas < 0:
+                start_idx = i + 1
+                curr_gas = 0
+
+        return start_idx

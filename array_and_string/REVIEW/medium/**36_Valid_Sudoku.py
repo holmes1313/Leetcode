@@ -54,36 +54,34 @@ Only the filled cells need to be validated according to the mentioned rules.
 The given board contain only digits 1-9 and the character '.'.
 The given board size is always 9x9.
 """
-
 class Solution(object):
     def isValidSudoku(self, board):
         """
         :type board: List[List[str]]
         :rtype: bool
         """
-        return self.checkRows(board) and self.checkRows(zip(*board)) and self.checkSquare(board)
+        # Sets to track seen digits for rows, columns, and sub-boxes
+        rows = [set() for _ in range(9)]
+        cols = [set() for _ in range(9)]
+        boxes = [set() for _ in range(9)]
+
+        for i in range(9):
+            for j in range(9):
+                num = board[i][j]
+
+                if num == ".":
+                    continue
+
+                box_idx = (i // 3) * 3 + (j // 3)
+                # By multiplying (i // 3) by 3, we are "scaling" the row block index to correspond to the correct position in the 3x3 grid of sub-boxes. 
+                # Then, adding (j // 3) positions it within the sub-box grid.
+
+                if num in rows[i] or num in cols[j] or num in boxes[box_idx]:
+                    return False
+
+                rows[i].add(num)
+                cols[j].add(num)
+                boxes[box_idx].add(num)
+
+        return True
         
-    def checkRows(self, board):
-        for row in board:
-            nums = set()
-            for c in row:
-                if c != '.':
-                    if c in nums:
-                        return False
-                    nums.add(c)
-        return True
-    
-    def checkSquare(self, board):
-        r, c = [0,3,6], [0,3,6]
-        for i in r:
-            for j in c:
-                nums = set()
-                for m in range(i, i+3):
-                    for n in range(j, j+3):
-                        if board[m][n] != '.':
-                            if board[m][n] in nums:
-                                return False
-                            nums.add(board[m][n])
-        return True
-                
-            

@@ -20,18 +20,23 @@ Follow up:
 Could you solve it with constant space complexity? 
 (The output array does not count as extra space for the purpose of space complexity analysis.)"""
 
-
 class Solution(object):
     def productExceptSelf(self, nums):
         """
         :type nums: List[int]
         :rtype: List[int]
         """
-        left = [1] * len(nums)
-        right = [1] * len(nums)
-        
-        for i in range(1, len(nums)):
-            left[i] = left[i-1] * nums[i-1]
-            right[len(nums) - i -1] = right[len(nums) - i] * nums[len(nums) - i]
-            
-        return [i*j for i, j in zip(left, right)]
+        n = len(nums)
+        result = [1] * n
+
+        left_product = 1
+        for i in range(n):
+            result[i] = left_product
+            left_product *= nums[i]
+
+        right_product = 1
+        for i in range(n-1, -1, -1):
+            result[i] *= right_product
+            right_product *= nums[i]
+
+        return result

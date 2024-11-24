@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Oct  5 11:45:51 2019
-
-@author: z.chen7
-"""
-
-# 88. Merge Sorted Array
 """
 Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
 

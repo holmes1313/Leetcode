@@ -31,11 +31,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        unique_index = 0
+        index = 1
         for i in range(1, len(nums)):
-            if nums[i] != nums[unique_index]:
-                unique_index += 1
-                nums[unique_index] = nums[i]
+            if nums[i] != nums[i-1]:
+                nums[index] = nums[i]
+                index += 1
 
-        return unique_index + 1
-        
+        return index

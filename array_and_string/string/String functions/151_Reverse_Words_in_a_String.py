@@ -19,12 +19,15 @@ Input: s = "  hello world  "
 Output: "world hello"
 Explanation: Your reversed string should not contain leading or trailing spaces.
 """
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        words = s.strip().split()
 
+        words = words[::-1]
 
-class Solution:
-    def reverseWords(self, s: str) -> str:
-        words = s.split()
-        # words.reverse()
-        # words = reversed(words)
-        output = " ".join(words[::-1])
-        return output
+        return " ".join(words)
+        

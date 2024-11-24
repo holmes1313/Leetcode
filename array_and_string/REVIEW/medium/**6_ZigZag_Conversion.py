@@ -34,7 +34,6 @@ A   L S  I G
 Y A   H R
 P     I
 """
-
 class Solution(object):
     def convert(self, s, numRows):
         """
@@ -59,4 +58,28 @@ class Solution(object):
 
             curr_row += 1 if going_down else -1
 
+        return "".join(rows)
+
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows == 1 or numRows >= len(s):
+            return s
+
+        rows = [""] * numRows
+        row_idx = 0
+        diff = 1
+        for cha in s:
+            rows[row_idx] += cha
+
+            if row_idx == numRows - 1:
+                diff = -1
+            elif row_idx == 0:
+                diff = 1
+
+            row_idx += diff
+        
         return "".join(rows)

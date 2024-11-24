@@ -37,44 +37,45 @@ There will be at least one element in the data structure when getRandom is calle
 class RandomizedSet(object):
 
     def __init__(self):
-        self.index_map = {}
-        self.elements = []
-        
+        self.val_to_index = {}
+        self.values = []
 
     def insert(self, val):
         """
         :type val: int
         :rtype: bool
         """
-        if val in self.index_map:
+        if val in self.val_to_index:
             return False
-        self.index_map[val] = len(self.elements)
-        self.elements.append(val)
+        
+        self.values.append(val)
+        self.val_to_index[val] = len(self.values) - 1
         return True
         
-
     def remove(self, val):
         """
         :type val: int
         :rtype: bool
         """
-        if val not in self.index_map:
+        if val not in self.val_to_index:
             return False
 
-        index = self.index_map[val]
-
-        last_element = self.elements[-1]
-        self.elements[index] = last_element
-        self.index_map[last_element] = index
-        self.elements.pop()
-        del self.index_map[val]
-        return True
+        index = self.val_to_index[val]
         
+        last_val = self.values[-1]
+        self.val_to_index[last_val] = index
+        self.values[index] = last_val
+
+        self.values.pop()
+        del self.val_to_index[val]
+        
+        return True
+
     def getRandom(self):
         """
         :rtype: int
         """
-        return random.choice(self.elements)
+        return random.choice(self.values)
 
 
 # Your RandomizedSet object will be instantiated and called as such:
