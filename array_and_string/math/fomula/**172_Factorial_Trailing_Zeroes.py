@@ -30,18 +30,33 @@ So only need to count the volume of 5 factor. (because 2 always enough)
 So..
 100! 's zero has => floor(100/5) + floor(100/25) = floor(100/5) + floor((100/5)/5)
 """
-
 class Solution(object):
     def trailingZeroes(self, n):
         """
         :type n: int
         :rtype: int
         """
-        zero_count = 0
-        while n > 0:
+        count = 0
+        while n >= 5:
             n //= 5
-            zero_count += n
-            
+            count += n
+
+        return count
+
+    def trailingZeroes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        n_factorial = 1
+        for i in range(1, n+1):
+            n_factorial *= i
+
+        zero_count = 0
+        while n_factorial % 10 == 0:
+            n_factorial //= 10
+            zero_count += 1
+
         return zero_count
-    
-        return n  // 5
+
+

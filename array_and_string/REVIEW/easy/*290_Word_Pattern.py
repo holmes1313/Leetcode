@@ -29,8 +29,6 @@ Example 4:
 Input: pattern = "abba", str = "dog dog dog dog"
 Output: false
 """
-
-
 class Solution(object):
     def wordPattern(self, pattern, s):
         """
@@ -38,22 +36,20 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        mapping = {}
-        mapping2 = {}
-        s_list = s.split(" ")
-        if len(s_list) != len(pattern):
+        p_to_s = {}
+        s_to_p = {}
+        s_list = s.split()
+        p_list = list(pattern)
+        
+        if len(s_list) != len(p_list):
             return False
-        for i in range(len(pattern)):
-            if pattern[i] not in mapping:
-                mapping[pattern[i]] = s_list[i]
-            else:
-                if mapping[pattern[i]] != s_list[i]:
-                    return False
 
-            if s_list[i] not in mapping2:
-                mapping2[s_list[i]] = pattern[i]
-            else:
-                if mapping2[s_list[i]] != pattern[i]:
-                    return False
+        for c1, c2 in zip(p_list, s_list):
+            if (c1 not in p_to_s) and (c2 not in s_to_p):
+                p_to_s[c1] = c2
+                s_to_p[c2] = c1
+
+            elif p_to_s.get(c1) != c2 or s_to_p.get(c2) != c1:
+                return False
 
         return True

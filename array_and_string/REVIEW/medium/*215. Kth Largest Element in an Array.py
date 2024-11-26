@@ -19,21 +19,8 @@ Output: 4
 """
 import heapq
 
-class Solution(object):
-    def findKthLargest(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        heap = nums[:k]
-        heapq.heapify(heap)
 
-        for num in nums[k:]:
-            heapq.heappushpop(heap, num)
-
-        return heap[0]
-        
+class Solution(object):        
     def findKthLargest(self, nums, k):
         """
         :type nums: List[int]
@@ -42,9 +29,8 @@ class Solution(object):
         """
         min_heap = []
         for i in range(len(nums)):
-            if i+1 <= k:
-                heapq.heappush(min_heap, nums[i])
-            else:
-                heapq.heappushpop(min_heap, nums[i])
+            heapq.heappush(min_heap, nums[i])
+            if len(min_heap) > k:
+                heapq.heappop(min_heap)
 
         return min_heap[0]

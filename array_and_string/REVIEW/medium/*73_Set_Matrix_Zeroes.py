@@ -51,21 +51,19 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
-        if not matrix:
-            return matrix
-        
-        rows = set()
-        cols = set()
-        
+        row_flags = set()
+        col_flags = set()
+
         for i in range(len(matrix)):
             for j in range(len(matrix[0])):
                 if matrix[i][j] == 0:
-                    rows.add(i)
-                    cols.add(j)
-                    
-        for i in range(len(matrix)):
+                    row_flags.add(i)
+                    col_flags.add(j)
+
+        for row in row_flags:
             for j in range(len(matrix[0])):
-                if i in rows or j in cols:
-                    matrix[i][j] = 0
-                    
-        
+                matrix[row][j] = 0
+
+        for col in col_flags:
+            for i in range(len(matrix)):
+                matrix[i][col] = 0

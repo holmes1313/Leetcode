@@ -48,3 +48,32 @@ class Solution(object):
             i += 1
 
         return merged
+
+    def insert(self, intervals, newInterval):
+        """
+        :type intervals: List[List[int]]
+        :type newInterval: List[int]
+        :rtype: List[List[int]]
+        """
+        merged = []
+        add_new = False
+
+        for interval in intervals:
+            if interval[1] < newInterval[0]:
+                merged.append(interval)
+
+            elif interval[0] <= newInterval[1]:
+                newInterval[0] = min(newInterval[0], interval[0])
+                newInterval[1] = max(newInterval[1], interval[1])
+
+            else:
+                if not add_new:
+                    merged.append(newInterval)
+                    add_new = True
+                merged.append(interval)
+
+        if not add_new:
+            merged.append(newInterval)
+            
+        return merged
+
