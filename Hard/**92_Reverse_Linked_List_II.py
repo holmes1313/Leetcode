@@ -17,37 +17,38 @@ Example:
 Input: 1->2->3->4->5->NULL, m = 2, n = 4
 Output: 1->4->3->2->5->NULL
 """
-
 # Definition for singly-linked list.
 # class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution(object):
-    def reverseBetween(self, head, m, n):
+    def reverseBetween(self, head, left, right):
         """
-        :type head: ListNode
-        :type m: int
-        :type n: int
-        :rtype: ListNode
+        :type head: Optional[ListNode]
+        :type left: int
+        :type right: int
+        :rtype: Optional[ListNode]
         """
+        if left == right:
+            return head
+
         dummy = ListNode(0)
         dummy.next = head
-        
         first = dummy
-        for i in range(m-1):
+
+        for _ in range(left - 1):
             first = first.next
-            
-        pre = None
+
         curr = first.next
-        for _ in range(n-m+1):
+        prev = None
+        for _ in range(right - left + 1):
             nxt = curr.next
-            curr.next = pre
-            pre = curr
+            curr.next = prev
+            prev = curr
             curr = nxt
-            
+
         first.next.next = curr
-        first.next = pre
-        
+        first.next = prev
+
         return dummy.next

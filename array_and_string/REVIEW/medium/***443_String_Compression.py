@@ -56,23 +56,64 @@ Explanation:
 Since the character "a" does not repeat, it is not compressed. "bbbbbbbbbbbb" is replaced by "b12".
 Notice each digit has it's own entry in the array.
 """
-
 class Solution(object):
     def compress(self, chars):
         """
         :type chars: List[str]
         :rtype: int
         """
-        index = subindex = 0
-        while index < len(chars):
-            char = chars[index]
-            count = 0
-            while index < len(chars) and chars[index] == char:
-                count += 1
-                index += 1
-            if count > 1:
-                chars[subindex+1:index] = str(count)
-                index = subindex + len(str(count)) + 1
-            subindex = index
+        if len(chars) < 2:
+            return len(chars)
+        next_idx = 0
+        curr_count = 1
+        for i in range(1, len(chars)):
+            if chars[i] == chars[i-1]:
+                curr_count += 1
+            else:
+                chars[next_idx] = chars[i-1]
+                next_idx += 1
+                if curr_count > 1:
+                    for digit in str(curr_count):
+                        chars[next_idx] = digit
+                        next_idx += 1
+                curr_count = 1
 
-        return len(chars)
+        chars[next_idx] = chars[-1]
+        next_idx += 1
+        if curr_count > 1:
+            for digit in str(curr_count):
+                chars[next_idx] = digit
+                next_idx += 1
+
+        return next_idx
+
+    def compress(self, chars):
+        """
+        :type chars: List[str]
+        :rtype: int
+        """
+        i = 0
+        next_idx = 0
+
+        while i < len(chars):
+            char = chars[i]
+            curr_count = 0
+
+            while i < len(chars) and chars[i] == char:
+                curr_count += 1
+                i += 1
+
+            chars[next_idx] = char
+            next_idx += 1
+
+            if curr_count > 1:
+                for digit in str(curr_count):
+                    chars[next_idx] = digit
+                    next_idx += 1
+
+        return next_idx
+ 
+
+
+
+        

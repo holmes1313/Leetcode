@@ -51,39 +51,35 @@ from collections import deque
 
 
 class Solution(object):
-    def isSameTree1(self, p, q):
-        """
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: bool
-        """
-        if p is None and q is None:
-            return True
-
-        if p is not None and q is not None and p.val == q.val:
-            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-        else:
-            return False
-
+    # DFS iterative
     def isSameTree(self, p, q):
         """
         :type p: TreeNode
         :type q: TreeNode
         :rtype: bool
         """
-        stack = []
-        stack.append((p, q))
-
+        stack = [(p, q)]
         while stack:
-            t1, t2 = stack.pop()
-
-            if t1 is None and t2 is None:
+            node1, node2 = stack.pop()
+            if not node1 and not node2:
                 continue
-
-            if t1 and t2 and t1.val == t2.val:
-                stack.append((t1.left, t2.left))
-                stack.append( (t1.right, t2.right))
-            else:
+            if not node1 or not node2 or node1.val != node2.val:
                 return False
-
+            stack.append((node1.left, node2.left))
+            stack.append((node1.right, node2.right))
         return True
+
+    # DFS recursive
+    def isSameTree(self, p, q):
+        """
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: bool
+        """
+        if not p and not q:
+            return True
+
+        if not p or not q or p.val != q.val:
+            return False
+
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)

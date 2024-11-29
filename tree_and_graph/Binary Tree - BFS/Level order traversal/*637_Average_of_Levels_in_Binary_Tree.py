@@ -23,34 +23,31 @@ import collections
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
-
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution(object):
     def averageOfLevels(self, root):
         """
         :type root: TreeNode
         :rtype: List[float]
         """
-        stack = [(root, 0)]
-        level_vals = collections.defaultdict(list)
-        while stack:
-            node, lvl = stack.pop()
-            if node:
-                level_vals[lvl].append(node.val)
-                stack.append((node.left, lvl+1))
-                stack.append((node.right, lvl+1))
-        lvl = 0
-        avgs = []
-        while lvl in level_vals:
-            avg = sum(level_vals[lvl]) / float(len(level_vals[lvl]))
-            avgs.append(avg)
-            lvl += 1
-        return avgs
+        if not root:
+            return []
 
+        result = []
+        queue = collections.deque([root])
 
+        while queue:
+            level_size = len(queue)
+            level_sum = 0
+
+            for _ in range(level_size):
+                node = queue.popleft()
+                level_sum += node.val
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+
+            result.append(float(level_sum) / level_size)
+
+        return result

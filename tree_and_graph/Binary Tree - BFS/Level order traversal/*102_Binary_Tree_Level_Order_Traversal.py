@@ -31,10 +31,6 @@ return its level order traversal as:
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
-import collections
-
-
 class Solution(object):
     def levelOrder(self, root):
         """
@@ -43,22 +39,27 @@ class Solution(object):
         """
         if not root:
             return []
-        result = []
 
+        result = []
         queue = collections.deque([root])
 
         while queue:
             level_size = len(queue)
             curr_level = []
+
             for _ in range(level_size):
                 node = queue.popleft()
-                if node:
-                    curr_level.append(node.val)
-                    if node.left:
-                        queue.append(node.left)
-                    if node.right:
-                        queue.append(node.right)
+                curr_level.append(node.val)
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
 
             result.append(curr_level)
 
         return result
+
+
+
+        

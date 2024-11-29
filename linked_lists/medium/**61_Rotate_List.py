@@ -39,29 +39,67 @@ class Solution(object):
         :type k: int
         :rtype: Optional[ListNode]
         """
-        if not head or not head.next or k == 0:
+        if not head:
+            return None
+
+        curr = head
+        count = 0
+        while curr:
+            count += 1
+            curr = curr.next
+
+        k %= count
+
+        if k == 0:
             return head
 
-        length = 0
-        curr = head
-        while curr:
-            curr = curr.next
-            length += 1
+        left = right = head
+        for _ in range(k):
+            right = right.next
 
+        while right and right.next:
+            right = right.next
+            left = left.next
+
+        new_head = left.next
+        right.next = head
+        left.next = None
+        
+        return new_head
+
+
+    def rotateRight(self, head, k):
+        """
+        :type head: Optional[ListNode]
+        :type k: int
+        :rtype: Optional[ListNode]
+        """
+        if not head:
+            return head
+
+        length = 1
+        last = head
+        while last.next:
+            last = last.next
+            length += 1
+        
         k = k % length
         if k == 0:
             return head
 
+        # Make the list circular by connecting the last node to the head
+        last.next = head
+
+        # Find the new tail, which is at position (length - k - 1)
+        # and the new head, which is at position (length - k)
         new_tail = head
         for _ in range(length - k - 1):
             new_tail = new_tail.next
 
         new_head = new_tail.next
         new_tail.next = None
-        curr = new_head
-        while curr and curr.next:
-            curr = curr.next
-        curr.next = head
+
         return new_head
+
 
         

@@ -23,12 +23,13 @@ points to, or null if it does not point to any node.
 
 """
 # Definition for a Node.
-class Node(object):
-    def __init__(self, val, next, random):
-        self.val = val
+class Node:
+    def __init__(self, x, next=None, random=None):
+        self.val = int(x)
         self.next = next
         self.random = random
 """
+
 class Solution(object):
     def copyRandomList(self, head):
         """
@@ -37,29 +38,31 @@ class Solution(object):
         """
         if not head:
             return None
-        
-        # copy nodes
+
+        # Step 1: Clone the nodes and insert them after the original nodes
         curr = head
         while curr:
-            nxt = curr.next
-            curr.next = Node(curr.val, None, None)
-            curr.next.next = nxt
-            curr = nxt
-        
-        # copy random pointers
+            new_node = Node(curr.val)
+            new_node.next = curr.next
+            curr.next = new_node
+            curr = new_node.next
+
+        # Step 2: Set the random pointers for the new nodes
         curr = head
         while curr:
             if curr.random:
                 curr.next.random = curr.random.next
             curr = curr.next.next
-            
-        # separate two parts
-        second = curr = head.next
-        while curr.next:
-            head.next = curr.next
-            head = head.next
+
+        # Step 3: Separate the two lists (original and copied)
+        curr = head
+        copy_head = head.next
+        copy_curr = head.next
+        while curr:
             curr.next = curr.next.next
+            if copy_curr.next:
+                copy_curr.next = copy_curr.next.next         
             curr = curr.next
-        head.next = None
-        return second
-        
+            copy_curr = copy_curr.next
+
+        return copy_head

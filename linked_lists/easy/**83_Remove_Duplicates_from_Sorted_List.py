@@ -17,42 +17,27 @@ Example 2:
 
 Input: 1->1->2->3->3
 Output: 1->2->3"""
-from typing import Optional
-
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-
-class Solution:
-    def deleteDuplicates1(self, head):
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def deleteDuplicates(self, head):
         """
         :type head: ListNode
         :rtype: ListNode
         """
         if not head:
-            return head
-        left = right = head
-        while right:
-            if right.val != left.val:
-                left.next = right
-                left = left.next
-            right = right.next
-        left.next = None
-
-        return head
-
-    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+            return None
+        
         curr = head
         while curr and curr.next:
+            # If current node value is the same as the next node, skip the next node
             if curr.val == curr.next.val:
                 curr.next = curr.next.next
             else:
                 curr = curr.next
-        return head
 
-        
-    
+        return head

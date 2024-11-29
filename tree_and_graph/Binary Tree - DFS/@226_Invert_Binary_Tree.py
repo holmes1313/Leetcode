@@ -34,7 +34,15 @@ Output:
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution(object):
+    # DFS iterative
     def invertTree(self, root):
         """
         :type root: TreeNode
@@ -49,6 +57,7 @@ class Solution(object):
                 stack.append(node.right)
         return root
 
+    # DFS recursive
     def invertTree(self, root):
         """
         :type root: TreeNode
@@ -57,16 +66,8 @@ class Solution(object):
         if not root:
             return None
 
-        
         root.left, root.right = root.right, root.left
-
         self.invertTree(root.left)
         self.invertTree(root.right)
 
         return root
-
-
-
-
-
-

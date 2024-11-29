@@ -30,7 +30,6 @@ Note:
 All of the nodes' values will be unique.
 p and q are different and both values will exist in the BST.
 """
-
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -46,15 +45,12 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
-        # p and q are on the different side of root
-        if (root.val - p.val) * (root.val - q.val) <= 0:
-            return root
+        while root:
+            if p.val < root.val and q.val < root.val:
+                root = root.left
+            elif p.val > root.val and q.val > root.val:
+                root = root.right
+            else:
+                return root
+        return None
         
-        # both p and q are on the left side of root
-        elif root.val > max(p.val, q.val):
-            return self.lowestCommonAncestor(root.left, p, q)
-        
-        # both p and q are on the right side of root
-        else:
-            return self.lowestCommonAncestor(root.right, p, q)
-            
