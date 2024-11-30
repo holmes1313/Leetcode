@@ -34,18 +34,33 @@ class Solution(object):
             return ""
         
         prefix = strs[0]
-        
         for word in strs[1:]:
-            n = min(len(prefix), len(word))
-            j = 0
-            while  j < n:
-                if prefix[j] == word[j]:
-                    j += 1
+            i = 0
+            while i < len(prefix) and i < len(word):
+                if prefix[i] == word[i]:
+                    i += 1
                 else:
                     break
-            prefix = prefix[:j]
-            
-            if prefix == "":
+            prefix = prefix[:i]
+            if not prefix:
                 return ""
+
+        return prefix
+
+
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if not strs:
+            return ""
         
+        prefix = strs[0]
+        for word in strs[1:]:
+            while not word.startswith(prefix):
+                prefix = prefix[:-1]
+                if not prefix:
+                    return ""
+
         return prefix

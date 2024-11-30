@@ -19,7 +19,6 @@ Follow up:
 
 If you have figured out the O(n) solution, try coding another solution using 
 the divide and conquer approach, which is more subtle."""
-
 class Solution(object):
     def maxSubArray(self, nums):
         """
@@ -38,5 +37,18 @@ class Solution(object):
 
         return max_sum
 
-    
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+
+        curr_sum = max_sum = nums[0]
+        for num in nums[1:]:
+            # whether to extend the current subarray or start a new subarray with just the current element.
+            curr_sum = max(curr_sum + num, num)
+            max_sum = max(max_sum, curr_sum)
+        return max_sum
 
