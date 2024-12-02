@@ -37,18 +37,36 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        def _climb(n):
+        memo = {}
+
+        def helper(n):
+            if n == 1:
+                return 1
+
+            if n == 2:
+                return 2
+
             if n in memo:
                 return memo[n]
 
-            if n==1:
-                return 1
-
-            if n==2:
-                return 2
-
-            memo[n] = _climb(n-1) + _climb(n-2)
+            memo[n] = helper(n-1) + helper(n-2)
             return memo[n]
 
-        memo = {}
-        return _climb(n)
+        return helper(n)
+
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 1:
+            return 1
+
+        first, second = 1, 2
+
+        for i in range(3, n+1):
+            curr = first + second
+            first = second
+            second = curr
+
+        return second

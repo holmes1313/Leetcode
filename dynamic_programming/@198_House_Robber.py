@@ -31,54 +31,43 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
 Input: [2,1,1,2]
 Ouput: 4
 """
-
-# odd elements list[1::2]         
-# even elements list[0::2]        
-# Top down dynamic programming (memoization) 
-
-
-# for class, put memo in __init__
 class Solution(object):
-    def __init__(self):
-         self.memo = {}
     def rob(self, nums):
         """
-        :type nums: List(int)
+        :type nums: List[int]
         :rtype: int
         """
-        n = len(nums)
-        if n == 0:
+        memo = {}
+        def helper(nums):
+            n = len(nums)
+            if n == 0:
+                return 0
+
+            if n == 1:
+                return nums[0]
+
+            if n in memo:
+                return memo[n]
+
+            memo[n] = max(helper(nums[:-2])+nums[-1], helper(nums[:-1]))
+            return memo[n]
+
+        return helper(nums)
+
+
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
             return 0
-        if n == 1:
-            return nums[n-1]
-        if n not in self.memo:
-            self.memo[n] = max(self.rob(nums[:-2]) + nums[-1], self.rob(nums[:-1]))
-        
-        return self.memo[n]
-    
 
-# top down (memoization)
-def rob_topDown(nums, memo={}):
-    n = len(nums)
-    if n == 0:     
-        return 0    
-    if n == 1:
-        return nums[0]
-    if n not in memo:
-        memo[n] = max(rob_topDown(nums[:-2]) + nums[-1], rob_topDown(nums[:-1]))        
-    return memo[n]
+        first = 0
+        second = nums[0]
+        for num in nums[1:]:
+            curr = max(first + num, second)
+            first = second
+            second = curr
 
-test1 = [2, 7, 9, 3, 1]
-rob_topDown(test1)
-len(test1)
-
-
-# bottom up 
-def rob_bottomUp(nums):
-    if not nums:
-        return 0
-    a = 0
-    b = nums[0]
-    for i in range(1, len(nums)):
-        b, a = max(a+nums[i], b), b
-    return b
+        return second

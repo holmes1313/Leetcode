@@ -56,4 +56,24 @@ class Solution(object):
                     break
                     
         return dp[amount] if dp[amount] < amount+1 else -1 
-            
+    
+
+class Solution(object):
+    def coinChange(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        # Initialize dp array where dp[i] represents the minimum coins to make amount i
+        dp = [float('inf')] * (amount + 1)
+        dp[0] = 0  # No coins needed to make amount 0
+        
+        # For each coin in the coins list
+        for coin in coins:
+            # Update dp values for all amounts from coin to amount
+            for i in range(coin, amount + 1):
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+        
+        # If dp[amount] is still inf, it means we cannot make the amount with the given coins
+        return dp[amount] if dp[amount] != float('inf') else -1

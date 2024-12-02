@@ -44,4 +44,3 @@ class Solution(object):
         result = []
         backtrack(0, [])
         return result
-        
