@@ -112,8 +112,36 @@ class Solution(object):
                     next_idx += 1
 
         return next_idx
- 
 
+    def compress(self, chars):
+        """
+        :type chars: List[str]
+        :rtype: int
+        """
+        if len(chars) < 2:
+            return len(chars)
 
+        nxt_idx = 0
+        curr_cha = chars[0]
+        curr_count = 0
+        for cha in chars:
+            if cha == curr_cha:
+                curr_count += 1
+            else:
+                chars[nxt_idx] = curr_cha
+                nxt_idx += 1
+                if curr_count > 1:
+                    for digit in str(curr_count):
+                        chars[nxt_idx] = digit
+                        nxt_idx += 1
+                curr_count = 1
+                curr_cha = cha
 
-        
+        chars[nxt_idx] = curr_cha
+        nxt_idx += 1
+        curr_cha = cha
+        if curr_count > 1:
+            for digit in str(curr_count):
+                chars[nxt_idx] = digit
+                nxt_idx += 1
+        return nxt_idx

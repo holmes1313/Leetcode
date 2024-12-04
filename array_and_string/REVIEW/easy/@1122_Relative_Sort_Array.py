@@ -22,7 +22,6 @@ arr1.length, arr2.length <= 1000
 Each arr2[i] is distinct.
 Each arr2[i] is in arr1.
 """
-
 class Solution(object):
     def relativeSortArray(self, arr1, arr2):
         """
@@ -31,6 +30,15 @@ class Solution(object):
         :rtype: List[int]
         """
         order = {val: i for i, val in enumerate(arr2)}
-
         arr1.sort(key=lambda x: (order.get(x, float('inf')), x))
+        return arr1
+
+    def relativeSortArray(self, arr1, arr2):
+        """
+        :type arr1: List[int]
+        :type arr2: List[int]
+        :rtype: List[int]
+        """
+        order = {val: i for i, val in enumerate(arr2)}
+        arr1.sort(key=lambda x: order.get(x, len(arr2) + x))
         return arr1

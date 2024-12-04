@@ -37,6 +37,8 @@ There will be at least one element in the data structure when getRandom is calle
 class RandomizedSet(object):
 
     def __init__(self):
+        # Hashmap provides Insert and Delete in average constant time, although has problems with GetRandom.
+        # Array List has indexes and could provide GetRandom in average constant time, though has problems with Delete
         self.val_to_index = {}
         self.values = []
 
@@ -60,8 +62,11 @@ class RandomizedSet(object):
         if val not in self.val_to_index:
             return False
 
+        # Deleting a value at an arbitrary index takes linear time. 
+        # The solution here is to always delete the last value:
+        # Swap the element to delete with the last one.
+        # Pop the last element out.
         index = self.val_to_index[val]
-        
         last_val = self.values[-1]
         self.val_to_index[last_val] = index
         self.values[index] = last_val

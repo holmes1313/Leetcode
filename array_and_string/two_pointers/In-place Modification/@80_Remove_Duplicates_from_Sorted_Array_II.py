@@ -39,7 +39,7 @@ class Solution(object):
         if not nums:
             return 0
 
-        write_idx = 1
+        next_idx = 1
         curr_count = 1
 
         for i in range(1, len(nums)):
@@ -49,8 +49,8 @@ class Solution(object):
                 curr_count = 1
 
             if curr_count <= 2:
-                nums[write_idx] = nums[i]
-                write_idx += 1
+                nums[next_idx] = nums[i]
+                next_idx += 1
 
-        return write_idx
+        return next_idx
 

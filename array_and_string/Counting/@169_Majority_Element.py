@@ -26,6 +26,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # O(nlogn)
         nums.sort()
         return nums[len(nums)//2]
     
@@ -34,6 +35,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        # Boyer-Moore Voting Algorithm O(n)
         candidate = None
         count = 0
 

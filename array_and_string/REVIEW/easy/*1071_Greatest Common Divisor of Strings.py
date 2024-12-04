@@ -18,7 +18,6 @@ Example 3:
 Input: str1 = "LEET", str2 = "CODE"
 Output: ""
 """
-
 class Solution(object):
     def gcdOfStrings(self, str1, str2):
         """
@@ -26,6 +25,9 @@ class Solution(object):
         :type str2: str
         :rtype: str
         """
+        if str1 + str2 != str2 + str1:
+            return ""
+
         l1 = len(str1)
         l2 = len(str2)
         for i in range(min(l1, l2), 0, -1):
@@ -35,5 +37,3 @@ class Solution(object):
                 base = str1[:i]
                 if str1 == base * n1 and str2 == base * n2:
                     return base
-
-        return ""
