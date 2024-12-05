@@ -49,7 +49,7 @@ class Solution(object):
         while missing_count < k:
             if index < len(arr) and arr[index] == curr:
                 index += 1
-                
+            
             else:
                 missing_count += 1
                 if missing_count == k:

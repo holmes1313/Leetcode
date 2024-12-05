@@ -22,8 +22,6 @@ Example 2:
 Input: haystack = "aaaaa", needle = "bba"
 Output: -1
 """
-
-
 class Solution(object):
     def strStr(self, haystack, needle):
         """
@@ -31,13 +29,17 @@ class Solution(object):
         :type needle: str
         :rtype: int
         """
+        if not needle:
+            return -1
+
         m = len(haystack)
         n = len(needle)
-        for window_start in range(m - n + 1):
-            if haystack[window_start:window_start+n] == needle:
-                return window_start
+
+        if m < n:
+            return -1
+    
+        for i in range(m - n + 1):
+            if haystack[i:i + n] == needle:
+                return i
 
         return -1
-        
-
-
