@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 18 18:51:11 2019
-
-@author: z.chen7
-"""
 # 26. Remove Duplicates from Sorted Array
 """
 Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.

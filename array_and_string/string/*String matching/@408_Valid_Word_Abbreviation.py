@@ -37,26 +37,22 @@ class Solution(object):
         :type abbr: str
         :rtype: bool
         """
-        i, j = 0, 0  # Pointers for word and abbr
-        n, m = len(word), len(abbr)
-
-        while i < n and j < m:
-            if abbr[j].isdigit():
-                # If the current character is a digit, read the full number
-                if abbr[j] == '0':
-                    return False  # Leading zero is not allowed
-                num = 0
-                while j < m and abbr[j].isdigit():
-                    num = num * 10 + int(abbr[j])  # Build the number
-                    j += 1
-                i += num  # Skip 'num' characters in 'word'
-            else:
-                # If it's a letter, match it with the 'word'
-                if word[i] == abbr[j]:
+        i, j = 0, 0
+        while i < len(word) and j < len(abbr):
+            if abbr[j].isalpha():
+                if word[i] != abbr[j]:
+                    return False
+                else:
                     i += 1
                     j += 1
-                else:
-                    return False  # Mismatch
-        
-        # Check if we have processed all characters in both strings
-        return i == n and j == m
+            else:
+                if abbr[j] == '0':
+                    return False
+
+                num = 0
+                while j < len(abbr) and abbr[j].isdigit():
+                    num = num * 10 + int(abbr[j])
+                    j += 1
+                i += num
+
+        return i == len(word) and j == len(abbr)

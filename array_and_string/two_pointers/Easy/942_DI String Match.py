@@ -21,27 +21,6 @@ Output: [0,1,2,3]
 # If we see an 'I', place the small element; otherwise place the large element.
 
 class Solution(object):
-    def diStringMatch2(self, s):
-        """
-        :type s: str
-        :rtype: List[int]
-        """
-        nums = [i for i in range(len(s)+1)]
-        left = 0
-        right = len(nums) - 1
-        result = []
-        for cha in s:
-            if cha == "I":
-                result.append(nums[left])
-                left += 1
-            elif cha == "D":
-                result.append(nums[right])
-                right -= 1
-
-        result.append(nums[left])
-        return result
-
-
     def diStringMatch(self, s):
         """
         :type s: str

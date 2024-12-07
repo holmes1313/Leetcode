@@ -27,16 +27,20 @@ class Solution(object):
         :type startIndex: int
         :rtype: int
         """
-        long_words = words * 3
-        p1 = p2 = startIndex + len(words)
-        min_distance = 0
-        while min_distance < len(words):
-            if long_words[p1] == target or long_words[p2] == target:
-                return min_distance
-            p1 -= 1
-            p2 += 1
-            min_distance += 1
+        n = len(words)
+        target_indices = []
+        for i, word in enumerate(words):
+            if word == target:
+                target_indices.append(i)
 
-        return -1
+        if not target_indices:
+            return -1
 
+        min_distance = float('inf')
+        for idx in target_indices:
+            forward_distance = (idx - startIndex + n) % n
+            backward_distance = (startIndex - idx + n) % n
+
+            min_distance = min(min_distance, forward_distance, backward_distance)
         
+        return min_distance

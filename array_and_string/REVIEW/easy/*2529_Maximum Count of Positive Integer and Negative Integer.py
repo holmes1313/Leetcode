@@ -29,27 +29,46 @@ Constraints:
 -2000 <= nums[i] <= 2000
 nums is sorted in a non-decreasing order.
 """
-
 class Solution(object):
     def maximumCount(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        n = len(nums)
-        idx = 0
         neg_count = 0
         pos_count = 0
-        zero_count = 0
-        while idx < n:
-            if nums[idx] < 0:
+        for num in nums:
+            if num < 0:
                 neg_count += 1
-            elif nums[idx] == 0:
-                zero_count += 1
-            else:
-                break
-            idx += 1
-        pos_count = n - zero_count - neg_count
+            elif num > 0:
+                pos_count += 1
         return max(pos_count, neg_count)
 
-        
+    def maximumCount(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        def find_first_positive(nums):
+            left, right = 0, len(nums) - 1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] <= 0:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return left
+
+        def find_first_zero(nums):
+            left, right = 0, len(nums) - 1
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] < 0:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+            return left
+
+        neg_count = find_first_zero(nums)
+        pos_count = len(nums) - find_first_positive(nums)
+        return max(neg_count, pos_count)

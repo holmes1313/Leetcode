@@ -29,7 +29,7 @@ class Solution(object):
         :type sentence: str
         :rtype: str
         """
-        vowels = {'a', 'e', 'i', 'o', 'u'}
+        vowels = set('aeiou')
         words = sentence.split(" ")
         ans = []
         for i in range(len(words)):

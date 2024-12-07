@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 18 22:22:41 2019
-
-@author: z.chen7
-"""
-
 # 977. Squares of a Sorted Array
 """
 Given an array of integers A sorted in non-decreasing order, return an array of the squares of each number, also in sorted non-decreasing order.

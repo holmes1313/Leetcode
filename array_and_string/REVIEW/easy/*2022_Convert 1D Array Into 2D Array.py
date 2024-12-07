@@ -57,9 +57,9 @@ class Solution(object):
         """
         if len(original) != m * n:
             return []
+
         ans = []
 
-        for i in range(0, len(original), n):
-            row = original[i: i+n]
-            ans.append(row)
+        for row in range(m):
+            ans.append(original[row * n: row * n + n])
         return ans

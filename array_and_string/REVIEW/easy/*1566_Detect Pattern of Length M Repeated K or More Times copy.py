@@ -33,11 +33,8 @@ class Solution(object):
         :rtype: bool
         """
         n = len(arr)
-        if m * k > n:
-            return False  
-        for start in range(n - m * k + 1):
-            pattern = arr[start:start + m]  # Extract the pattern
-            count = 0
-            if pattern * k == arr[start: start+m*k]:
+        for i in range(n - m * k + 1):
+            pattern = arr[i:i + m]  # Extract the pattern
+            if pattern * k == arr[i: i+m*k]:
                 return True
         return False

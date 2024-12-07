@@ -20,10 +20,6 @@ class Solution(object):
         :rtype: str
         """
         words = s.split()
-        ans = []
-        for word in words:
-            wordList = list(word)
-            revered = wordList[::-1]
-            ans.append("".join(revered))
+        reversed = [word[::-1] for word in words]
         
-        return " ".join(ans)
+        return " ".join(reversed)

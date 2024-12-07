@@ -33,15 +33,15 @@ class Solution(object):
         while p1 < p2:
             if not s_list[p1].isalpha():
                 p1 += 1
+                continue
 
             if not s_list[p2].isalpha():
                 p2 -= 1
+                continue
 
-            if s_list[p1].isalpha() and s_list[p2].isalpha():
-                s_list[p1], s_list[p2] = s_list[p2], s_list[p1]
-                p1 += 1
-                p2 -= 1
+            s_list[p1], s_list[p2] = s_list[p2], s_list[p1]
+            p1 += 1
+            p2 -= 1
 
         return "".join(s_list)
 
-        
