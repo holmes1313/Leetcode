@@ -1,0 +1,11 @@
+"""
+Whenever you see a problem that involves finding contiguous sub-array (size or the sub-array itself) always consider using sliding window.
+
+Well, not always. Sliding window is only applicable when we know for sure if the prefixSum is an increasing or decreasing function. (monotonus)
+Try out this. https://leetcode.com/problems/subarray-sum-equals-k
+
+Sliding window won't work.
+You may use this list to learn and understand the pattern better: https://leetcode.com/discuss/general-discussion/490184/sliding-window-understanding-the-pattern-resources
+"""
+
+A sliding window technique works when we are dealing with subarrays of fixed length or when we can determine the conditions to expand and contract the window.

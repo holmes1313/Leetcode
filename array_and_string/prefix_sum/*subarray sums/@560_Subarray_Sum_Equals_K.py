@@ -63,3 +63,36 @@ class Solution:
             h[curr_sum] += 1
                 
         return count
+    
+"""
+Sliding Window: Works for fixed-length subarrays or when the array elements follow certain constraints (like being all positive).
+Prefix Sum + HashMap: Works for all types of arrays, whether the elements are positive, negative, or zero, and allows us to dynamically track subarray sums as we iterate through the array.
+"""
+
+# if all the integers in the array are positive, 
+# then sliding window can be used to solve the problem of finding subarrays whose sum equals a given integer k.
+class Solution(object):
+    def subarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if k <= 0:
+            return 0
+        left = 0  # Left pointer of the sliding window
+        current_sum = 0  # Current sum of elements within the window
+        result = 0  # Count of subarrays whose sum equals k
+        for right in range(len(nums)):
+            current_sum += nums[right]  # Add the current element to the window
+            
+            # While the sum exceeds k, move the left pointer to shrink the window
+            while current_sum > k and left <= right:
+                current_sum -= nums[left]
+                left += 1
+            
+            # If the sum matches k, increment the result count
+            if current_sum == k:
+                result += 1
+        
+        return result

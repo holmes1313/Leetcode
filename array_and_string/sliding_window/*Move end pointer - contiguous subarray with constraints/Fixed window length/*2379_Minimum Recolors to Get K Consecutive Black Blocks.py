@@ -50,6 +50,24 @@ class Solution(object):
 
         return min_count
             
+    def minimumRecolors(self, blocks, k):
+        """
+        :type blocks: str
+        :type k: int
+        :rtype: int
+        """
+        curr_count = 0
+        max_count = 0
+        n = len(blocks)
+        for i in range(n):
+            if blocks[i] == 'B':
+                curr_count += 1
 
+            if i >= k:
+                if blocks[i-k] == 'B':
+                    curr_count -= 1
+                
+            if i >= k-1:
+                max_count = max(max_count, curr_count)
 
-        
+        return k - max_count

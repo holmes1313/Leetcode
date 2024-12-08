@@ -55,3 +55,29 @@ class Solution(object):
 
         return min_swaps
         
+    def minSwaps(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        concated_nums = nums + nums
+        window_len = sum(nums)
+        n = len(concated_nums)
+
+        curr_ones = 0
+        max_ones = 0
+        for i in range(n):
+            if concated_nums[i] == 1:
+                curr_ones += 1
+
+            if i >= window_len:
+                if concated_nums[i-window_len] == 1:
+                    curr_ones -= 1
+                
+            if i >= window_len - 1:
+                max_ones = max(max_ones, curr_ones)
+
+        return window_len - max_ones
+
+
+

@@ -23,14 +23,18 @@ class Solution(object):
         :type s: str
         :rtype: List[str]
         """
-        seen = set()
-        ans = set()
+        if len(s) < 10:
+            return []
 
-        for end in range(len(s)):
-            if end >= 9:
-                substr = s[end-9: end+1]
-                if substr in seen:
-                    ans.add(substr)
-                else:
-                    seen.add(substr)
-        return list(ans)
+        seen = {}
+        result = []
+        for i in range(len(s)-9):
+            substr = s[i: i+10]
+            if substr in seen:
+                seen[substr] += 1
+                if seen[substr] == 2:
+                    result.append(substr)
+            else:
+                seen[substr] = 1
+
+        return result
