@@ -17,9 +17,6 @@ Output: 2
 Explanation: The substring is "aa" with length 2.
 
 """
-import collections
-
-
 class Solution(object):
     def lengthOfLongestSubstringKDistinct(self, s, k):
         """
@@ -29,12 +26,10 @@ class Solution(object):
         """
         start = 0
         max_len = 0
-
         cha_counts = collections.defaultdict(int)
         for end in range(len(s)):
             cha_counts[s[end]] += 1
-
-            while len(cha_counts.keys()) > k and start <= end:
+            while len(cha_counts.keys()) > k:
                 cha_counts[s[start]] -= 1
                 if cha_counts[s[start]] == 0:
                     del cha_counts[s[start]]
@@ -43,5 +38,3 @@ class Solution(object):
             max_len = max(max_len, end - start + 1)
 
         return max_len
-            
-

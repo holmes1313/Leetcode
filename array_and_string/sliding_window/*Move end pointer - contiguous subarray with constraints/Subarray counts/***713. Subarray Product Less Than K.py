@@ -1,5 +1,5 @@
 """
-Given an array of integers nums and an integer k, return the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than k.
+Given an array of positive integers nums and an integer k, return the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than k.
 
  
 
@@ -15,6 +15,10 @@ Example 2:
 Input: nums = [1,2,3], k = 0
 Output: 0
 
+Constraints:
+1 <= nums.length <= 3 * 104
+1 <= nums[i] <= 1000
+0 <= k <= 106
 """
 class Solution(object):
     def numSubarrayProductLessThanK(self, nums, k):

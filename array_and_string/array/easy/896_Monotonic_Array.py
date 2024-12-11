@@ -42,9 +42,8 @@ Note:
 1 <= A.length <= 50000
 -100000 <= A[i] <= 100000
 """
-
 class Solution:
-    def isMonotonic(self, nums: List[int]) -> bool:
+    def isMonotonic(self, nums):
         is_asec = True
         is_desc = True
         for i in range(len(nums)-1):
