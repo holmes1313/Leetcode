@@ -34,7 +34,7 @@ class Solution(object):
         for word in words:
             word_count = collections.Counter(word)
             good = True
-            for cha in word:
+            for cha in word_count.keys():
                 if word_count[cha] > counts.get(cha, 0):
                     good = False
                     break

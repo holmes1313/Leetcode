@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Oct 19 18:14:49 2019
-
-@author: z.chen7
-"""
-
-# 238. Product of Array Except Self
 """
 Given an array nums of n integers where n > 1,  return an array output such 
 that output[i] is equal to the product of all the elements of nums except nums[i].
@@ -56,7 +48,6 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        initial = 1
         left_products = []
         right_products = []
 

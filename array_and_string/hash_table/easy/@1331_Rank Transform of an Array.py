@@ -29,29 +29,15 @@ class Solution(object):
         :type arr: List[int]
         :rtype: List[int]
         """
-        rank = 0
-        prev = None
-        min_heap = []
-        ans = [0] * len(arr)
-        for i, num in enumerate(arr):
-            heapq.heappush(min_heap, (num, i))
+        sorted_arr = sorted(arr)
+        # nums = sorted(set(arr))
+        num_to_rank = {}
+        curr_rank = 1
 
-        while min_heap:
-            num, idx = heapq.heappop(min_heap)
-            if num == prev:
-                ans[idx] = rank
-            else:
-                rank += 1
-                ans[idx] = rank
-                prev = num
+        for num in sorted_arr:
+            if num not in num_to_rank:
+                num_to_rank[num] = curr_rank
+                curr_rank += 1
 
-        return ans
-
-    def arrayRankTransform(self, arr):
-        """
-        :type arr: List[int]
-        :rtype: List[int]
-        """
-        sorted_arr = sorted(set(arr))
-        rank_dict = {num: i+1 for i, num in enumerate(sorted_arr)}
-        return [rank_dict[num] for num in arr]
+        result = [num_to_rank[num] for num in arr]
+        return result

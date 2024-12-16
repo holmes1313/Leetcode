@@ -20,12 +20,7 @@ Example 2:
 Input: nums = [2,3,4,5], queries = [1]
 Output: [0]
 Explanation: The empty subsequence is the only subsequence that has a sum less than or equal to 1, so answer[0] = 0.
- 
-
-
-
 """
-
 class Solution(object):
     def answerQueries(self, nums, queries):
         """
@@ -34,19 +29,15 @@ class Solution(object):
         :rtype: List[int]
         """
         nums.sort()
-        
-        prefix_sum = [0] * len(nums)
-        prefix_sum[0] = nums[0]
-
         for i in range(1, len(nums)):
-            prefix_sum[i] = prefix_sum[i-1] + nums[i]
+            nums[i] += nums[i-1]
 
         ans = []
-        for query in queries:
-            left, right = 0, len(prefix_sum) - 1
+        for q in queries:
+            left, right = 0, len(nums) - 1
             while left <= right:
                 mid = (left + right) // 2
-                if prefix_sum[mid] <= query:
+                if nums[mid] <= q:
                     left = mid + 1
                 else:
                     right = mid - 1

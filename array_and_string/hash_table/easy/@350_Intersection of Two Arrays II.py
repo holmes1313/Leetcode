@@ -25,6 +25,21 @@ class Solution(object):
         """
         intersection = collections.Counter(nums1) & collections.Counter(nums2)
         return intersection.elements()
+   
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        count1 = collections.Counter(nums1)
+        result = []
+        for num in nums2:
+            if count1[num] > 0:
+                result.append(num)
+                count1[num] -= 1
+
+        return result
 
     def intersect(self, nums1, nums2):
         """
@@ -32,10 +47,19 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: List[int]
         """
-        c1 = collections.Counter(nums1)
-        c2 = collections.Counter(nums2)
+        count = collections.Counter(nums1)
+
+        for nums in [nums2]:
+            curr_count = collections.Counter(nums)
+            for key in count:
+                if key in curr_count:
+                    count[key] = min(count[key], curr_count[key])
+                else:
+                    count[key] = 0
+
         result = []
-        for num in c1.keys():
-            if num in c2:
-                result.extend([num] * min(c1[num], c2[num]))
+        for num, freq in count.items():
+            result.extend([num] * freq)
         return result
+
+            

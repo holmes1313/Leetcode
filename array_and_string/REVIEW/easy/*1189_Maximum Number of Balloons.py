@@ -23,24 +23,22 @@ Input: text = "leetcode"
 Output: 0
 
 """
+import collections
+
+
 class Solution(object):
     def maxNumberOfBalloons(self, text):
         """
         :type text: str
         :rtype: int
         """
-        counter = collections.Counter(text)
-        ans = 0
-        while True:
-            finish = 1
-            for cha in "balloon":
-                if counter[cha] == 0:
-                    finish = 0
-                    break
-                counter[cha] -= 1
-            if finish:
-                ans += 1
+        count = collections.Counter(text)
+        target_count = collections.Counter("balloon")
+        max_count = float("inf")
+        for cha, freq in target_count.items():
+            if cha in count:
+                max_count = min(max_count, count[cha] // freq)
             else:
-                break
+                return 0
 
-        return ans
+        return max_count

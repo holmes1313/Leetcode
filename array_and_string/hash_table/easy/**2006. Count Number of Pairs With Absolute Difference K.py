@@ -37,12 +37,25 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        seen = collections.defaultdict(int)
+        counts = collections.defaultdict(int)
         ans = 0
         for num in nums:
-            ans += seen.get(num-k, 0)
-            ans += seen.get(num+k, 0)
-            seen[num] += 1
+            ans += counts.get(num-k, 0)
+            ans += counts.get(num+k, 0)
+            counts[num] += 1
 
         return ans
         
+    def countKDifference1(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        ans = 0
+        counts = collections.Counter(nums)
+        for key in counts:
+            if key - k in counts:
+                ans += counts[key] * counts[key-k]
+
+        return ans

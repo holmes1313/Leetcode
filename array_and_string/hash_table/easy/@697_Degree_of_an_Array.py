@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Oct 13 16:42:37 2019
-
-@author: z.chen7
-"""
-
 #  697. Degree of an Array
 """
 Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.
@@ -36,6 +29,8 @@ class Solution(object):
         counts = {}
         first_idx = {}
         last_idx = {}
+        max_count = 0
+        max_freq_nums = []
 
         for i, num in enumerate(nums):
             if num not in counts:
@@ -46,14 +41,15 @@ class Solution(object):
                 counts[num] += 1
                 last_idx[num] = i
 
-        degree = max(counts.values())
+            if counts[num] > max_count:
+                max_count = counts[num]
+                max_freq_nums = [num]
+            elif counts[num] == max_count:
+                max_freq_nums.append(num)
 
         min_len = float('inf')
-        for num in counts:
-            if counts[num] == degree:
-                min_len = min(min_len, last_idx[num] - first_idx[num] + 1)
+        for num in max_freq_nums:
+            min_len = min(min_len, last_idx[num] - first_idx[num]+1)
 
         return min_len
-
-            
             

@@ -24,10 +24,10 @@ Input: ["cool","lock","cook"]
 Output: ["c","o"]"""
 
 import collections
-from typing import List
+
 
 class Solution(object):
-    def commonChars2(self, words):
+    def commonChars(self, words):
         """
         :type words: List[str]
         :rtype: List[str]
@@ -44,11 +44,13 @@ class Solution(object):
         :rtype: List[str]
         """
         common_counts = collections.Counter(words[0])
-        for word in words:
+        for word in words[1:]:
             current_counts = collections.Counter(word)
-
             for letter in common_counts.keys():
-                common_counts[letter] = min(common_counts[letter], current_counts[letter])
+                if letter in current_counts:
+                    common_counts[letter] = min(common_counts[letter], current_counts[letter])
+                else:
+                    common_counts[letter] = 0
 
         result = []
         for letter, count in common_counts.items():

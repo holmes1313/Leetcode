@@ -30,23 +30,22 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        even_counts = {}
+        counts = {}
+
+        most_freq = 0
+        most_freq_num = -1
+
         for num in nums:
-            if num % 2 == 0:
-                if num in even_counts:
-                    even_counts[num] += 1
-                else:
-                    even_counts[num] = 1
+            if num % 2 != 0:
+                continue
 
-        ans = -1
-        max_count = 0
-        for num, count in even_counts.items():
-            if count > max_count:
-                max_count = count
-                ans = num
-            elif count == max_count and num < ans:
-                ans = num
+            counts[num] = counts.get(num, 0) + 1
+            
+            if counts[num] > most_freq:
+                most_freq = counts[num]
+                most_freq_num = num
 
-        return ans
+            elif counts[num] == most_freq:
+                most_freq_num = min(most_freq_num, num)
 
-        
+        return most_freq_num

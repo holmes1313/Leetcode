@@ -28,7 +28,6 @@ Constraints:
 1 <= nums1.length, nums2.length <= 1000
 -1000 <= nums1[i], nums2[i] <= 1000
 """
-
 class Solution(object):
     def findDifference(self, nums1, nums2):
         """
@@ -42,4 +41,30 @@ class Solution(object):
         diff1 = list(set1 - set2)
         diff2 = list(set2 - set1)
         return [diff1, diff2]
-        
+
+    def findDifference(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[List[int]]
+        """
+        count1 = {}
+        count2 = {}
+
+        for num in nums1:
+            count1[num] = count1.get(num, 0) + 1
+
+        for num in nums2:
+            count2[num] = count2.get(num, 0) + 1
+
+        ans0 = []
+        ans1 = []
+        for num in count1:
+            if num not in count2:
+                ans0.append(num)
+
+        for num in count2:
+            if num not in count1:
+                ans1.append(num)
+
+        return [ans0, ans1]

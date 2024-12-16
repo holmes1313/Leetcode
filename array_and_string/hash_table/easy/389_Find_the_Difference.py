@@ -42,15 +42,17 @@ class Solution(object):
                 return c
             counter[c] -= 1
 
+    def findTheDifference(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        c1 = collections.Counter(s)
+        c2 = collections.Counter(t)
 
-class Solution2:
-    def findTheDifference(self, s: str, t: str) -> str:
-        from collections import Counter
-        counter = Counter(t)
-
-        for c in s:
-            counter[c] -= 1
-
-        for key, value in counter.items():
-            if value > 0:
-                return key
+        for cha in c2:
+            if c2[cha] > c1.get(cha, 0):
+                return cha
+            
+        return -1

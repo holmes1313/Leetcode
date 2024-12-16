@@ -65,4 +65,32 @@ class Solution(object):
 
         return ans
 
-        
+    def decodeMessage(self, key, message):
+        """
+        :type key: str
+        :type message: str
+        :rtype: str
+        """
+        decode_map = {}
+        a_code = ord("a")
+        keys = set()
+        i = 0
+        for cha in key:
+            if not cha.isalpha():
+                continue
+
+            if cha not in decode_map:
+                decode_map[cha] = chr(i + a_code)
+                i += 1
+
+            if i == 26:
+                break
+
+        ans = ""
+        for cha in message:
+            if cha.isalpha():
+                ans += decode_map[cha]
+            else:
+                ans += cha
+
+        return ans

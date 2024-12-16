@@ -21,15 +21,6 @@ Output:
 [5,6]
 """
 class Solution(object):
-    def findDisappearedNumbers2(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        complete_nums = set([i for i in range(1, len(nums)+1)])
-        nums_set = set(nums)
-        return complete_nums - nums_set
-
     def findDisappearedNumbers(self, nums):
         """
         :type nums: List[int]
