@@ -139,7 +139,6 @@ class Solution(object):
 
         chars[nxt_idx] = curr_cha
         nxt_idx += 1
-        curr_cha = cha
         if curr_count > 1:
             for digit in str(curr_count):
                 chars[nxt_idx] = digit

@@ -23,7 +23,7 @@ Input: [4,1,2,1,2]
 Output: 4
 """
 class Solution:
-    def singleNumber2(self, nums: List[int]) -> int:
+    def singleNumber2(self, nums) -> int:
         seen = {}
         for num in nums:
             if num in seen:
@@ -34,22 +34,6 @@ class Solution:
             output = key
         return output
 
-    def singleNumber(self, nums: List[int]) -> int:
+    def singleNumber(self, nums) -> int:
         return sum(set(nums)) * 2 - sum(nums)
     
-
-
-"""
-
-thank you so much for calling me after the release of the interview result.
-
-I don't want to take too much of your time
-
-I was wondering if there’s any feedback from the team that you could share with me? I’m always looking for ways to improve and would really appreciate any insights.
-
-also, if you don’t mind me asking, how many people did you end up hiring
-
-That’s awesome, thank you for letting me know. One last thing—just to clarify, is there a cooling-off period for future applications? 
-
-
-"""

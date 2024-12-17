@@ -29,6 +29,7 @@ n == grid.length == grid[i].length
 1 <= n <= 200
 1 <= grid[i][j] <= 105
 """
+
 class Solution(object):
     def equalPairs(self, grid):
         """

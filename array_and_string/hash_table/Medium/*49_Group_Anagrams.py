@@ -31,7 +31,7 @@ class Solution(object):
         """
         ans = {}
         for value in strs:
-            key = "".join(sorted(value))
+            key = tuple(sorted(value))
             if key in ans:
                 ans[key].append(value)
             else:

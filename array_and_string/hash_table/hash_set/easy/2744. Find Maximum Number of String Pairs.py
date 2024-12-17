@@ -42,10 +42,8 @@ class Solution(object):
         word_set = set()
         ans = 0
         for word in words:
-            sorted_word = "".join(sorted(word))
-            if sorted_word in word_set:
+            if word[::-1] in word_set:
                 ans += 1
-            else:
-                word_set.add(sorted_word)
+            word_set.add(word)
 
-        return ans        
+        return ans
