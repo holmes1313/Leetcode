@@ -24,14 +24,27 @@ Input: nums = [-1], lower = -1, upper = -1
 Output: []
 Explanation: There are no missing ranges since there are no missing numbers.
 """
-from typing import List
+class Solution(object):
+    def findMissingRanges(self, nums, lower, upper):
+        """
+        :type nums: List[int]
+        :type lower: int
+        :type upper: int
+        :rtype: List[List[int]]
+        """
 
+        if not nums:
+            return [[lower, upper]]
+        
+        result = []
+        if lower < nums[0]:
+            result.append([lower, nums[0]-1])
 
-class Solution:
-    def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
-        ranges = [lower-1] + nums + [upper+1]
-        output = []
-        for i in range(len(ranges) - 1):
-            if ranges[i+1] - ranges[i] > 1:
-                output.append([ranges[i] + 1, ranges[i+1] - 1])
-        return output
+        for i in range(1, len(nums)):
+            if nums[i] > nums[i-1] + 1:
+                result.append([nums[i-1]+1, nums[i]-1])
+
+        if upper > nums[-1]:
+            result.append([nums[-1]+1, upper])
+
+        return result

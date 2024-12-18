@@ -31,31 +31,14 @@ class Solution(object):
         :type duration: int
         :rtype: int
         """
-        total_time = 0
-        curr_time = 0
-
-        for attack_time in timeSeries:
-            if attack_time > curr_time:
-                total_time += duration
-            else:
-                total_time += (attack_time + duration) - curr_time
-
-            curr_time = attack_time + duration
-
-        return total_time
-
-    def findPoisonedDuration(self, timeSeries, duration):
-        """
-        :type timeSeries: List[int]
-        :type duration: int
-        :rtype: int
-        """
-        n = len(timeSeries)
-        if n == 0:
+        if not timeSeries:
             return 0
         
-        total = 0
-        for i in range(1, n):
-            total += min(timeSeries[i]-timeSeries[i-1], duration)
-        total += duration
-        return total
+        total_time = duration
+        for i in range(1, len(timeSeries)):
+            if timeSeries[i] - timeSeries[i-1] > duration:
+                total_time += duration
+            else:
+                total_time += (timeSeries[i] - timeSeries[i-1])
+
+        return total_time

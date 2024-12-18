@@ -32,8 +32,8 @@ class Solution(object):
                 total = 0
                 count = 0
 
-                for x in (i-1, i, i+1):
-                    for y in (j-1, j, j+1):
+                for x in range(i-1, i+2):
+                    for y in range(j-1, j+2):
                         if 0 <= x < rows and 0 <= y < cols:
                             total += img[x][y]
                             count += 1
@@ -41,4 +41,3 @@ class Solution(object):
                 smooth_img[i][j] = total // count
 
         return smooth_img
-        
