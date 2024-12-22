@@ -29,11 +29,16 @@ Constraints:
 1 <= s.length <= 1000
 s[i] is either 'A', 'L', or 'P'.
 """
-
 class Solution(object):
     def checkRecord(self, s):
         """
         :type s: str
         :rtype: bool
         """
-        return not "LLL" in s and sum([1 for cha in s if cha == "A"]) < 2
+        if s.count('A') >= 2:
+            return False
+
+        if 'LLL' in s:
+            return False
+
+        return True

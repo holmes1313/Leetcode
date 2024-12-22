@@ -27,10 +27,10 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        sub_set = {s[i:i+2] for i in range(len(s)-1)}
         reversed_s = s[::-1]
-        for i in range(len(reversed_s)-1):
-            if reversed_s[i:i+2] in sub_set:
+        for i in range(len(s)-1):
+            subs = s[i:i+2]
+            if subs in reversed_s:
                 return True
 
         return False

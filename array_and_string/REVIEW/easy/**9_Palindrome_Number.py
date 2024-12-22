@@ -32,10 +32,20 @@ Follow up:
 
 Coud you solve it without converting the integer to a string?
 """
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        # Handle negative numbers and numbers ending with 0
+        if x < 0 or (x % 10 == 0 and x != 0):
+            return False
+        
+        revered_num = 0
+        x_copy = x
+        while x_copy > 0:
+            revered_num = revered_num * 10 + x_copy % 10
+            x_copy //= 10
 
-def isPalindrome(x: int) -> bool:
-    # Negative numbers and numbers ending with 0 (except 0 itself) are not palindromes
-    if x < 0 or (x % 10 == 0 and x != 0):
-        return False
-    # Convert to string and check if it reads the same forwards and backwards
-    return str(x) == str(x)[::-1]
+        return revered_num == x

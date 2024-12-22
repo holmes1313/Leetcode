@@ -30,4 +30,12 @@ class Solution(object):
 
         return " ".join(sentence)
 
-        
+    def sortSentence(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        words = s.split()
+        words.sort(key=lambda x: x[-1])
+        ans = " ".join([word[:-1] for word in words])
+        return ans

@@ -33,7 +33,7 @@ class Solution(object):
         """
         max_val = 0
         for s in strs:
-            if s.isnumeric():
+            if s.isdigit():
                 max_val = max(max_val, int(s))
             else:
                 max_val = max(max_val, len(s))

@@ -30,20 +30,16 @@ class Solution(object):
         :type date: str
         :rtype: str
         """
-        monthDict = {'Jan': '01', 'Feb': '02', 
+        month_map = {'Jan': '01', 'Feb': '02', 
                 'Mar': '03', 'Apr': '04', 
                 'May': '05', 'Jun': '06', 
                 'Jul': '07', 'Aug': '08', 
                 'Sep': '09', 'Oct': '10', 
                 'Nov': '11', 'Dec': '12'}
-        elements = date.split(" ")
-        YYYY = elements[-1]
-        MM = monthDict[elements[1]]
-        day = elements[0]
-        DD = day[0]
-        if day[1].isnumeric():
-            DD += day[1]
-        else:
-            DD = "0" + DD
-        return "{}-{}-{}".format(YYYY, MM, DD)
+        
+        dd, month, year = date.split(" ")
+
+        dd = dd[:-2].zfill(2)
+        month = month_map[month]
+        return "{}-{}-{}".format(year, month, dd)
         # return f"{YYYY}-{MM}-{DD}"

@@ -32,15 +32,15 @@ class Solution(object):
         :type stones: List[int]
         :rtype: int
         """
-        # max heap
-        stones = [-s for s in stones]
-        heapq.heapify(stones)
+        max_heap = []
+        for s in stones:
+            heapq.heappush(max_heap, -s)
 
-        while len(stones) > 1:
-            m1 = -heapq.heappop(stones)
-            m2 = -heapq.heappop(stones)
-            left = m1 - m2
-            if left:
-                heapq.heappush(stones, -left)
+        while len(max_heap) > 1:
+            s1 = -heapq.heappop(max_heap)
+            s2 = -heapq.heappop(max_heap)
+            if s1 > s2:
+                heapq.heappush(max_heap, -(s1-s2))
 
-        return -heapq.heappop(stones) if stones else 0
+        return -max_heap[0] if max_heap else 0
+        

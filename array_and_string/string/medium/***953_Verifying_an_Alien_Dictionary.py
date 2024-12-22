@@ -71,6 +71,7 @@ for obj in objects:
 else:
     print('No object found.')
 """
+
 class Solution(object):
     def isAlienSorted(self, words, order):
         """
@@ -80,15 +81,21 @@ class Solution(object):
         """
         order_index = {cha: idx for idx, cha in enumerate(order)}
                     
-        def word_to_ordered_indices(word):
-            # converts a word into a list of indices based on the alien order. This makes it easy to compare two words.
-            return [order_index[cha] for cha in word]
-
         for i in range(len(words)-1):
-            curr_word_indices = word_to_ordered_indices(words[i])
-            next_word_indices = word_to_ordered_indices(words[i+1])
+            word1 = words[i]
+            word2 = words[i+1]
 
-            if curr_word_indices > next_word_indices:
+            for j in range(min(len(word1), len(word2))):
+                if order_index[word1[j]] == order_index[word2[j]]:
+                    continue
+
+                elif order_index[word1[j]] < order_index[word2[j]]:
+                    break
+
+                elif order_index[word1[j]] > order_index[word2[j]]:
+                    return False
+
+            if len(word1) > len(word2) and word1.startswith(word2):
                 return False
 
         return True

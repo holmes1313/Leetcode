@@ -21,7 +21,7 @@ Output: 0
 Explanation: None of the passengers are older than 60.
 """
 class Solution:
-    def countSeniors(self, details: List[str]) -> int:
+    def countSeniors(self, details) -> int:
         ans = 0
         for person in details:
             age = person[11:13]

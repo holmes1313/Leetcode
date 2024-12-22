@@ -13,7 +13,7 @@ Explanation: The first string that is palindromic is "ada".
 Note that "racecar" is also palindromic, but it is not the first.
 """
 class Solution:
-    def firstPalindrome2(self, words: List[str]) -> str:
+    def firstPalindrome2(self, words) -> str:
         for word in words:
             if word == word[::-1]:
                 return word
@@ -30,7 +30,7 @@ class Solution:
             right -= 1
         return True
         
-    def firstPalindrome(self, words: List[str]) -> str:
+    def firstPalindrome(self, words) -> str:
         for word in words:
             if self.isPalindrome(word):
                 return word

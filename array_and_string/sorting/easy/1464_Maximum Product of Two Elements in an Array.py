@@ -18,18 +18,20 @@ Input: nums = [3,7]
 Output: 12
 
 """
-import heapq
-
-
 class Solution(object):
     def maxProduct(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        nums = [-num for num in nums]
-        heapq.heapify(nums)
-        m1 = heapq.heappop(nums)
-        m2 = heapq.heappop(nums)
-        return (-m1 - 1) * (-m2 - 1)
-        
+        first = second = float("-inf")
+
+        for num in nums:
+
+            if num > first:
+                second = first
+                first = num
+            elif num > second:
+                second = num
+
+        return (first - 1) * (second - 1)

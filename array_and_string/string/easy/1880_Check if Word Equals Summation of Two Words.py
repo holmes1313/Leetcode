@@ -56,7 +56,7 @@ class Solution(object):
         mapping = {}
         a_val = ord("a")
         for i in range(26):
-            mapping[cha(ord("a") + i)] = i
+            mapping[chr(ord("a") + i)] = i
 
 
 
