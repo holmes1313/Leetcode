@@ -41,6 +41,8 @@ Constraints:
 1 <= deck[i] <= 106
 All the values of deck are unique.
 """
+import collections
+
 
 class Solution(object):
     def deckRevealedIncreasing(self, deck):
@@ -51,7 +53,7 @@ class Solution(object):
         deck.sort()
     
         # Step 2: Prepare an empty deque to simulate the deck
-        result = deque()
+        result = collections.deque()
         
         # Step 3: Reverse iterate through the sorted deck
         for card in reversed(deck):

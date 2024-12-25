@@ -20,6 +20,7 @@ Input: moves = [[0,0],[2,0],[1,1],[2,1],[2,2]]
 Output: "A"
 Explanation: A wins, they always play first.
 """
+
 class Solution(object):
     def tictactoe(self, moves):
         """
@@ -30,10 +31,11 @@ class Solution(object):
 
         for i, move in enumerate(moves):
             row, col = move
-            board[row][col] = 'X' if i % 2 == 0 else '0'
+            player = 'X' if i % 2 == 0 else '0'
+            board[row][col] = player
 
-            if self.check_winner(board):
-                return "A" if i % 2 == 0 else "B"
+            if self.check_winner(board, player):
+                return "A" if player == 'X' else "B"
 
         if len(moves) < 9:
             return "Pending"
@@ -41,19 +43,18 @@ class Solution(object):
             return "Draw"
 
 
-    def check_winner(self, board):
+    def check_winner(self, board, player):
         for i in range(3):
-            if board[i][0] == board[i][1] == board[i][2] != ' ':
+            if board[i][0] == board[i][1] == board[i][2] == player:
                 return True
 
-            if board[0][i] == board[1][i] == board[2][i] != ' ':
+            if board[0][i] == board[1][i] == board[2][i] == player:
                 return True
 
-        if board[0][0] == board[1][1] == board[2][2] != ' ':
+        if board[0][0] == board[1][1] == board[2][2] == player:
             return True
 
-        if board[0][2] == board[1][1] == board[2][0] != ' ':
+        if board[0][2] == board[1][1] == board[2][0] == player:
             return True
     
         return False
-        

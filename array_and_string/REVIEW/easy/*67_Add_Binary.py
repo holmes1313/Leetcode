@@ -27,31 +27,32 @@ Output: "10101"
 # decimal -> binary
 # bin(100)[2:]
 
-class Solution:
-    def addBinary2(self, a: str, b: str) -> str:
-        # int(a, 2) is used to convert a binary string (represented by a) into its decimal (base-10) integer equivalent.
-        # {0:b} tells Python to take the first argument of format(), convert it to binary, and then substitute that into the string.
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
         return "{0:b}".format(int(a, 2) + int(b, 2))
-
-    # Bit-by-Bit Computation
-    def addBinary(self, a: str, b: str) -> str:
-        # zfill() method is used to pad a string with zeros on the left, ensuring that the string reaches a specified length. 
-        n = max(len(a), len(b))
-        a, b = a.zfill(n), b.zfill(n)
-
+        
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        result = []
         carry = 0
-        answer = []
-        for i in range(n-1, -1, -1):
-            if a[i] == "1":
-                carry += 1
+        i, j = len(a) - 1, len(b) - 1
+        while i >= 0 or j >= 0 or carry:
+            d1 = int(a[i]) if i >= 0 else 0
+            d2 = int(b[j]) if j >= 0 else 0
 
-            if b[i] == "1":
-                carry += 1
+            total = d1 + d2 + carry
+            result.append(str(total % 2))
+            carry = total // 2
+            i -= 1
+            j -= 1
 
-            answer.append(str(carry % 2))
-            carry //= 2
-
-        if carry == 1:
-            answer.append("1")
-
-        return "".join(answer[::-1])
+        return ''.join(result[::-1])

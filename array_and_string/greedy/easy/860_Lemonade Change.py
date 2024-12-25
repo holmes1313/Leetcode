@@ -1,5 +1,6 @@
 """
-At a lemonade stand, each lemonade costs $5. Customers are standing in a queue to buy from you and order one at a time (in the order specified by bills). Each customer will only buy one lemonade and pay with either a $5, $10, or $20 bill. You must provide the correct change to each customer so that the net transaction is that the customer pays $5.
+At a lemonade stand, each lemonade costs $5. Customers are standing in a queue to buy from you and order one at a time (in the order specified by bills). 
+Each customer will only buy one lemonade and pay with either a $5, $10, or $20 bill. You must provide the correct change to each customer so that the net transaction is that the customer pays $5.
 
 Note that you do not have any change in hand at first.
 
@@ -35,6 +36,7 @@ bills[i] is either 5, 10, or 20.
 import collections
 
 
+
 class Solution(object):
     def lemonadeChange(self, bills):
         """
@@ -55,6 +57,36 @@ class Solution(object):
 
             elif bill == 20:
                 if not counter.get(5) or (counter.get(5, 0) * 5 + counter.get(10, 0) * 10 < 15):
+                    return False
+                counter[bill] += 1
+                if counter[10]:
+                    counter[10] -= 1
+                    counter[5] -= 1
+                else:
+                    counter[5] -= 3
+
+        return True
+
+
+    def lemonadeChange(self, bills):
+        """
+        :type bills: List[int]
+        :rtype: bool
+        """
+        counter = collections.defaultdict(int)
+
+        for bill in bills:
+            if bill == 5:
+                counter[bill] += 1
+
+            elif bill == 10:
+                if not counter.get(5):
+                    return False
+                counter[bill] += 1
+                counter[5] -= 1
+
+            elif bill == 20:
+                if not (counter.get(10) and counter.get(5)) and not (counter.get(5, 0) >= 3):
                     return False
                 counter[bill] += 1
                 if counter[10]:

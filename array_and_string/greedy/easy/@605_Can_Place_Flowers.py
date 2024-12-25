@@ -23,7 +23,6 @@ Note:
 The input array won't violate no-adjacent-flowers rule.
 The input array size is in the range of [1, 20000].
 n is a non-negative integer which won't exceed the input array size."""
-
 class Solution(object):
     def canPlaceFlowers(self, flowerbed, n):
         """
@@ -32,14 +31,17 @@ class Solution(object):
         :rtype: bool
         """
         count = 0
-        for i in range(len(flowerbed)):
+        i = 0
+        while i < len(flowerbed):
             if flowerbed[i] == 0:
                 left_empty = (i == 0) or (flowerbed[i-1] == 0)
                 right_empty = (i == len(flowerbed)-1) or (flowerbed[i+1] == 0)
                 if left_empty and right_empty:
                     flowerbed[i] = 1
                     count += 1
+                    i += 1
                     if count >= n:
                         return True
+            i += 1
 
         return count >= n

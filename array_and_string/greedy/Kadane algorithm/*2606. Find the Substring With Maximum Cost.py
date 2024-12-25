@@ -54,7 +54,10 @@ class Solution(object):
         curr_sum = 0
         max_sum = 0   # substring can be empty
         for cha in s:
-            value = cha_values.get(cha, ord(cha)-ord('a')+1)
-            curr_sum = max(curr_sum + value, value)
+            value = cha_values.get(cha, ord(cha) - ord("a") + 1)
+            curr_sum += value
             max_sum = max(max_sum, curr_sum)
+            if curr_sum < 0:
+                curr_sum = 0
+
         return max_sum

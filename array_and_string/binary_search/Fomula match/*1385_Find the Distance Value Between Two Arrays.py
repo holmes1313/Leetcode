@@ -25,14 +25,19 @@ For arr1[2]=8 we have:
 |8-9|=1 <= d=2
 |8-1|=7 > d=2
 |8-8|=0 <= d=2
-Example 2:
 
+Example 2:
 Input: arr1 = [1,4,2,3], arr2 = [-4,-3,6,10,20,30], d = 3
 Output: 2
-Example 3:
 
+Example 3:
 Input: arr1 = [2,1,100,3], arr2 = [-5,-2,10,-3,7], d = 6
 Output: 1
+
+Constraints:
+1 <= arr1.length, arr2.length <= 500
+-1000 <= arr1[i], arr2[j] <= 1000
+0 <= d <= 100
 """
 class Solution(object):
     def findTheDistanceValue1(self, arr1, arr2, d):
