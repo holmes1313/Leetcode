@@ -19,6 +19,9 @@ Input: rooms = [[-1]]
 Output: [[-1]]
 
 """
+import collections
+
+
 class Solution(object):
     def wallsAndGates(self, rooms):
         """
