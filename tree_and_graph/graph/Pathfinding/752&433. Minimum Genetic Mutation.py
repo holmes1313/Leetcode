@@ -28,6 +28,9 @@ Constraints:
 startGene.length == endGene.length == bank[i].length == 8
 startGene, endGene, and bank[i] consist of only the characters ['A', 'C', 'G', 'T'].
 """
+import collections
+
+
 class Solution(object):
     def minMutation(self, startGene, endGene, bank):
         """
