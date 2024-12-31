@@ -58,3 +58,41 @@ class Solution(object):
 
         return False
 
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        m = len(board)
+        n = len(board[0])
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+        def dfs(i, j, index):
+            if index == len(word):
+                return True
+
+            if i < 0 or i >=m or j < 0 or j >= n or board[i][j] != word[index]:
+                return False
+            
+            # Temporarily mark the current cell as visited by changing it to a special character
+            temp, board[i][j] = board[i][j], "#"
+            result = False
+            for dx, dy in directions:
+                nx, ny = i + dx, j + dy
+                result = dfs(nx, ny, index+1)
+
+                if result:
+                    break
+            
+            board[i][j] = temp
+            return result
+
+
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == word[0]:
+                    if dfs(i, j, 0):
+                        return True
+        
+        return False

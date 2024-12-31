@@ -27,24 +27,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if not nums:
-            return 0
+        nums_set = set(nums)
+        longest = 0
+        for num in nums_set:
+            if num - 1 not in nums_set:
+                curr = num
+                curr_len = 1
+                while curr + 1 in nums_set:
+                    curr_len += 1
+                    curr += 1
 
-        num_set = set(nums)
-        max_streak = 0
-        for num in nums:
-            if num -1 not in num_set:
-                curr_num = num
-                curr_streak = 1
+                longest = max(longest, curr_len)
 
-                while curr_num + 1 in num_set:
-                    curr_num += 1
-                    curr_streak += 1
-                    #num += 1
-
-                max_streak = max(max_streak, curr_streak)
-
-        return max_streak
+        return longest
 
     def longestConsecutive(self, nums):
         """
@@ -53,20 +48,16 @@ class Solution(object):
         """
         if not nums:
             return 0
-
         nums.sort()
-
-        curr_streak = 1
-        max_streak = 1
+        curr_len = 1
+        max_len = 1
         for i in range(1, len(nums)):
             if nums[i] == nums[i-1]:
                 continue
-    
-            if nums[i] == nums[i-1] + 1:
-                curr_streak += 1
+            elif nums[i] == nums[i-1] + 1:
+                curr_len += 1
             else:
-                
-                max_streak = max(max_streak, curr_streak)
-                curr_streak = 1
-
-        return max(max_streak, curr_streak)
+                max_len = max(max_len, curr_len)
+                curr_len = 1
+        max_len = max(max_len, curr_len)
+        return max_len

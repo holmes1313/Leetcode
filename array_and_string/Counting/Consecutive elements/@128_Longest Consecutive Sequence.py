@@ -29,12 +29,11 @@ class Solution(object):
         """
         nums_set = set(nums)
         longest = 0
-
         for num in nums_set:
             if num - 1 not in nums_set:
                 curr = num
-                curr_len = 0
-                while curr in nums_set:
+                curr_len = 1
+                while curr + 1 in nums_set:
                     curr_len += 1
                     curr += 1
 
@@ -49,19 +48,16 @@ class Solution(object):
         """
         if not nums:
             return 0
-
-        sorted_nums = sorted(set(nums))
-        curr_streak = 1
-        max_streak = 1
-        for i in range(1, len(sorted_nums)):
-            if sorted_nums[i] == sorted_nums[i-1]:
+        nums.sort()
+        curr_len = 1
+        max_len = 1
+        for i in range(1, len(nums)):
+            if nums[i] == nums[i-1]:
                 continue
-    
-            if sorted_nums[i] == sorted_nums[i-1] + 1:
-                curr_streak += 1
+            elif nums[i] == nums[i-1] + 1:
+                curr_len += 1
             else:
-                
-                max_streak = max(max_streak, curr_streak)
-                curr_streak = 1
-
-        return max(max_streak, curr_streak)
+                max_len = max(max_len, curr_len)
+                curr_len = 1
+        max_len = max(max_len, curr_len)
+        return max_len

@@ -31,8 +31,32 @@ class Solution(object):
         :rtype: bool
         """
         counts = collections.Counter(word)
-        for cha in word:
+
+        freq_counts = collections.Counter(counts.values())
+
+        if len(freq_counts) == 2:
+            if freq_counts.get(1) == 1:
+                return True
+
+            (f1, c1), (f2, c2) = freq_counts.items()
+            if abs(f1 - f2) == 1 and freq_counts[max(f1, f2)] == 1:
+                return True
+        
+        if len(freq_counts) == 1:
+            return 1 in freq_counts or 1 in freq_counts.values()
+        
+        return False
+
+    def equalFrequency(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        counts = collections.Counter(word)
+
+        for cha in counts.keys():
             counts[cha] -= 1
+
             if counts[cha] == 0:
                 del counts[cha]
 
@@ -42,3 +66,4 @@ class Solution(object):
             counts[cha] += 1
 
         return False
+            

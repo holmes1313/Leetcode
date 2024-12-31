@@ -107,6 +107,12 @@ class LRUCache(object):
             self._remove(last_node)
             del self.cache[last_node.key]
 
+"""
+Doubly Linked List: The linked list helps maintain the order of usage for the cache. The most recently used element should be moved to the front of the list, and the least recently used should be at the back of the list.
+Hash Map: This allows us to access any cache element in constant time by key. We store the key-value pairs in the hash map.
+"""
+
+
 # Python 3
 import collections
 
