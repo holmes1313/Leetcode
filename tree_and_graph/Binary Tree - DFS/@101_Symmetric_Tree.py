@@ -41,6 +41,25 @@ class Solution(object):
         """
         if not root:
             return True
+
+        def is_mirror(node1, node2):
+            if not node1 and not node2:
+                return True
+
+            if not node1 or not node2:
+                return False
+
+            return (node1.val == node2.val) and is_mirror(node1.left, node2.right) and is_mirror(node1.right, node2.left)
+
+        return is_mirror(root.left, root.right)
+
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return True
         
         stack = [(root.left, root.right)]
         while stack:
@@ -56,23 +75,3 @@ class Solution(object):
             stack.append((node1.right, node2.left))
 
         return True
-                
-
-    def isSymmetric(self, root):
-        """
-        :type root: TreeNode
-        :rtype: bool
-        """
-        def is_mirror(n1, n2):
-            if not n1 and not n2:
-                return True
-
-            if not n1 or not n2 or n1.val != n2.val:
-                return False
-
-            return is_mirror(n1.left, n2.right) and is_mirror(n1.right, n2.left)
-
-        if not root:
-            return True
-
-        return is_mirror(root.left, root.right)

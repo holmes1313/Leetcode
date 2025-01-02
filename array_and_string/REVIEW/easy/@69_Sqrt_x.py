@@ -24,24 +24,19 @@ Output: 2
 Explanation: The square root of 8 is 2.82842..., and since 
              the decimal part is truncated, 2 is returned.
 """
-
 class Solution(object):
     def mySqrt(self, x):
         """
         :type x: int
         :rtype: int
         """
-        low = 0
-        high = x // 2 + 1
-
-        while low <= high:
-            mid = (low + high) // 2
-            if mid ** 2 == x:
-                return mid
-            elif mid ** 2 < x:
-                low = mid + 1
+        left, right = 0, x
+        while left <= right:
+            mid = (left + right) // 2
+            square = mid * mid
+            # find 1st index with the value square > x
+            if square <= x:
+                left = mid + 1
             else:
-                high = mid - 1
-
-        return high
-        
+                right = mid - 1
+        return left - 1

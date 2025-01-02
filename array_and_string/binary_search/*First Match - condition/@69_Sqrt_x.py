@@ -31,15 +31,11 @@ class Solution(object):
         :rtype: int
         """
         left, right = 0, x
-
         while left <= right:
             mid = (left + right) // 2
-            mid_squared = mid * mid
-
-            if mid_squared == x:
-                return mid
-            
-            if mid_squared < x:
+            square = mid * mid
+            # find 1st index with the value square > x
+            if square <= x:
                 left = mid + 1
             else:
                 right = mid - 1

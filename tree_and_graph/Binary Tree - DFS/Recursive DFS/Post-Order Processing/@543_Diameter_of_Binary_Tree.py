@@ -47,5 +47,33 @@ class Solution(object):
         depth(root)
         return diameter[0]
 
+    def diameterOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
 
-        
+        diameter = [0]
+        diameter_path = []
+
+        def depth(node):
+            if not node:
+                return 0, []
+
+            left_len, left_path = depth(node.left)
+            right_len, right_path = depth(node.right)
+            
+            # While computing the height, also update the diameter by checking the sum of heights of the left and right subtrees at each node.
+            if left_len + right_len > diameter[0]:
+                diameter[0] = left_len + right_len 
+                diameter_path[:] = left_path + [node.val] + right_path[::-1]
+
+            if left_len > right_len:
+                return left_len + 1, left_path + [node.val]
+            else:
+                return right_len + 1, right_path + [node.val]
+
+        depth(root)
+        return diameter[0]
