@@ -54,4 +54,25 @@ class Solution(object):
         if not root:
             return 0
 
-        return self.countNodes(root.left) + self.countNodes(root.right) + 1
+        def get_height(node):
+            height = 0
+            while node:
+                height += 1
+                node = node.left
+            return height
+
+        def count_nodes_in_complete_tree(node):
+            if not node:
+                return 0
+
+            left_height = get_height(node.left)
+            right_height = get_height(node.right)
+
+            # If the heights are equal, the left subtree is a perfect binary tree
+            if left_height == right_height:
+                return 2 ** left_height - 1 + count_nodes_in_complete_tree(node.right) + 1
+            else:
+                return count_nodes_in_complete_tree(node.left) + 2 ** right_height - 1 + 1
+
+        return count_nodes_in_complete_tree(root)
+                

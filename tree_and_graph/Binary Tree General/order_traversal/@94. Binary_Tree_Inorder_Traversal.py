@@ -21,9 +21,6 @@ Input: [1,null,2,3]
 Output: [1,3,2]
 Follow up: Recursive solution is trivial, could you do it iteratively?
 """
-from typing import Optional, List
-
-
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -32,19 +29,7 @@ class TreeNode:
 
 
 class Solution:
-    def inorderTraversal1(self, root: Optional[TreeNode]) -> List[int]:
-        result = []
-        self.helper(root, result)
-        return result
-
-    def helper(self, root, result):
-        if not root:
-            return 
-        self.helper(root.left, result)
-        result.append(root.val)
-        self.helper(root.right, result)
-
-    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+    def inorderTraversal(self, root):
         ans = []
 
         def inorder(node):
@@ -58,3 +43,26 @@ class Solution:
         inorder(root)
         return ans
 
+    def inorderTraversal(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: List[int]
+        """
+        result = []
+        stack = []
+        current = root
+        
+        while current or stack:
+            # Reach the leftmost node
+            while current:
+                stack.append(current)
+                current = current.left
+            
+            # Pop the node and visit it
+            current = stack.pop()
+            result.append(current.val)
+            
+            # Move to the right subtree
+            current = current.right
+        
+        return result

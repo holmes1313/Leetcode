@@ -35,9 +35,6 @@ class Solution(object):
         else:
             return self.searchBST(root.right, val)
 
-
-
-class Solution2(object):
     def searchBST(self, root, val):
         """
         :type root: TreeNode

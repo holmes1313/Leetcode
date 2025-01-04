@@ -21,9 +21,6 @@ Input: [1,null,2,3]
 Output: [1,2,3]
 Follow up: Recursive solution is trivial, could you do it iteratively?
 """
-from typing import Optional, List
-
-
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -32,22 +29,13 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
-    def preorderTraversal_iterate(self, root: Optional[TreeNode]) -> List[int]:
-        result = []
-        # start with the root node
-        stack = [root]
-
-        while stack:
-            node = stack.pop()
-            if node:
-                result.append(node.val)
-                # add right child first then left child
-                stack.append(node.right)
-                stack.append(node.left)
-
-        return result
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
     def preorderTraversal(self, root):
         """
         :type root: TreeNode
@@ -65,4 +53,3 @@ class Solution:
 
         preorder(root)
         return vals
-

@@ -49,34 +49,26 @@ class Solution(object):
 
         return dummy1.next
 
-
-    def partition1(self, head, x):
+    def partition(self, head, x):
         """
         :type head: Optional[ListNode]
         :type x: int
         :rtype: Optional[ListNode]
         """
-        # Create two dummy nodes
-        less_head = ListNode(0)  # Dummy head for less list
-        greater_head = ListNode(0)  # Dummy head for greater list
-        
-        less = less_head  # Pointer for the less list
-        greater = greater_head  # Pointer for the greater list
-        
-        # Traverse the original list
-        current = head
-        while current:
-            if current.val < x:
-                less.next = current  # Append to less list
-                less = less.next
+        dummy1 = ListNode()
+        dummy2 = ListNode()
+        c1 = dummy1
+        c2 = dummy2
+        curr = head
+        while curr:
+            if curr.val < x:
+                c1.next = curr
+                c1 = c1.next
             else:
-                greater.next = current  # Append to greater list
-                greater = greater.next
-            current = current.next
-        
-        # Connect the two lists
-        greater.next = None  # End the greater list
-        less.next = greater_head.next  # Connect less list to greater list
-        
-        # Return the combined list, starting after the dummy node
-        return less_head.next
+                c2.next = curr
+                c2 = c2.next
+            curr = curr.next
+
+        c2.next = None
+        c1.next = dummy2.next
+        return dummy1.next

@@ -22,7 +22,6 @@ Input: root = [2,2,2]
 Output: -1
 Explanation: The smallest value is 2, but there isn't any second smallest value.
 """
-
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -40,20 +39,16 @@ class Solution(object):
         
         min_val = root.val
         sec_val = float('inf')
-        # BFS: find the first number bigger than min_val: wrong
-        queue = collections.deque()
-        queue.append(root)
-        while queue:
-            node = queue.popleft()
-            if not node:
-                continue
-            if node.val > min_val:
-                sec_val = min(sec_val, node.val)
-
-            queue.append(node.left)
-            queue.append(node.right)
-
-        if sec_val == float('inf'):
-            return -1
-        else:
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if min_val < node.val < sec_val:
+                sec_val = node.val
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+        if sec_val != float('inf'):
             return sec_val
+        
+        return -1

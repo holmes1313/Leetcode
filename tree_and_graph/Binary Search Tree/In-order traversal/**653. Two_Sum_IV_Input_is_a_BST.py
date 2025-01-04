@@ -15,7 +15,6 @@ Input: root = [5,3,6,2,4,null,7], k = 28
 Output: false
 
 """
-
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -23,25 +22,24 @@ Output: false
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def findTarget2(self, root, k):
+    def findTarget(self, root, k):
         """
         :type root: TreeNode
         :type k: int
         :rtype: bool
         """
-        queue = collections.deque()
-        queue.append(root)
-        explored = set()
+        stack = [root]
+        seen = set()
 
-        while queue:
-            node = queue.popleft()
+        while stack:
+            node = stack.pop()
             if node:
-                if k - node.val in explored:
+                if k - node.val in seen:
                     return True
 
-                explored.add(node.val)
-                queue.append(node.left)
-                queue.append(node.right)
+                seen.add(node.val)
+                stack.append(node.left)
+                stack.append(node.right)
 
         return False
 
@@ -76,7 +74,25 @@ class Solution(object):
         return False
 
             
+    def findTarget(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: bool
+        """
+        seen = set()
 
+        def inorder(node):
+            if not node:
+                return False
 
-        
-        
+            if inorder(node.left):
+                return True
+            
+            if k - node.val in seen:
+                return True
+            seen.add(node.val)
+            
+            return inorder(node.right)
+
+        return inorder(root)

@@ -14,25 +14,17 @@ class Node(object):
         self.val = val
         self.children = children
 """
-
 class Solution(object):
     def maxDepth(self, root):
         """
         :type root: Node
         :rtype: int
         """
-        stack = []
-        stack.append((root, 0))
-        output = 0
-        while stack:
-            node, length = stack.pop()
-            if node is not None:
-                length += 1
-                if not node.children:
-                    output = max(output, length)
-                    continue
+        if not root:
+            return 0
 
-                for child in node.children:
-                    stack.append((child, length))
-
-        return output
+        max_depth = 0
+        for child in root.children:
+            max_depth = max(max_depth, self.maxDepth(child))
+        
+        return max_depth + 1
