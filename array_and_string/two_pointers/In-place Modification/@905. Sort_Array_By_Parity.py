@@ -31,47 +31,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        odds = []
-        even_idx = 0
-        for i in range(len(nums)):
-            if nums[i] % 2 == 0:
-                nums[even_idx] = nums[i]
-                even_idx += 1
-            else:
-                odds.append(nums[i])
-        return nums[:even_idx] + odds
+        left = 0
+        right = len(nums) - 1
+        while left <= right:
+            if nums[left] % 2 == 0:
+                left += 1
+                continue
 
-    def sortArrayByParity(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        even_idx = 0
-        for i in range(len(nums)):
-            if nums[i] % 2 == 0:
-                nums[even_idx], nums[i] = nums[i], nums[even_idx]
-                even_idx += 1
+            if nums[right] % 2 == 1:
+                right -= 1
+                continue
+
+            nums[left], nums[right] = nums[right], nums[left]
+            left == 1
+            right -= 1
 
         return nums
-        
-    def sortArrayByParity1(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        i = 0
-        j = len(nums) - 1
-        while i < j:
-            if nums[i] % 2 == 1 and nums[j] % 2 == 0:
-                nums[i], nums[j] = nums[j], nums[i]
-                i += 1
-                j -= 1
-
-            if nums[i] % 2 == 0:
-                i += 1
-
-            elif nums[j] % 2 == 1:
-                j -= 1
-
-        return nums
-

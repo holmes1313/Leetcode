@@ -54,3 +54,38 @@ class Solution(object):
 
         backtrack(0, "")
         return result
+
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        if not digits:
+            return []
+
+        digit_to_chas = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+
+        def backtrack(index, curr):
+            if len(curr) == len(digits):
+                result.append("".join(curr))
+                return
+            
+            digit = digits[index]
+            chars = digit_to_chas[digit]
+            for cha in chars:
+                curr.append(cha)
+                backtrack(index + 1, curr)
+                curr.pop()
+
+        result = []
+        backtrack(0, [])
+        return result

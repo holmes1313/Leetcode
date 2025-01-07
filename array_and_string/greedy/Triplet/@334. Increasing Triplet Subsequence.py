@@ -43,4 +43,27 @@ class Solution(object):
 
         return False
 
-        
+    def increasingTriplet(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+
+        for i in range(1, len(nums)-1):
+            middle = nums[i]
+            left = False
+            for x in range(i):
+                if nums[x] < middle:
+                    left = True
+                    break
+
+            right = False
+            for y in range(i+1, len(nums)):
+                if nums[y] > middle:
+                    right = True
+                    break
+
+            if left and right:
+                return True
+
+        return False

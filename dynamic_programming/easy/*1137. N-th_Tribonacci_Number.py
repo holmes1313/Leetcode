@@ -26,17 +26,29 @@ Example 2:
 
 Input: n = 25
 Output: 1389537"""
-
 class Solution(object):
-    cache = {0: 0, 1: 1, 2: 1}
     def tribonacci(self, n):
         """
         :type n: int
         :rtype: int
         """
-        if n not in self.cache:
-            self.cache[n] = self.tribonacci(n-1) + self.tribonacci(n-2) + self.tribonacci(n-3)
-        return self.cache[n]
+        memo = {}
+        def helper(n):
+            if n == 0:
+                return 0
+            
+            if n == 1:
+                return 1
+
+            if n == 2:
+                return 1
+
+            if n in memo:
+                return memo[n]
+
+            memo[n] = helper(n-3) + helper(n-2) + helper(n-1)
+            return memo[n]
+        return helper(n)
 
     def tribonacci(self, n):
         """
@@ -52,17 +64,14 @@ class Solution(object):
         elif n == 2:
             return 1
 
-        else:
-            curr = 0
-            prev1 = 0
-            prev2 = 1
-            prev3 = 1
-            for i in range(3, n+1):
-                curr = prev1 + prev2 + prev3
-                prev1 = prev2
-                prev2 = prev3
-                prev3 = curr
+        prev1 = 0
+        prev2 = 1
+        prev3 = 1
+        for i in range(3, n+1):
+            curr = prev1 + prev2 + prev3
+            prev1 = prev2
+            prev2 = prev3
+            prev3 = curr
 
-            return curr
+        return curr
 
-        

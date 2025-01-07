@@ -73,3 +73,20 @@ class Solution(object):
             return min_heap[0]
         else:
             return max(min_heap)
+
+    def thirdMax(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        seen = set()
+        nums.sort(reverse=True)
+        rank = 0
+        for num in nums:
+            if num not in seen:
+                seen.add(num)
+                rank += 1
+                if rank == 3:
+                    return num
+
+        return nums[0]

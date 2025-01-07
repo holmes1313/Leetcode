@@ -36,3 +36,19 @@ class Solution(object):
                     return curr
             curr += 1
  
+    def findKthPositive(self, arr, k):
+        """
+        :type arr: List[int]
+        :type k: int
+        :rtype: int
+        """
+        arr_set = set(arr)
+        i = 1
+        count = 0
+        while True:
+            if i not in arr_set:
+                count += 1
+                if count == k:
+                    return i
+            i += 1
+            

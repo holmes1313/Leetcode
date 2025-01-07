@@ -42,18 +42,37 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        def _helper(n):
-            if n in memo:
-                return memo[n]
-
+        def helper(n):
             if n==0:
                 return 0
 
             if n==1:
                 return 1
 
-            memo[n] = _helper(n-1) + _helper(n-2)
-            return memo[n]
+            if n in memo:
+                return memo[n]
 
+            memo[n] = helper(n-1) + helper(n-2)
+            return memo[n]
         memo = {}
-        return _helper(n)
+        return helper(n)
+
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 0:
+            return 0
+
+        if n == 1:
+            return 1
+        
+        prev1 = 0
+        prev2 = 1
+        for i in range(2, n+1):
+            curr = prev1 + prev2
+            prev1 = prev2
+            prev2 = curr
+        
+        return curr

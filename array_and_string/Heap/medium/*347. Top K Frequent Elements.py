@@ -45,4 +45,13 @@ class Solution(object):
             result.append(val)
         
         return result
-        
+
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        counts = collections.Counter(nums)
+        sorted_vals = sorted(counts.keys(), key=lambda x: counts[x], reverse=True)
+        return sorted_vals[:k]

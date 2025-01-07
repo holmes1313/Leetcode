@@ -45,3 +45,21 @@ class Solution(object):
 
         return "".join(stack)
 
+    def reverseParentheses(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+
+        for cha in s:
+            if cha == ")":
+                temp = []
+                while stack and stack[-1] != "(":
+                    temp.append(stack.pop())
+                stack.pop()
+                stack.extend(temp)
+            else:
+                stack.append(cha)
+
+        return "".join(stack)

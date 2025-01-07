@@ -35,25 +35,25 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        first = second = third = float("-inf")
+        first = second = third = None
 
         for num in nums:
             if num == first or num == second or num == third:
                 continue
             
-            if num > first:
+            if first is None or num > first:
                 third = second
                 second = first
                 first = num
-            elif num > second:
+            elif second is None or num > second:
                 third = second
                 second = num
-            elif num > third:
+            elif third is None or num > third:
                 third = num
 
-        return third if third != float("-inf") else first
+        return third if third is not None else first
 
-    def thirdMax1(self, nums):
+    def thirdMax(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -73,3 +73,20 @@ class Solution(object):
             return min_heap[0]
         else:
             return max(min_heap)
+
+    def thirdMax(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        seen = set()
+        nums.sort(reverse=True)
+        rank = 0
+        for num in nums:
+            if num not in seen:
+                seen.add(num)
+                rank += 1
+                if rank == 3:
+                    return num
+
+        return nums[0]

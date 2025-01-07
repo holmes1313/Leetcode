@@ -41,10 +41,9 @@ class Solution(object):
                 if s[i-k] in vowels:
                     curr_count -= 1
 
-            if i >= k-1:
-                max_count = max(max_count, curr_count)
-                if max_count == k:
-                    return max_count
+            max_count = max(max_count, curr_count)
+            if max_count == k:
+                return max_count
 
         return max_count
 
