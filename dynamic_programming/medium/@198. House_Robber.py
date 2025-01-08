@@ -71,3 +71,25 @@ class Solution(object):
             second = curr
 
         return second
+
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        memo = {}
+        def helper(n):
+            if n == 0:
+                return 0
+
+            if n == 1:
+                return nums[0]
+
+            if n in memo:
+                return memo[n]
+
+            memo[n] = max(helper(n-2)+nums[n-1], helper(n-1))
+            return memo[n]
+
+        n = len(nums)
+        return helper(n)

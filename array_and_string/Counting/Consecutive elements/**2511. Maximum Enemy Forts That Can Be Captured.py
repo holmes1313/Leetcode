@@ -62,3 +62,19 @@ class Solution(object):
                     curr_zeros += 1
 
         return max_zeros
+
+    def captureForts(self, forts):
+        max_zeros = 0
+        curr_zeros = 0
+        curr_fort = None
+        for fort in forts:
+            if fort == 0:
+                curr_zeros += 1
+            else:
+                if curr_fort is None:
+                    curr_fort = fort
+                elif curr_fort != fort:
+                    max_zeros = max(max_zeros, curr_zeros)
+                    curr_fort = fort
+                curr_zeros = 0
+        return max_zeros
