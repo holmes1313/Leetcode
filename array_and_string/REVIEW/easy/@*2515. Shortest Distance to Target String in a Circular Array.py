@@ -54,13 +54,10 @@ class Solution(object):
         """
         if words[startIndex] == target:
             return 0
-        
         n = len(words)
-        startIndex %= n
-        for i in range(1, n):
-            left = (startIndex - i + n) % n
-            right = (startIndex + i) % n
-            if words[left] == target or words[right] == target:
-                return i
-
+        for step in range(1, n):
+            prev = words[(startIndex - step + n) % n]
+            after = words[(startIndex + step) % n]
+            if prev == target or after == target:
+                return step
         return -1
