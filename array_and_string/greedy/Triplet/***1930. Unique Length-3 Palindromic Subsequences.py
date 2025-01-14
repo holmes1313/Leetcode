@@ -60,3 +60,37 @@ class Solution(object):
                     seen.add(s[first_idx] + s[j] + s[last_idx])
 
         return len(seen)
+
+
+    def countPalindromicSubsequence(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        seen = set()
+        n = len(s)
+        for i in range(n):
+            for j in range(i+1, n):
+                if s[i] == s[j] and j - i > 1:
+                    for x in range(i+1, j):
+                        seen.add(s[i]+s[x]+s[j])
+
+        return len(seen)
+
+    def countPalindromicSubsequence(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        letters = set(s)
+        ans = 0
+        for cha in letters:
+            i, j = s.index(cha), s.rindex(cha)
+            between = set()
+
+            for k in range(i+1, j):
+                between.add(s[k])
+
+            ans += len(between)
+
+        return ans

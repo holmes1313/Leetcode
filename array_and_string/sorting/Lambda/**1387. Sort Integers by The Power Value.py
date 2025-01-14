@@ -59,3 +59,29 @@ class Solution(object):
         nums.sort(key=lambda x: (get_power(x), x))
 
         return nums[k-1]
+
+
+    def getKth(self, lo, hi, k):
+        """
+        :type lo: int
+        :type hi: int
+        :type k: int
+        :rtype: int
+        """
+        memo = {}
+        def get_power(n):
+            if n == 1:
+                return 0
+            
+            if n in memo:
+                return memo[n]
+            
+            if n % 2 == 0:
+                memo[n] = get_power(n//2) + 1
+            else:
+                memo[n] = get_power(n*3+1) + 1
+            return memo[n]
+        num_powers = [(num, get_power(num)) for num in range(lo, hi+1)]
+        num_powers.sort(key=lambda x: (x[1], x[0]))
+
+        return num_powers[k-1][0]

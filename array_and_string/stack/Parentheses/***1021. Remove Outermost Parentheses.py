@@ -39,3 +39,27 @@ class Solution(object):
                     # it's not outter parethethse
                     ans += cha            
         return ans
+
+    def removeOuterParentheses1(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        idx_to_remove = set()
+        for i, cha in enumerate(s):
+            if cha == ")":
+                opening_idx = stack.pop()
+                if not stack:
+                    idx_to_remove.add(opening_idx)
+                    idx_to_remove.add(i)
+            else:
+                stack.append(i)
+
+        ans = []
+        for i, cha in enumerate(s):
+            if i not in idx_to_remove:
+                ans.append(cha)
+
+        return "".join(ans)
+

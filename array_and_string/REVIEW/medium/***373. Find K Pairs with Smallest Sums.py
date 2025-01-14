@@ -57,3 +57,26 @@ class Solution(object):
                 heapq.heappush(heap, (nums1[i+1]+nums2[j], i+1, j))
 
         return result
+    
+
+    def kSmallestPairs(self, nums1, nums2, k):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        min_heap = []
+
+        for n1 in nums1:
+            for n2 in nums2:
+                heapq.heappush(min_heap, (n1+n2, n1, n2))
+                
+
+        result = []
+        for _ in range(k):
+            _, n1, n2 = heapq.heappop(min_heap)
+            result.append([n1, n2])
+
+        return result
+

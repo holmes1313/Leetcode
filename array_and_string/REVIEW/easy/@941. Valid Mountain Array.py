@@ -80,3 +80,30 @@ class Solution(object):
                 return False
 
         return True
+
+    def validMountainArray(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: bool
+        """
+        n = len(arr)
+        if n < 3:
+            return False
+
+        pivot = None
+        for i in range(1, n-1):
+            if arr[i] > arr[i-1] and arr[i] > arr[i+1]:
+                pivot = i
+                break
+        if pivot is None:
+            return False
+
+        for i in range(pivot):
+            if arr[i] >= arr[i+1]:
+                return False
+
+        for i in range(pivot+1, n):
+            if arr[i] >= arr[i-1]:
+                return False
+
+        return True

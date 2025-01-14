@@ -30,55 +30,29 @@ s consists of lowercase English letters, digits, and square brackets '[]'.
 s is guaranteed to be a valid input.
 All the integers in s are in the range [1, 300].
 """
+class Solution(object):
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
 
-class DListNode:
-    def __init__(self, key=0, val=0):
-        self.key = key
-        self.val = val
-        self.prev = None
-        self.next = None
+        for cha in s:
+            if cha == "]":
+                substr = ""
+                while stack and stack[-1] != "[":
+                    substr += stack.pop()
+                substr = substr[::-1]
+                stack.pop()
+                digits = ""
+                while stack and stack[-1].isdigit():
+                    digits += stack.pop()
+                digits = int(digits[::-1])
+                substr *= digits
+                for subcha in substr:
+                    stack.append(subcha)
 
-
-class LRUCache:
-
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.cache = {}
-        self.head = DListNode()
-        self.tail = DListNode()
-        self.head.next = self.tail
-        self.tail.prev = self.head
-
-    def _remove(self, node):
-        node.prev.next, node.next.prev = node.next, node.prev
-
-    def _insert_at_head(self, node):
-        node.prev = self.head
-        node.next = self.head.next
-        self.head.next.prev = node
-        self.head.next = node
-        
-    def get(self, key):
-        if key not in self.cache:
-            return -1
-        
-        node = self.cache[key]
-        self._remove(node)
-        self._insert_at_head(node)
-        return node.val
-        
-    def put(self, key, value):
-        if key in self.cache:
-            node = self.cache[key]
-            node.val = value
-            self._remove(node)
-            self._insert_at_head(node)
-        else:
-            node = DListNode(key, value)
-            self.cache[key] = node
-            self._insert_at_head(node)
-
-            if len(self.cache) > self.capacity:
-                last_node = self.tail.prev
-                self._remove(last_node)
-                del self.cache[last_node.val]
+            else:
+                stack.append(cha)
+        return "".join(stack)

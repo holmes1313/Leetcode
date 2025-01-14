@@ -27,11 +27,13 @@ class Solution(object):
         :type num: int
         :rtype: int
         """
+        # Convert the number to a list of digits (strings for easy comparison)
         num_list = list(str(num))
-
+        # Create a dictionary to store the last occurrence of each digit
         last_index = {int(digit): i for i, digit in enumerate(num_list)}
 
         for i, digit in enumerate(num_list):
+            # Try to find a larger digit to swap with the current digit
             for d in range(9, int(digit), -1):
                 if d in last_index and last_index[d] > i:
                     num_list[i], num_list[last_index[d]] = num_list[last_index[d]], num_list[i]

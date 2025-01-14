@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 22 23:17:39 2019
-
-@author: z.chen7
-"""
-
 # 435. Non-overlapping Intervals
 
 """
@@ -38,6 +31,7 @@ One that ends first, as it leaves the most room for the rest. So take one with s
 remove all the bad ones overlapping it, and repeat (taking the one with smallest end of the remaining ones). 
 For the overlap test, just keep track of the current end, initialized with negative infinity.
 """
+
 class Solution(object):
     def eraseOverlapIntervals(self, intervals):
         """
@@ -55,3 +49,19 @@ class Solution(object):
                     merged.append(interval)
 
         return len(intervals) - len(merged)
+
+    def eraseOverlapIntervals(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        # sort by end time
+        intervals.sort(key=lambda x: x[1])
+        curr_end = intervals[0][1]
+        remove_count = 0
+        for interval in intervals[1:]:
+            if interval[0] < curr_end:
+                remove_count += 1
+            else:
+                curr_end = interval[1]
+        return remove_count

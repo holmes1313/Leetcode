@@ -42,6 +42,9 @@ class Solution(object):
         while n > 0:
             if n % 2 == 1:
                 result *= x
-            x *= x
-            n //= 2
+                n -= 1
+            else:
+                x **= 2
+                n //= 2
+
         return result

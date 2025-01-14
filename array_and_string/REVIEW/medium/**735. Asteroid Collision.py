@@ -73,4 +73,27 @@ class Solution(object):
                 stack.append(a)
 
         return stack
+    
+    def asteroidCollision(self, asteroids):
+        """
+        :type asteroids: List[int]
+        :rtype: List[int]
+        """
+        stack = []
+
+        for a in asteroids:
+            while True:
+                if a < 0 and stack and stack[-1] > 0:
         
+                    if stack[-1] > -a:
+                        break
+                    elif stack[-1] == -a:
+                        stack.pop()
+                        break
+                    else:
+                        stack.pop()
+                else:
+                    stack.append(a)
+                    break
+
+        return stack

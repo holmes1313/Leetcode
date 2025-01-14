@@ -21,15 +21,15 @@ import heapq
 
 
 class Solution(object):        
-    def findKthLargest(self, nums, k):
+    def findKthLargest1(self, nums, k):
         """
         :type nums: List[int]
         :type k: int
         :rtype: int
         """
         min_heap = []
-        for i in range(len(nums)):
-            heapq.heappush(min_heap, nums[i])
+        for num in nums:
+            heapq.heappush(min_heap, num)
             if len(min_heap) > k:
                 heapq.heappop(min_heap)
 

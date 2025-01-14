@@ -47,6 +47,7 @@ class RandomizedSet(object):
         :type val: int
         :rtype: bool
         """
+        # Dictionary lookups in Python takes constant time
         if val in self.val_to_index:
             return False
         

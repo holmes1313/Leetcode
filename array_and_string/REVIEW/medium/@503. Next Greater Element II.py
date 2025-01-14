@@ -43,20 +43,17 @@ class Solution(object):
 
         return ans[:len(nums)]
         
-
-class Solution(object):
     def nextGreaterElements(self, nums):
         """
         :type nums: List[int]
         :rtype: List[int]
         """
-        concat = nums + nums
+        n = len(nums)
+        result = [-1] * n
         stack = []
-        n = len(concat)
-        next_greater_idx = {}
-        for i in range(n):
-            while stack and concat[stack[-1]] < concat[i]:
-                next_greater_idx[stack.pop()] = i
-            stack.append(i)
-        return [concat[next_greater_idx[i]] if i in next_greater_idx else -1 for i in range(len(nums))]
-        
+        for i in range(2*n):
+            idx = i % n
+            while stack and nums[stack[-1]] < nums[idx]:
+                result[stack.pop()] = nums[idx]
+            stack.append(idx)
+        return result

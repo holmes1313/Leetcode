@@ -54,36 +54,37 @@ class Solution(object):
 
         return "".join(result)
 
-
     def reorganizeString(self, s):
         """
         :type s: str
         :rtype: str
         """
-        count = collections.Counter(s)
-        
-        max_freq = max(count.values())
-        if max_freq > (len(s) + 1) // 2:
+        counts = collections.Counter(s)
+
+        if max(counts.values()) > (len(s)+1)//2:
             return ""
 
         max_heap = []
-        for cha, freq in count.items():
-            heapq.heappush(max_heap, (-freq, cha))
+        for val, count in counts.items():
+            heapq.heappush(max_heap, (-count, val))
 
+        new_string = []
+        prev_count, prev_val = 0, ""
+        cooling_queue = collections.deque()
         position = 0
-        output = []
-        cooling_q = collections.deque()
-        while max_heap or cooling_q:
-            if max_heap:
-                count, cha = heapq.heappop(max_heap)
-                output.append(cha)
-                count += 1
-                if count < 0:
-                    cooling_q.append((count, cha, position + 2))
-                position += 1
+        while max_heap or cooling_queue:
+            position += 1
+            if max_heap:            
+                freq, cha = heapq.heappop(max_heap)
+                new_string.append(cha)
 
-            if cooling_q and cooling_q[0][2] <= position:
-                count, cha, _  = cooling_q.popleft()
-                heapq.heappush(max_heap, (count, cha))
-            
-        return "".join(output)
+                freq += 1
+                if freq < 0:
+                    cooling_queue.append((freq, cha, position+1))
+
+            if cooling_queue:
+                if cooling_queue[0][2] <= position:
+                    freq, cha, _ = cooling_queue.popleft()
+                    heapq.heappush(max_heap, (freq, cha))
+
+        return "".join(new_string)

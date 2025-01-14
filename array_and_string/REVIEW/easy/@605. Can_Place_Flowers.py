@@ -45,3 +45,29 @@ class Solution(object):
             i += 1
 
         return count >= n
+
+    def canPlaceFlowers(self, flowerbed, n):
+        """
+        :type flowerbed: List[int]
+        :type n: int
+        :rtype: bool
+        """
+        count = 0
+        m = len(flowerbed)
+        for i in range(m):
+            if flowerbed[i] == 0:
+                left_good = False
+                if i == 0 or flowerbed[i-1] == 0:
+                    left_good = True 
+                right_good = False
+                if i == m-1 or flowerbed[i+1] == 0:
+                    right_good = True
+
+                if left_good and right_good:
+                    count += 1
+                    flowerbed[i] = 1
+
+                    if count >= n:
+                        return True
+
+        return count >= n

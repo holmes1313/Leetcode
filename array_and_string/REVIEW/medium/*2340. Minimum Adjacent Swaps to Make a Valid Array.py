@@ -46,4 +46,27 @@ class Solution(object):
             swaps = min_idx + max_idx - 1
 
         return swaps
-        
+
+    def minimumSwaps(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        max_val = float("-inf")
+        max_last_idx = None
+        min_val = float("inf")
+        min_first_idx = None
+
+        for i, num in enumerate(nums):
+            if num >= max_val:
+                max_val = num
+                max_last_idx = i
+            if num < min_val:
+                min_val = num
+                min_first_idx = i
+
+        moves = min_first_idx + len(nums) - 1 - max_last_idx
+        if min_first_idx > max_last_idx:
+            moves -= 1
+
+        return moves

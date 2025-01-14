@@ -79,5 +79,21 @@ class Solution(object):
 
         return window_len - max_ones
 
-
-
+    def minSwaps(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        window_len = sum(nums)
+        n = len(nums)
+        start = 0
+        ones = 0
+        max_ones = 0
+        for i in range(n * 2):
+            ones += nums[i % n]
+            if i >= window_len:
+                ones -= nums[start % n]
+                start += 1
+            max_ones = max(max_ones, ones)
+        return window_len - max_ones
+            

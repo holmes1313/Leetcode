@@ -54,3 +54,15 @@ class Solution(object):
 
         return next_idx
 
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nxt_idx = 2
+        for i in range(2, len(nums)):
+            if nums[i] != nums[nxt_idx-1] or nums[i] != nums[nxt_idx-2]:
+                nums[nxt_idx] = nums[i]
+                nxt_idx += 1
+
+        return nxt_idx
