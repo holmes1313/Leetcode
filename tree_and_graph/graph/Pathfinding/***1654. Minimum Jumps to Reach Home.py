@@ -37,3 +37,39 @@ Constraints:
 All the elements in forbidden are distinct.
 Position x is not forbidden.
 """
+class Solution(object):
+    def minimumJumps(self, forbidden, a, b, x):
+        """
+        :type forbidden: List[int]
+        :type a: int
+        :type b: int
+        :type x: int
+        :rtype: int
+        """
+        forbidden = set(forbidden)
+        max_position = max(x + a + b, max(forbidden) + a + b)
+
+        queue = collections.deque([(0, 0, False)])  # (current_position, number_of_jumps, last_was_backward)
+        seen = set([(0, False)])   # (position, last_was_backward) , maintain a visited set to prevent reprocessing the same state.
+
+        while queue:
+            position, jumps, last_was_backward = queue.popleft()
+
+            if position == x:
+                return jumps
+            
+            # moving forward
+            forward_position = position + a
+            if forward_position <= max_position and forward_position not in forbidden and (forward_position, False) not in seen:
+                seen.add((forward_position, False))
+                queue.append((forward_position, jumps+1, False))
+
+            # moving backward
+            if not last_was_backward:
+                backward_position = position - b
+                if backward_position >= 0 and backward_position not in forbidden and (backward_position, True) not in seen:
+                    seen.add((backward_position, True))
+                    queue.append((backward_position, jumps+1, True))
+
+
+        return -1

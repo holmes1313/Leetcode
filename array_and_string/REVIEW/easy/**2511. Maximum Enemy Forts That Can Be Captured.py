@@ -71,10 +71,9 @@ class Solution(object):
             if fort == 0:
                 curr_zeros += 1
             else:
-                if curr_fort is None:
-                    curr_fort = fort
-                elif curr_fort != fort:
+                if curr_fort and curr_fort != fort:
                     max_zeros = max(max_zeros, curr_zeros)
-                    curr_fort = fort
+                curr_fort = fort
                 curr_zeros = 0
+
         return max_zeros

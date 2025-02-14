@@ -57,4 +57,18 @@ class Solution(object):
             return [start, end]
         else:
             return [-1, -1]
-        
+
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        import bisect
+
+        left = bisect.bisect_left(nums, target)
+        right = bisect.bisect_right(nums, target)
+        if left < right:
+            return [left, right-1]
+        else:
+            return [-1, -1]

@@ -39,78 +39,94 @@ Constraints:
 At most 2 * 105 calls will be made to get and put.
 """
 
-class ListNode:
+class LRUCache:
+
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.key_to_value = {}
+        self.queue = collections.deque()
+ 
+    def get(self, key):
+        if key not in self.key_to_value:
+            return -1
+
+        value = self.key_to_value[key]
+        self.queue.remove(key)
+        self.queue.append(key)
+        return value
+        
+    def put(self, key, value):
+        if key in self.key_to_value:
+            self.key_to_value[key] = value
+            self.queue.remove(key)
+            self.queue.append(key)
+        else:
+            self.key_to_value[key] = value
+            self.queue.append(key)
+
+            if len(self.queue) > self.capacity:
+                key_to_remove = self.queue.popleft()
+                del self.key_to_value[key_to_remove]
+
+class Node:
     def __init__(self, key=0, val=0):
         self.key = key
         self.val = val
-        self.prev = None
         self.next = None
+        self.prev = None
 
-
-class LRUCache(object):
-
+class LRUCache1:
     def __init__(self, capacity):
-        """
-        :type capacity: int
-        """
         self.capacity = capacity
-        self.cache = {}
-        self.head = ListNode()
-        self.tail = ListNode()
+        self.val_to_node = {}
+        self.head = Node()
+        self.tail = Node()
         self.head.next = self.tail
         self.tail.prev = self.head
-        
-    def _remove(self, node):
-        prev_node = node.prev
-        next_node = node.next
-        prev_node.next = next_node
-        next_node.prev = prev_node
 
-    def _add_to_head(self, node):
-        next_node = self.head.next
+    def delete_node(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def move_node_to_head(self, node):
+        head_next = self.head.next
         self.head.next = node
         node.prev = self.head
-        node.next = next_node
-        next_node.prev = node
-    
+        node.next = head_next
+        head_next.prev = node
+
     def get(self, key):
-        """
-        :type key: int
-        :rtype: int
-        """
-        if key in self.cache:
-            node = self.cache[key]
-            self._remove(node)
-            self._add_to_head(node)
-            return node.val
-        else:
+        if key not in self.val_to_node:
             return -1
+
+        node = self.val_to_node[key]
+
+        # delete node
+        self.delete_node(node)
+
+        # put node to the head.next
+        self.move_node_to_head(node)
         
-    def put(self, key, value):
-        """
-        :type key: int
-        :type value: int
-        :rtype: None
-        """
-        if key in self.cache:
-            node = self.cache[key]
-            node.val = value
-            self._remove(node)            
+        return node.val
+
+    def put(self, key, val):
+        if key in self.val_to_node:
+            node = self.val_to_node[key]
+            node.val = val
+            # delete node
+            self.delete_node(node)
+            # put node to the head.next
+            self.move_node_to_head(node)
         else:
-            node = ListNode(key, value)
-            self.cache[key] = node
+            node = Node(key, val)
+            self.val_to_node[key] = node
+            self.move_node_to_head(node)
+            if len(self.val_to_node) > self.capacity:
+                last_node = self.tail.prev
+                self.delete_node(last_node)
+                del self.val_to_node[last_node.key]
 
-        self._add_to_head(node)
 
-        if len(self.cache) > self.capacity:
-            last_node = self.tail.prev
-            self._remove(last_node)
-            del self.cache[last_node.key]
-
-"""
-Doubly Linked List: The linked list helps maintain the order of usage for the cache. The most recently used element should be moved to the front of the list, and the least recently used should be at the back of the list.
-Hash Map: This allows us to access any cache element in constant time by key. We store the key-value pairs in the hash map.
-"""
 
 
 # Python 3

@@ -26,28 +26,31 @@ class Solution(object):
         :type edges: List[List[int]]
         :rtype: int
         """
-        graph = {i: [] for i in range(n)}
+        graph = collections.defaultdict(list)
         for a, b in edges:
             graph[a].append(b)
             graph[b].append(a)
 
-        seen = set()
-        components = 0
-        stack = []
+        def dfs(node):
+            for neighbor in graph[node]:
+                if neighbor not in seen:
+                    seen.add(neighbor)
+                    dfs(neighbor)
 
+        seen = set()
+        count = 0
         for node in range(n):
             if node not in seen:
-                components += 1
-                stack.append(node)
-
+                count += 1
+                # dfs(node)
+                stack = [node]
                 while stack:
-                    n = stack.pop()
-                    if n not in seen:
-                        seen.add(n)
-                        for neighbor in graph[n]:
+                    curr = stack.pop()
+                    for neighbor in graph[curr]:
+                        if neighbor not in seen:
+                            seen.add(neighbor)
                             stack.append(neighbor)
-
-        return components
+        return count
 
 
         

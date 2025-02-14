@@ -34,20 +34,36 @@ class Solution(object):
         :type destination: int
         :rtype: bool
         """
-        # Store all edges according to nodes in 'graph'.
         graph = collections.defaultdict(list)
         for n1, n2 in edges:
             graph[n1].append(n2)
             graph[n2].append(n1)
+        
+        seen = set()
 
-        stack = [source]
-        seen = {source}
-        while stack:
-            node = stack.pop()
+        def dfs(node):
             if node == destination:
                 return True
-            for next_node in graph[node]:
-                if next_node not in seen:
-                    stack.append(next_node)
-                    seen.add(next_node)
-        return False
+
+            for neighbor in graph[node]:
+                if neighbor not in seen:
+                    seen.add(neighbor)
+                    result = dfs(neighbor)
+                    if result == True:
+                        return True
+            return False
+            
+        return dfs(source)
+        # stack = [source]
+        # while stack:
+        #     node = stack.pop()
+
+        #     if node == destination:
+        #         return True
+
+        #     for neighbor in graph[node]:
+        #         if neighbor not in seen:
+        #             seen.add(neighbor)
+        #             stack.append(neighbor)
+
+        # return False

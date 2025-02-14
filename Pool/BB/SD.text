@@ -1,0 +1,68 @@
+2022
+design google doc and a news app
+
+2022
+请问lz 地铁系统和马拉松的class design是怎么准备的啊
+地铁的就是leetcode里有，马拉松的我面试之后查发现是bb他们之前常考题。https://1o24bbs.com/t/topic/2690 这个链接里有。
+
+浏览器LRU
+
+就一道设计题，设计一个logging and analytics system，要求log所有客户的trading activities，然后可以query各种analytics，怎么scale，怎么保证系统可靠，怎么保证系统secure。
+
+
+System Design 设计一个job scheduler。面试官重点问了很多monitoring 和Capacity planning的东西，比如应该monitor哪些metrics, 用哪些metrics来做autoscaling，还有怎么做capacity planning。这一轮答的一般般吧。
+Domain knowledge问了一些distributed system相关的问题, 因为这个组是infrastructure 相关。感觉team hiring很看重experience match不match。这轮还可以，因为我这方面比较熟。
+
+设计一个检查 是否能够交易的系统， 假设你有10w个银行 彼此之间会有交易的限额。银行在进行交易的时候，会发request 给这个交易系统， 如果还有额度可以交易。系统设计还可以。
+
+#London 2022
+The question was to design a Bloomberg Terminal feature for retrieving top K viewed news articles by users for a predefined time period. 
+Let's say getTopK(K, timeframe). We have millions of news that can be read by users, the K can be relatively large. I reviewed a lot of system design material beforehand and one of the videos I watched was how to design a system for Top K heavy hitters. I proposed a system as in this video that I watched a few days before the interview but still got rejected.
+https://www.youtube.com/watch?v=kx-XDoPjoHw&t=1351s&ab_channel=SystemDesignInterview
+
+过了30 分钟： hiring manager 轮
+让我把当前的project 给他画了个图 然后问题几个system design 相关的问题 比如 如果data 突然增加了10倍怎么办 我说的是要对每个component scale 然后load balancing 啥的 总之就是那些基础知识。 基本上算是给他讲明白了 然后让我反向bq， 一共持续的有差不多45 分钟吧 我说暂时没有问题了。 然后他说回去 collect 下feedback 再给我消息。
+
+
+https://www.1point3acres.com/bbs/thread-644592-1-1.html
+开始问有个电商网站，想要一个service能知道用户加东西进购物车，之后买或者没买，想拿到这些数据分析。 之后又问了一个东西好像是有6个server，用户下单可能到不同的server, 怎么aggregate。 反正我也没太懂，就随便说了说。
+
+
+https://www.1point3acres.com/bbs/thread-1097901-1-1.html
+写一个统计学校里面成绩的代码，要求给出各科前10
+然后设计一个挂单竞价系统
+
+
+https://leetcode.com/discuss/interview-question/737605/Bloomberg-New-Grad-or-Hiring-Manager-System-Design-Round-or-Gathering-Questions
+	Some version of the top-k stock trades by Volume and Value.
+  	Discussed several algorithmic approaches
+  	Deployment discussion.
+  	Functional requirements: Api end points, return types, user types
+  	Non Functional requirements: Real time? Latency, expected throughput, traffic, etc
+
+https://leetcode.com/discuss/interview-question/2350894/Bloomberg-System-Design-Reject-(New-Grad)
+The question was to design a Bloomberg Terminal feature for retrieving top K viewed news articles by users for a predefined time period. Let's say getTopK(K, timeframe). We have millions of news that can be read by users, the K can be relatively large.
+
+https://leetcode.com/discuss/interview-question/820877/Bloomberg-System-Design
+design a system that pulls in stock information from multiple stock exchanges and a client needs stock prices for a certain stock from all these exchanges and also top K stocks throughout the day. 
+
+
+
+
+HR
+
+Introduction
+Challenging experience
+What f‍‍‌‍‍‌‍‍‌‌‍‍‌‍‍‍‍‌‌‌actors do you consider about when choosing a position
+How do you know about bb
+
+每一轮必问why开花堡/challenge。 HR轮详细问了简历和领英上所有的经历。
+
+motivation
+
+https://www.1point3acres.com/bbs/thread-644592-1-1.html
+
+
+Most challenging project? 
+How to deal with conflicts 
+

@@ -37,22 +37,40 @@ class Solution(object):
         :rtype: str
         """
         stack = []
-
         for cha in s:
             if cha == "]":
-                substr = ""
-                while stack and stack[-1] != "[":
-                    substr += stack.pop()
-                substr = substr[::-1]
+                curr_str = ""
+                while stack[-1] != "[":
+                    curr_str = stack.pop() + curr_str
                 stack.pop()
-                digits = ""
+                curr_num = ""
                 while stack and stack[-1].isdigit():
-                    digits += stack.pop()
-                digits = int(digits[::-1])
-                substr *= digits
-                for subcha in substr:
-                    stack.append(subcha)
-
+                    curr_num = stack.pop() + curr_num
+                stack.append(curr_str * int(curr_num))
             else:
                 stack.append(cha)
+
         return "".join(stack)
+
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        curr_num = 0
+        curr_str = ""
+        for cha in s:
+            if cha.isdigit():
+                curr_num = curr_num * 10 + int(cha)
+            elif cha == "[":
+                stack.append((curr_str, curr_num))
+                curr_str = ""
+                curr_num = 0
+            elif cha == "]":
+                prev_str, k = stack.pop()
+                curr_str = prev_str + k*curr_str
+            else:
+                curr_str += cha
+
+        return curr_str

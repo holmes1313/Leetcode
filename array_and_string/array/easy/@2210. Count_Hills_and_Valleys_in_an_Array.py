@@ -51,3 +51,42 @@ class Solution(object):
                     count += 1
 
         return count
+
+class Solution(object):
+    def countHillValley(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        if n < 3:
+            return 0
+        
+        count = 0
+        
+        for i in range(1, n-1):
+            if nums[i] == nums[i-1]:
+                continue
+            
+            left = i - 1
+            while left >= 0 and nums[left] == nums[i]:
+                left -= 1
+
+            if left < 0:
+                continue
+
+            left_diff = nums[left] - nums[i]
+
+            right = i + 1
+            while right < n and nums[right] == nums[i]:
+                right += 1
+
+            if right >= n:
+                continue
+
+            right_diff = nums[right] - nums[i]
+
+            if right_diff * left_diff > 0:
+                count += 1
+
+        return count

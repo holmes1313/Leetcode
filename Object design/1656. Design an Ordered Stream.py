@@ -47,9 +47,8 @@ class OrderedStream(object):
         """
         :type n: int
         """
-        self.start = 1
-        self.n = n
-        self.key_to_val = {}
+        self.stream = [None] * n
+        self.pointer = 0
 
     def insert(self, idKey, value):
         """
@@ -57,14 +56,10 @@ class OrderedStream(object):
         :type value: str
         :rtype: List[str]
         """
+        self.stream[idKey-1] = value
         result = []
-        self.key_to_val[idKey] = value
-        while self.start <= self.n:
-            if self.start in self.key_to_val:
-                result.append(self.key_to_val[self.start])
-                self.start += 1               
-            else:
-                break
-
+        while self.pointer < len(self.stream) and self.stream[self.pointer] is not None:
+            result.append(self.stream[self.pointer])
+            self.pointer += 1
         return result
 

@@ -59,51 +59,23 @@ class Solution(object):
         :rtype: bool
         """
         n = len(arr)
+
         if n < 3:
             return False
-
-        pivot = None
-        for i in range(n-1):
+        
+        i = 0
+        while i+1 < n:
             if arr[i] < arr[i+1]:
-                continue
-            elif  arr[i] == arr[i+1]:
-                return False
+                i += 1
             else:
-                pivot = i
                 break
 
-        if pivot is None or pivot == 0:
+        if i == 0 or i == n-1:
             return False
 
-        for i in range(pivot, n-1):
-            if arr[i] <= arr[i+1]:
+        for j in range(i+1, n):
+            if arr[j] >= arr[j-1]:
                 return False
-
+        
         return True
-
-    def validMountainArray(self, arr):
-        """
-        :type arr: List[int]
-        :rtype: bool
-        """
-        n = len(arr)
-        if n < 3:
-            return False
-
-        pivot = None
-        for i in range(1, n-1):
-            if arr[i] > arr[i-1] and arr[i] > arr[i+1]:
-                pivot = i
-                break
-        if pivot is None:
-            return False
-
-        for i in range(pivot):
-            if arr[i] >= arr[i+1]:
-                return False
-
-        for i in range(pivot+1, n):
-            if arr[i] >= arr[i-1]:
-                return False
-
-        return True
+            

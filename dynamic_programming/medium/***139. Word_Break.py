@@ -52,20 +52,32 @@ class Solution(object):
         :type wordDict: List[str]
         :rtype: bool
         """
-        word_set = set(wordDict)
         n = len(s)
-        dp = [False] * (n+1)      # dp[i] indicates whether the substring s[0:i] can be segmented into words from the dictionary.
-        dp[0] = True   # Base case: empty string can be segmented
-        
-        for i in range(1, n+1):
-            # For each position in the string, check possible previous positions to see if a valid word can form the substring.
-            for j in range(i):
-                if dp[j] and s[j:i] in word_set:
-                    # If dp[j] is True and the substring from j to i is in the word dictionary, then set dp[i] to True.
-                    dp[i] = True
-                    break  # Early exit for this i
+        # dp[i] indicates whether the substring s[0:i] can be segmented into words from the dictionary.
+        dp = [False] * (n+1)
+        # Base case: empty string can be segmented
+        dp[0] = True
+        word_set = set(wordDict)
+        for i in range(n):
+            for j in range(i+1, n+1):
+                if dp[i] and s[i:j] in word_set:
+                    dp[j] = True
+        return dp[-1]
 
-        return dp[n]
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        n = len(s)
+        dp = [False] * (n+1)
+        dp[0] = True
+        for i in range(n):
+            for word in wordDict:
+                if i + len(word) <= n and s[i:i+len(word)] == word and dp[i]:
+                    dp[i+len(word)] = True 
+        return dp[-1]
 
 
     def wordBreak(self, s, wordDict):
@@ -79,17 +91,16 @@ class Solution(object):
         seen = set([0])
         while queue:
             start = queue.popleft()
-
             if start == len(s):
                 return True
 
-            for end in range(start+1, len(s)+1):
+            for end in range(start, len(s)+1):
                 if end in seen:
                     continue
-
-                if s[start:end] in word_set:
-                    queue.append(end)
+                
+                sub_str = s[start: end]
+                if sub_str in word_set:
                     seen.add(end)
-
+                    queue.append(end)
         return False
-                    
+

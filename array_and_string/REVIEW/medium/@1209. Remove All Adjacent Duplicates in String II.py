@@ -68,3 +68,26 @@ class Solution(object):
         chas = [cha * val for cha, val in stack]
 
         return "".join(chas)
+
+    def removeDuplicates_at_least_k(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: str
+        """
+        stack = []
+        i = 0
+        while i < len(s):
+            if stack and s[i] == stack[-1][0]:
+                stack[-1][1] += 1
+                i += 1
+            else:
+                if stack and stack[-1][1] >= k:
+                    stack.pop()
+                    continue
+                else:
+                    stack.append([s[i], 1])
+                    i += 1
+        if stack and stack[-1][1] >= k:
+            stack.pop()
+        return "".join(char * count for char, count in stack)
