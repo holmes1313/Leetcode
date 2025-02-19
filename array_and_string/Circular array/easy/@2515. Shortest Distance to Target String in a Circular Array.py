@@ -28,39 +28,12 @@ class Solution(object):
         :rtype: int
         """
         n = len(words)
-        target_indices = []
-        for i, word in enumerate(words):
-            if word == target:
-                target_indices.append(i)
-
-        if not target_indices:
-            return -1
-
-        min_distance = float('inf')
-        for idx in target_indices:
-            forward_distance = (idx - startIndex + n) % n
-            backward_distance = (startIndex - idx + n) % n
-
-            min_distance = min(min_distance, forward_distance, backward_distance)
-        
-        return min_distance
-
-    def closetTarget(self, words, target, startIndex):
-        """
-        :type words: List[str]
-        :type target: str
-        :type startIndex: int
-        :rtype: int
-        """
-        if words[startIndex] == target:
-            return 0
-        
-        n = len(words)
-        startIndex %= n
-        for i in range(1, n):
-            left = (startIndex - i + n) % n
-            right = (startIndex + i) % n
-            if words[left] == target or words[right] == target:
+        backward = startIndex
+        forward = startIndex
+        for i in range(n):
+            if words[forward % n] == target or words[(backward + n) % n] == target:
                 return i
-
+            else:
+                forward += 1
+                backward -= 1
         return -1

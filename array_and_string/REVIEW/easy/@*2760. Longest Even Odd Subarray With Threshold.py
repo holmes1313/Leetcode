@@ -56,8 +56,7 @@ class Solution(object):
 
         return longest_len
             
-
-    def longestAlternatingSubarray2(self, nums, threshold):
+    def longestAlternatingSubarray(self, nums, threshold):
         """
         :type nums: List[int]
         :type threshold: int
@@ -66,13 +65,35 @@ class Solution(object):
         max_len = 0
         n = len(nums)
         for l in range(n):
-            if nums[l] % 2 == 0:
-                curr_len = 0
-                for r in range(l, n):
-                    if nums[r] <= threshold and (r == l or (nums[r] % 2 != nums[r-1] % 2)):
-                        curr_len += 1
-                    else:
-                        break
-                max_len = max(max_len, curr_len)
+            if nums[l] % 2 == 0 and nums[l] <= threshold:
+                sub_len = 1
+                for r in range(l+1, n+1):
+                    if nums[r] <= threshold and nums[r] % 2 != nums[r - 1] % 2:
+                        sub_len += 1
+                max_len = max(max_len, sub_len)
+
         return max_len
 
+    def longestAlternatingSubarray(self, nums, threshold):
+        """
+        :type nums: List[int]
+        :type threshold: int
+        :rtype: int
+        """
+        max_len = 0
+        n = len(nums)
+        l = 0
+        while l < n:
+            if nums[l] % 2 == 0 and nums[l] <= threshold:
+                r = l
+                while r < n:
+                    if nums[r] <= threshold and (r == l or nums[r] % 2 != nums[r - 1] % 2):
+                        r += 1
+                    else:
+                        break
+                max_len = max(max_len, r - l)
+                l = r
+            else:
+                l += 1
+
+        return max_len

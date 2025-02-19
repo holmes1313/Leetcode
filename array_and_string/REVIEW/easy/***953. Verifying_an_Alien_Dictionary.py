@@ -91,3 +91,21 @@ class Solution(object):
                 return False
 
         return True
+
+    def isAlienSorted(self, words, order):
+        cha_to_idx = {cha: i for i, cha in enumerate(order)}
+        for i in range(len(words) - 1):
+            word1 = words[i]
+            word2 = words[i+1]
+            for j in range(min(len(word1), len(word2))):
+                if cha_to_idx[word1[j]] < cha_to_idx[word2[j]]:
+                    break
+                elif cha_to_idx[word1[j]] > cha_to_idx[word2[j]]:
+                    return False
+                else:
+                    continue
+
+            if len(word1) > len(word2) and word1.startswith(word2):
+                return False
+
+        return True

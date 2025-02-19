@@ -28,16 +28,17 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        # use binary search to find the largest k such that: k*(k+1)//2 <= n
-        left, right = 0, n
+        def helper(num):
+            return (1 + num) * num // 2
+
+        left = 1
+        right = n
         while left <= right:
             mid = (left + right) // 2
-            total = mid * (mid+1) // 2
-
-            # if total == n:
-            #     return mid
-            if total <= n:
+            # to find the first idx where 1 + 2 + 3 + .. + idx > n
+            if helper(mid) <= n:
                 left = mid + 1
             else:
                 right = mid - 1
+
         return left - 1

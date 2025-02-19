@@ -57,3 +57,21 @@ class Solution(object):
                             count += 1
 
         return count
+
+    def countQuadruplets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        ans = 0
+        for i in range(n-3):
+            for j in range(i+1, n-2):
+                subtotal = nums[i] + nums[j]
+                seen = collections.defaultdict(int)
+                for x in range(j+1, n):
+                    if nums[x] - subtotal in seen:
+                        ans += seen[nums[x] - subtotal]
+                    seen[nums[x]] += 1
+
+        return ans

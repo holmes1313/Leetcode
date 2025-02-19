@@ -20,19 +20,11 @@ Explanation: The next greater element for each value of nums1 is as follows:
 """
 class Solution(object):
     def nextGreaterElement(self, nums1, nums2):
-        # Dictionary to hold the next greater element for each element in nums2
-        next_greater = {}
-        # Stack to keep track of elements for which we need to find the next greater element
         stack = []
-
+        next_greater_mapping = {}
         for num in nums2:
-            while stack and num > stack[-1]:
-                next_greater[stack.pop()] = num
+            while stack and stack[-1] < num:
+                next_greater_mapping[stack.pop()] = num
             stack.append(num)
 
-        while stack:
-            next_greater[stack.pop()] = -1
-
-        result = [next_greater[num] for num in nums1]
-
-        return result
+        return [next_greater_mapping.get(n, -1) for n in nums1]

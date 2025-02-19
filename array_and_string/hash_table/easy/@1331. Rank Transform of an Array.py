@@ -29,15 +29,8 @@ class Solution(object):
         :type arr: List[int]
         :rtype: List[int]
         """
-        sorted_arr = sorted(arr)
-        # nums = sorted(set(arr))
-        num_to_rank = {}
-        curr_rank = 1
+        sorted_unique = sorted(set(arr))
 
-        for num in sorted_arr:
-            if num not in num_to_rank:
-                num_to_rank[num] = curr_rank
-                curr_rank += 1
+        val_to_rank = {val: i+1 for i, val in enumerate(sorted_unique)}
 
-        result = [num_to_rank[num] for num in arr]
-        return result
+        return [val_to_rank[val] for val in arr]

@@ -1,36 +1,66 @@
 """
-A
-Aniseed  3
-Apple 23,54
-Arrowroot 19
-B
-Banana 24,93,120
-Boiling 122
-Bread 124,125
-Bundt 123
-D
-Duck 122
+Given an unsorted array of integers nums, return the length of the longest continuous increasing subsequence (i.e. subarray). The subsequence must be strictly increasing.
 
+A continuous increasing subsequence is defined by two indices l and r (l < r) such that it is [nums[l], nums[l + 1], ..., nums[r - 1], nums[r]] and for each l <= i < r, nums[i] < nums[i + 1].
 
+ 
+
+Example 1:
+
+Input: nums = [1,3,5,4,7]
+Output: 3
+Explanation: The longest continuous increasing subsequence is [1,3,5] with length 3.
+Even though [1,3,5,7] is an increasing subsequence, it is not continuous as elements 5 and 7 are separated by element
+4.
+Example 2:
+
+Input: nums = [2,2,2,2,2]
+Output: 1
+Explanation: The longest continuous increasing subsequence is [2] with length 1. Note that it must be strictly
+increasing.
+ 
+
+Constraints:
+
+1 <= nums.length <= 104
+-109 <= nums[i] <= 109
 """
-import collections
 
-class Solution:
-    def __init__(self):
-        self.index_to_words = collections.defaultdict(set)
-        self.word_to_pages = collections.defaultdict(set)
+class Solution(object):
+    def findLengthOfLCIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        i = 0
+        max_count = 0
+        while i < n:
+            curr_count = 1
 
-    def store_index ( self, word: str, page: int ):
-        index = word[0].upper()
-        self.index_to_words[index].add(word)
-        self.word_to_pages[word].add(page)
+            for j in range(i+1, n):
+                if nums[j] > nums[j-1]:
+                    curr_count += 1
+                else:
+                    break
+            max_count = max(max_count, curr_count)
+            i += curr_count
+        return max_count
     
-    def print_index( self ):
-        for index in sorted(self.index_to_words.keys()):
-            print(index)
-            for word in sorted(self.index_to_words[index]):
-                print(word)
-                print(sorted(self.word_to_pages[word]))
+    def findLengthOfLCIS(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        curr_count = 1
+        max_count = 0
 
-                
-        
+        for i in range(1, len(nums)):
+            if nums[i] > nums[i-1]:
+                curr_count += 1
+            else:
+                max_count = max(max_count, curr_count)
+                curr_count = 1
+
+        max_count = max(max_count, curr_count)
+        return max_count

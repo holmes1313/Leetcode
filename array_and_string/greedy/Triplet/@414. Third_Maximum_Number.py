@@ -35,23 +35,23 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        first = second = third = None
+        first = sec = third = float("-inf")
 
         for num in nums:
-            if num == first or num == second or num == third:
+            if num == first or num == sec or num == third:
                 continue
-            
-            if first is None or num > first:
-                third = second
-                second = first
+
+            if num > first:
+                third = sec
+                sec = first
                 first = num
-            elif second is None or num > second:
-                third = second
-                second = num
-            elif third is None or num > third:
+            elif num > sec:
+                third = sec
+                sec = num
+            elif num > third:
                 third = num
 
-        return third if third is not None else first
+        return third if third != float("-inf") else first
 
     def thirdMax(self, nums):
         """

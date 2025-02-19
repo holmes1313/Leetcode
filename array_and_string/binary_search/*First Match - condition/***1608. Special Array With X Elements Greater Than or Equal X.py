@@ -62,3 +62,17 @@ class Solution(object):
                 return x
 
         return -1
+
+    def specialArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        import bisect
+        nums.sort()
+        for i in range(0, len(nums)+1):
+            # find the first val that >= i
+            idx = bisect.bisect_left(nums, i)
+            if i == len(nums) - idx:
+                return i
+        return -1

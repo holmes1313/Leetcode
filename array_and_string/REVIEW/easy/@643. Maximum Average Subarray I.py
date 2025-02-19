@@ -18,18 +18,6 @@ Output: 5.00000
 """
 
 class Solution:
-    def findMaxAverage2(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: float
-        """
-        max_ave = sum(nums[:k])
-        for i in range(len(nums) - k + 1):
-            curr_ave = sum(nums[i:i+k]) / k
-            max_ave = max(max_ave, curr_ave)
-        return max_ave
-
     def findMaxAverage(self, nums, k):
         """
         :type nums: List[int]

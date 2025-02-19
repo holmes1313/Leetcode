@@ -80,3 +80,18 @@ class Solution(object):
             
         # Convert the winner from 0-indexed to 1-indexed
         return winner + 1
+
+    def findTheWinner(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: int
+        """
+        friends = list(range(1, n+1))
+        index = 0
+        while len(friends) > 1:
+            index = (index + k - 1) % len(friends)
+            friends.pop(index)
+
+        return friends[0]
+    

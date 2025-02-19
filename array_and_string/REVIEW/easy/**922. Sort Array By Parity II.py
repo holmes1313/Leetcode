@@ -53,3 +53,46 @@ class Solution(object):
                 nums[even_idx], nums[odd_idx] = nums[odd_idx], nums[even_idx]
 
         return nums
+
+    def sortArrayByParityII(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        p1 = 0
+        p2 = 1
+        n = len(nums)
+        while p1 < n and p2 < n:
+            if nums[p1] % 2 == 0:
+                p1 += 2
+                continue
+
+            if nums[p2] % 2 == 1:
+                p2 += 2
+                continue
+
+            nums[p1], nums[p2] = nums[p2], nums[p1]
+            p1 += 2
+            p2 += 2
+
+        return nums
+
+    def sortArrayByParityII(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        p1 = 0
+        p2 = 1
+        for i in range(len(nums)):
+            if nums[i]  % 2 == 0:
+                if i % 2 != 0:
+                    nums[p1], nums[i] = nums[i], nums[p1]
+                p1 += 2
+            else:
+                if i % 2 == 0:
+                    nums[p2], nums[i] = nums[i], nums[p2]
+                p2 += 2
+
+        return nums
+ 

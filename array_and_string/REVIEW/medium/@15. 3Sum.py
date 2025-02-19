@@ -54,3 +54,26 @@ class Solution(object):
                     right -= 1
         return result
 
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        output = []
+        n = len(nums)
+        for i in range(n-2):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+
+            seen = set()
+            for j in range(i+1, n):
+                if j > i and nums[j] == nums[j-1]:
+                    continue
+
+                if 0 - nums[i] - nums[j] in seen:
+                    output.append([nums[i], 0 - nums[i] - nums[j], nums[j]])
+
+                seen.add(nums[j])
+
+        return output
