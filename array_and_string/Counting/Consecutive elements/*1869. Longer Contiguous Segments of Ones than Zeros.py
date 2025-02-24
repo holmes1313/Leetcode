@@ -65,4 +65,29 @@ class Solution(object):
         max_zeros = max(max_zeros, curr_zeros)
             
         return max_ones > max_zeros
-        
+
+    def checkZeroOnes(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        curr_count = 1
+        max_ones = 0
+        max_zeros = 0
+
+        for i in range(1, len(s)):
+            if s[i] == s[i-1]:
+                curr_count += 1
+            else:
+                if s[i] == "1":
+                    max_zeros = max(max_zeros, curr_count)
+                else:
+                    max_ones = max(max_ones, curr_count)
+                curr_count = 1
+
+        if s[-1] == "1":
+            max_ones = max(max_ones, curr_count)
+        else:
+            max_zeros = max(max_zeros, curr_count)
+
+        return max_ones > max_zeros

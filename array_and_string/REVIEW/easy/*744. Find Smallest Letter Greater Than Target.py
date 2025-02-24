@@ -42,4 +42,15 @@ class Solution(object):
         if left == len(letters):
             return letters[0]
         return letters[left]
-        
+
+    def nextGreatestLetter(self, letters, target):
+        """
+        :type letters: List[str]
+        :type target: str
+        :rtype
+        """
+        import bisect
+        idx = bisect.bisect_right(letters, target)
+        if idx == len(letters):
+            return letters[0]
+        return letters[idx]

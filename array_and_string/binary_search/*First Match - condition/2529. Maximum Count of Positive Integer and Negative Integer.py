@@ -72,3 +72,16 @@ class Solution(object):
         neg_count = find_first_zero(nums)
         pos_count = len(nums) - find_first_positive(nums)
         return max(neg_count, pos_count)
+
+    def maximumCount(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        import bisect
+
+        first_zero = bisect.bisect_left(nums, 0)
+        neg_count = first_zero
+        first_pos = bisect.bisect_right(nums, 0)
+        pos_count = len(nums) - first_pos
+        return max(neg_count, pos_count)

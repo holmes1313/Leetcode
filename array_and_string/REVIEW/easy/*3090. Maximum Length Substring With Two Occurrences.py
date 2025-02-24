@@ -22,36 +22,21 @@ Explanation:
 The following substring has a length of 2 and contains at most two occurrences of each character: "aaaa".
 
 """
-class Solution:
-    def maximumLengthSubstring(self, s: str) -> int:
-        left = right = 0
-        ans = 0
-        count_map = collections.defaultdict(int)
-        while right < len(s):
-            count_map[s[right]] += 1
-            while count_map[s[right]] == 3:
-                count_map[s[left]] -= 1
-                left += 1
-            ans = max(ans, right - left + 1)
-            right += 1
-
-        return ans
-
+class Solution(object):
     def maximumLengthSubstring(self, s):
         """
         :type s: str
         :rtype: int
         """
+        start = 0
         n = len(s)
+        counter = collections.defaultdict(int)
         max_len = 0
-        for i in range(len(s)):
-            counter = collections.defaultdict(int)
-            for j in range(i, len(s)):
-                counter[s[j]] += 1
-                if counter[s[j]] > 2:
-                    break
-                else:
-                    max_len = max(max_len, j-i+1)
-        return max_len
+        for i in range(n):
+            counter[s[i]] += 1
+            while counter[s[i]] > 2:
+                counter[s[start]] -= 1
+                start += 1
 
-        
+            max_len = max(max_len, i - start + 1)
+        return max_len

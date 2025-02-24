@@ -70,4 +70,14 @@ class Solution(object):
         last_idx = find_last(nums, target) - 1
         count = last_idx - first_idx + 1
         return count > len(nums) / 2
-        
+
+    def isMajorityElement(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        import bisect
+        first_idx = bisect.bisect_left(nums, target)
+        last_idx = bisect.bisect_right(nums, target) - 1
+        return last_idx - first_idx + 1 > len(nums) // 2

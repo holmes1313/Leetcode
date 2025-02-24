@@ -63,3 +63,16 @@ class Solution(object):
         for row in range(m):
             ans.append(original[row * n: row * n + n])
         return ans
+
+    def construct2DArray(self, original, m, n):
+        if len(original) != m*n:
+            return []
+        
+        output = [[None] * n for _ in range(m)]
+
+        for i in range(len(original)):
+            row = i // n
+            col = i % n
+            output[row][col] = original[i]
+
+        return output

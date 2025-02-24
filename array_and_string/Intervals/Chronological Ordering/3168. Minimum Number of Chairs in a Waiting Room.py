@@ -41,14 +41,14 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        stack = []
+        curr_count = 0
         max_count = 0
         for cha in s:
             if cha == "E":
-                stack.append(cha)
+                curr_count += 1
             else:
-                stack.pop()
-
-            max_count = max(max_count, len(stack))
+                curr_count -= 1
+                
+            max_count = max(max_count, curr_count)
 
         return max_count

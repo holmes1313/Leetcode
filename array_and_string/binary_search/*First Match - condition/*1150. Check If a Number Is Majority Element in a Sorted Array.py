@@ -77,8 +77,7 @@ class Solution(object):
         :type target: int
         :rtype: bool
         """
-        counts = collections.Counter(nums)
-        if target in counts and counts[target] > len(nums) // 2:
-            return True
-        
-        return False
+        import bisect
+        first_idx = bisect.bisect_left(nums, target)
+        last_idx = bisect.bisect_right(nums, target) - 1
+        return last_idx - first_idx + 1 > len(nums) // 2

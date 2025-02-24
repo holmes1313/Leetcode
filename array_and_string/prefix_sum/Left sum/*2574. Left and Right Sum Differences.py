@@ -32,7 +32,6 @@ class Solution(object):
         """
         left_sum = 0
         total = sum(nums)
-        right_sums = []
         ans = []
 
         for num in nums:

@@ -27,38 +27,6 @@ class Solution(object):
         :rtype: int
         """
         counts = {}
-        first_idx = {}
-        last_idx = {}
-        max_count = 0
-        max_freq_nums = []
-
-        for i, num in enumerate(nums):
-            if num not in counts:
-                counts[num] = 1
-                first_idx[num] = i
-                last_idx[num] = i
-            else:
-                counts[num] += 1
-                last_idx[num] = i
-
-            if counts[num] > max_count:
-                max_count = counts[num]
-                max_freq_nums = [num]
-            elif counts[num] == max_count:
-                max_freq_nums.append(num)
-
-        min_len = float('inf')
-        for num in max_freq_nums:
-            min_len = min(min_len, last_idx[num] - first_idx[num]+1)
-
-        return min_len
-
-    def findShortestSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        counts = {}
         num_index = {}
         max_count = 0
         degree = len(nums)
