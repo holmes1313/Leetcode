@@ -19,16 +19,6 @@ rotate 2 steps to the right: [6,7,1,2,3,4,5]
 rotate 3 steps to the right: [5,6,7,1,2,3,4]"""
 
 class Solution(object):        
-    def rotate2(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: None Do not return anything, modify nums in-place instead.
-        """
-        k = k % len(nums)
-        for _ in range(k):
-            nums.insert(0, nums.pop())
-
     def rotate(self, nums, k):
         """
         :type nums: List[int]
@@ -40,7 +30,8 @@ class Solution(object):
         if k == 0:
             return nums
 
-        nums[:k], nums[k:] = nums[-k:], nums[:-k]
+        # nums[:k], nums[k:] = nums[-k:], nums[:-k]
+        nums[:] = nums[-k:] + nums[:-k]  # Rotate the array in place
         return nums
     
     def rotate(self, nums, k):

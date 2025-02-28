@@ -39,3 +39,21 @@ class Solution(object):
                 if len(found_vowels) == len(vowels):
                     count += 1
         return count
+
+    def countVowelSubstrings(self, word):
+        vowels = set("aeiou")
+        left = 0
+        n = len(word)
+        count = 0
+        for left in range(len(word)):
+            if word[left] not in vowels:
+                continue
+            curr_vowels = set()
+            right = left
+            while right < n and word[right] in vowels:
+                curr_vowels.add(word[right])
+                if len(curr_vowels) == len(vowels):
+                    count += 1
+                right += 1
+    
+        return count

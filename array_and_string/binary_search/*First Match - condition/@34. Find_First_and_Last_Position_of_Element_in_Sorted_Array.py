@@ -65,10 +65,7 @@ class Solution(object):
         :rtype: List[int]
         """
         import bisect
+        first_idx = bisect.bisect_left(nums, target)
+        last_idx = bisect.bisect_right(nums, target)-1
 
-        left = bisect.bisect_left(nums, target)
-        right = bisect.bisect_right(nums, target)
-        if left < right:
-            return [left, right-1]
-        else:
-            return [-1, -1]
+        return [first_idx, last_idx] if last_idx >= first_idx else [-1, -1]

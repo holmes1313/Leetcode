@@ -49,3 +49,20 @@ class Solution(object):
             result = -int("".join(digits))
 
         return result
+
+    def smallestNumber(self, num):
+
+        is_negative = num < 0
+        num_str = str(abs(num))
+        sorted_digits = sorted(num_str, reverse=is_negative)
+
+        if not is_negative:
+            if sorted_digits[0] == "0":
+                for i in range(1, len(sorted_digits)):
+                    if sorted_digits[i] != "0":
+                        sorted_digits[0], sorted_digits[i] = sorted_digits[i], sorted_digits[0]
+                        break
+
+        result = int("".join(sorted_digits))
+
+        return result if not is_negative else -result

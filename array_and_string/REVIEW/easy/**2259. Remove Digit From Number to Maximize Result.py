@@ -30,3 +30,12 @@ class Solution(object):
                 ans = max(ans, int(number[:idx] + number[idx+1:]))
 
         return str(ans)
+
+    def removeDigit(self, number, digit):
+        for i in  range(len(number)-1):
+            if number[i] == digit and number[i] < number[i+1]:
+                return number[:i] + number[i+1:]
+
+        # else, remove the last occurence of the digit
+        last_idx = number.rfind(digit)
+        return number[:last_idx] + number[last_idx+1:]

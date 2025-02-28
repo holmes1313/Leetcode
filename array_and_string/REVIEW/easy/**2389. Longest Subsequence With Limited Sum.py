@@ -44,3 +44,16 @@ class Solution(object):
             ans.append(left)
 
         return ans
+    
+    def answerQueries(self, nums, queries):
+        nums.sort()
+        for i in range(1, len(nums)):
+            nums[i] += nums[i-1]
+
+        import bisect
+        
+        ans = []
+        for q in queries:
+            a = bisect.bisect_right(nums, q)
+            ans.append(a)
+        return ans
