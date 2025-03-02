@@ -60,22 +60,27 @@ class Solution(object):
         """
         task_count = collections.Counter(tasks)
 
+        # Create a max heap based on task frequencies (we use negative to simulate max-heap)
         max_heap = []
         for task, freq in task_count.items():
             heapq.heappush(max_heap, (-freq, task))
 
         time = 0
+        # This will store tasks on cooldown
         cooling_queue = collections.deque()
         while max_heap or cooling_queue:
             time += 1
 
             if max_heap:
+                # Pop the most frequent task from the max heap
                 count, task = heapq.heappop(max_heap)
                 count += 1
 
+                # If there are more instances of the task, put it on cooldown
                 if count < 0:
                     cooling_queue.append((task, count, time + n))
 
+            # Check if any task is done with its cooldown period and can be pushed back to the heap
             if cooling_queue and cooling_queue[0][2] <= time:
                 task, count, _ = cooling_queue.popleft()
                 heapq.heappush(max_heap, (count, task))

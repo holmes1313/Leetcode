@@ -49,51 +49,10 @@ class Solution(object):
         :type board: List[List[int]]
         :rtype: None Do not return anything, modify board in-place instead.
         """
-        
-        if not board:
-            return []
-        
-        rn = len(board)
-        cn = len(board[0])
-        
-        for i in range(rn):
-            for j in range(cn):
-                lives = self.liveNeighbors(board, i, j, rn, cn)
-                if board[i][j] == 0 and lives == 3:
-                    board[i][j] = 2
-                    
-                elif board[i][j] == 1 and (lives < 2 or lives > 3):
-                    board[i][j] = 3
-                    
-        for i in range(rn):
-            for j in range(cn):
-                if board[i][j] == 2:
-                    board[i][j] = 1
-                elif board[i][j] == 3:
-                    board[i][j] = 0
-                    
-        return board
-                
-                
-    def liveNeighbors(self, board, i, j, rn, cn):
-        lives = 0
-        for x in range(max(i-1, 0), min(i+2, rn)):
-            for y in range(max(j-1, 0), min(j+2, cn)):
-                if (x != i or y != j) and (board[x][y] == 1 or board[x][y] == 3):
-                    lives += 1
-                    
-        return lives
-    
-
-class Solution(object):
-    def gameOfLife(self, board):
-        """
-        :type board: List[List[int]]
-        :rtype: None Do not return anything, modify board in-place instead.
-        """
         rows = len(board)
         cols = len(board[0])
         neighbors = [(1, 0), (-1, 0), (0, 1), (0, -1), (-1, -1), (1, 1), (-1, 1), (1, -1)]
+        # use a copy board
         copy_board = [row[:] for row in board]
         for row in range(rows):
             for col in range(cols):
@@ -118,8 +77,9 @@ class Solution(object):
         :type board: List[List[int]]
         :rtype: None Do not return anything, modify board in-place instead.
         """
-        # live -> dead: -1
-        # dead -> live: 2
+        # in-place modification
+        # live 1 -> dead 0: 3
+        # dead 0 -> live 1: 2
         rows = len(board)
         cols = len(board[0])
         neighbors = [(1, 0), (-1, 0), (0, 1), (0, -1), (-1, -1), (1, 1), (-1, 1), (1, -1)]
@@ -130,19 +90,19 @@ class Solution(object):
                     row_n = row + dx
                     col_n = col + dy
 
-                    if (0 <= row_n < rows) and (0 <= col_n < cols) and abs(board[row_n][col_n]) == 1:
+                    if (0 <= row_n < rows) and (0 <= col_n < cols) and board[row_n][col_n] in set([1, 3]):
                         live_neighbors += 1
 
                 if board[row][col] == 1:
                     if live_neighbors < 2 or live_neighbors > 3:
-                        board[row][col] = -1
+                        board[row][col] = 3
                 if board[row][col] == 0:
                     if live_neighbors == 3:
                         board[row][col] = 2
                     
         for row in range(rows):
             for col in range(cols):
-                if board[row][col] == -1:
+                if board[row][col] == 3:
                     board[row][col] = 0
                 elif board[row][col] == 2:
                     board[row][col] = 1

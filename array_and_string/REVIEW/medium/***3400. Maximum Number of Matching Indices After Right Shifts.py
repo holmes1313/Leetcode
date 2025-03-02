@@ -37,29 +37,20 @@ nums1.length == nums2.length
 1 <= nums1.length, nums2.length <= 3000
 1 <= nums1[i], nums2[i] <= 109
 """
-import collections
-
-
 class Solution(object):
     def maximumMatchingIndices(self, nums1, nums2):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: int
-        """
+
+
         n = len(nums1)
-        
-        # Dictionary to store frequency of shifts required for each element to match
-        shift_count = collections.defaultdict(int)
-        
-        for i in range(n):
-            for j in range(n):
-                if nums1[i] == nums2[j]:
-                    shift_distance = (j - i) % n
-                    shift_count[shift_distance] += 1
-        
-        if not shift_count:
-            return 0
-        
-        max_matches = max(shift_count.values())
-        return max_matches
+        max_match = 0
+
+        for shift in range(n):
+            curr_match = 0
+
+            for i in range(n):
+                if nums1[(shift + i) % n] == nums2[i]:
+                    curr_match += 1
+
+            max_match = max(max_match, curr_match)
+
+        return max_match

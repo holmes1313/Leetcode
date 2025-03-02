@@ -1,28 +1,46 @@
 """
-Given an integer array nums, return the largest perimeter of a triangle with a non-zero area, formed from three of these lengths. If it is impossible to form any triangle of a non-zero area, return 0.
+Given a circular integer array nums of length n, return the maximum possible sum of a non-empty subarray of nums.
+
+A circular array means the end of the array connects to the beginning of the array. Formally, the next element of nums[i] is nums[(i + 1) % n] and the previous element of nums[i] is nums[(i - 1 + n) % n].
+
+A subarray may only include each element of the fixed buffer nums at most once. Formally, for a subarray nums[i], nums[i + 1], ..., nums[j], there does not exist i <= k1, k2 <= j with k1 % n == k2 % n.
 
  
 
 Example 1:
 
-Input: nums = [2,1,2]
-Output: 5
-Explanation: You can form a triangle with three side lengths: 1, 2, and 2.
+Input: nums = [1,-2,3,-2]
+Output: 3
+Explanation: Subarray [3] has maximum sum 3.
 Example 2:
 
-Input: nums = [1,2,1,10]
-Output: 0
-Explanation: 
-You cannot use the side lengths 1, 1, and 2 to form a triangle.
-You cannot use the side lengths 1, 1, and 10 to form a triangle.
-You cannot use the side lengths 1, 2, and 10 to form a triangle.
-As we cannot use any three side lengths to form a triangle of non-zero area, we return 0.
+Input: nums = [5,-3,5]
+Output: 10
+Explanation: Subarray [5,5] has maximum sum 5 + 5 = 10.
+Example 3:
+
+Input: nums = [-3,-2,-3]
+Output: -2
+Explanation: Subarray [-2] has maximum sum -2.
  
 
 Constraints:
 
-3 <= nums.length <= 104
-1 <= nums[i] <= 106
+n == nums.length
+1 <= n <= 3 * 104
+-3 * 104 <= nums[i] <= 3 * 104
 """
 class Solution(object):
+    def maxSubarraySumCircular(self, nums): 
+        n = len(nums)
+        max_sum = float("-inf")
+        for i in range(n):
+            curr_sum = 0
+            for j in range(i, i+n):
+                curr_sum += nums[j % n]
+                max_sum = max(max_sum, curr_sum)
+                curr_sum = max(curr_sum, 0)
+
+        return max_sum
+    
     

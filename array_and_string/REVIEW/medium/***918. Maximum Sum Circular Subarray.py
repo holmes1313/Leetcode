@@ -30,52 +30,47 @@ n == nums.length
 1 <= n <= 3 * 104
 -3 * 104 <= nums[i] <= 3 * 104
 """
-class Solution(object):
+class Solution:
     def maxSubarraySumCircular(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
         def kadane(arr):
-            max_sum = curr_sum = arr[0]
-            for num in arr[1:]:
-                curr_sum = max(num, curr_sum + num)  # Either start a new subarray or extend the current one
-                max_sum = max(max_sum, curr_sum)  # Track the max sum encountered
+            max_sum = float("-inf")
+            curr_sum = 0
+            for num in arr:
+                curr_sum = max(num, curr_sum + num)
+                max_sum = max(max_sum, curr_sum)
+            return max_sum
+
+        concat = nums + nums
+        n = len(nums)
+        max_max = float("-inf")
+        for i in range(n):
+            curr_max = kadane(concat[i:i+n])
+            max_max = max(max_max, curr_max)
+
+        return max_max
+        
+    def maxSubarraySumCircular(self, nums):
+        # Helper function to find the maximum subarray sum using Kadane's algorithm
+        def kadane(arr):
+            max_sum = float('-inf')
+            current_sum = 0
+            for num in arr:
+                current_sum += num
+                max_sum = max(max_sum, current_sum)
+                current_sum = max(current_sum, 0)
             return max_sum
         
-        n = len(nums)
+        total_sum = sum(nums)
+        max_subarray_sum = kadane(nums)
+        min_subarray_sum = kadane([-num for num in nums])  # Finding the minimum sum subarray
         
-        # Case 1: Find maximum subarray sum using Kadane's algorithm (non-circular)
-        max_kadane = kadane(nums)
+        # If total_sum is equal to min_subarray_sum, it means all elements are negative
+        if total_sum == -min_subarray_sum:
+            return max_subarray_sum
         
-        # Case 2: Find the maximum subarray sum in the concatenated array nums + nums
-        # We concatenate nums with itself to simulate a circular array
-        nums_concat = nums + nums
-        
-        # Find the maximum subarray sum of length at most `n` using Kadane's algorithm
-        max_concat = kadane(nums_concat)
-        
-        # The circular sum is restricted to the subarray within the first `n` elements of the concatenated array
-        # We can only use the result from the concatenated array if the subarray length is <= n
-        if max_concat > max_kadane:
-            return max_concat
-        else:
-            return max_kadane
-
-    def maxSubarraySumCircular(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        concat = nums + nums
-        curr_sum = 0
-        max_sum = float("-inf")
-        for i in range(len(nums)):
-            curr_sum = 0
-            for j in range(i, i+len(nums)):
-                curr_sum += concat[j]
-                max_sum = max(max_sum, curr_sum)
-                curr_sum = max(0, curr_sum)
-
-        return max_sum
-    
+        # Return the maximum of the regular max subarray sum or total_sum - min_subarray_sum
+        return max(max_subarray_sum, total_sum + min_subarray_sum)

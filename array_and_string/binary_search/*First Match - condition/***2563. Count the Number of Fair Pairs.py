@@ -64,4 +64,21 @@ class Solution(object):
 
         return count
 
+    def countFairPairs(self, nums, lower, upper):
         
+        import bisect
+        nums.sort()
+        count = 0
+        
+        for i in range(len(nums)):
+            low = lower - nums[i]
+            high = upper - nums[i]    
+            # Use binary search to find the range of j that satisfies the condition
+            # We are interested in indices j > i, hence we use bisect_right to find the valid range
+            # `bisect_left(nums, low)` gives us the first position where nums[j] >= low
+            left = bisect.bisect_left(nums, low, i + 1)
+            right = bisect.bisect_right(nums, high, i + 1)
+            
+            count += (right - left)
+        
+        return count

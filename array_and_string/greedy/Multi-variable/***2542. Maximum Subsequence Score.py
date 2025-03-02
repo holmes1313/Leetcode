@@ -42,34 +42,33 @@ import heapq
 
 class Solution(object):
     def maxScore(self, nums1, nums2, k):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :type k: int
-        :rtype: int
-        """
-        pairs = [(a, b) for a, b in zip(nums1, nums2)]
+        n = len(nums1)
+
+        # Step 1: Pair elements from nums1 and nums2
+        pairs = [(nums1[i], nums2[i]) for i in range(n)]
+
+        # Step 2: Sort pairs based on the second value (nums2) in descending order
         pairs.sort(key=lambda x: x[1], reverse=True)
 
-        # Use a min-heap to maintain the top k elements.
-        top_k_heap = []
-        top_k_sum = 0
+        # Step 3: Use a heap to maintain the k largest sums from nums1
+        nums1_sum = 0
+        min_heap = []
         for i in range(k):
-            heapq.heappush(top_k_heap, pairs[i][0])
-            top_k_sum += pairs[i][0]
+            num1, num2 = pairs[i]
+            heapq.heappush(min_heap, num1)
+            nums1_sum += num1
 
-        # The score of the first k pairs.
-        max_score = top_k_sum * pairs[k-1][1]
+        # the initial score with the first k elements
+        max_score = nums1_sum * pairs[k-1][1]
 
-        for i in range(k, len(nums1)):
-            top_k_sum -= heapq.heappop(top_k_heap)
-            top_k_sum += pairs[i][0]
-            heapq.heappush(top_k_heap, pairs[i][0])
-
-            max_score = max(max_score, top_k_sum * pairs[i][1])
+        # Step 4: Try other subsequences by replacing one element at a time
+        for j in range(k, n):
+            num1, num2 = pairs[j]
+            # Replace the smallest element in the heap if it leads to a higher score
+            if num1 > min_heap[0]:
+                nums1_sum -= min_heap[0]
+                nums1_sum += num1
+                heapq.heappushpop(min_heap, num1)
+                max_score = max(max_score, nums1_sum * num2)
 
         return max_score
-
-            
-
-        
