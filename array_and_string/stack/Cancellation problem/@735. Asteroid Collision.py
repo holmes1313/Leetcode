@@ -48,6 +48,7 @@ class Solution(object):
                         stack.pop()
                         break
                 else:
+                    # Code to execute if the while loop completes without a break
                     stack.append(a)
             else:
                 stack.append(a)
@@ -73,4 +74,3 @@ class Solution(object):
                 stack.append(a)
 
         return stack
-        

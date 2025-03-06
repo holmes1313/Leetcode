@@ -48,6 +48,7 @@ class Solution(object):
                         stack.pop()
                         break
                 else:
+                    # Code to execute if the while loop completes without a break
                     stack.append(a)
             else:
                 stack.append(a)
@@ -71,29 +72,5 @@ class Solution(object):
                     stack.pop()
             else: # Code to execute if the while loop completes without a break
                 stack.append(a)
-
-        return stack
-    
-    def asteroidCollision(self, asteroids):
-        """
-        :type asteroids: List[int]
-        :rtype: List[int]
-        """
-        stack = []
-
-        for a in asteroids:
-            while True:
-                if a < 0 and stack and stack[-1] > 0:
-        
-                    if stack[-1] > -a:
-                        break
-                    elif stack[-1] == -a:
-                        stack.pop()
-                        break
-                    else:
-                        stack.pop()
-                else:
-                    stack.append(a)
-                    break
 
         return stack

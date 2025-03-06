@@ -43,35 +43,40 @@ All of the following outputs can be considered correct:
 ......
 and so on.
 """
-# sampling with weight
-
 import random
+
 
 class Solution:
     def __init__(self, w):
         # Create a cumulative weight array
-        self.cumulative_weights = []
-        total = 0
-        
+        self.prefix_sums = []
+        prefix_sum = 0
         for weight in w:
-            total += weight
-            self.cumulative_weights.append(total)
-        
-        self.total_weight = total
+            prefix_sum += weight
+            self.prefix_sums.append(prefix_sum)
+        self.total_sum = prefix_sum
 
     def pickIndex(self):
         # Generate a random number between 1 and total_weight
-        target = random.randint(1, self.total_weight)
+        target = self.total_sum * random.random()
         
         # Binary search to find the index
-        left, right = 0, len(self.cumulative_weights) - 1
-        
-        while left < right:
+        left, right = 0, len(self.prefix_sums) - 1
+        while left <= right:
             mid = (left + right) // 2
-            if self.cumulative_weights[mid] < target:
+            if self.prefix_sums[mid] <= target:
                 left = mid + 1
             else:
-                right = mid
-        
+                right = mid - 1
+
         return left
+
+    def pickIndex(self):
+        # Generate a random number between 1 and total_weight
+        target = self.total_sum * random.random()
+        
+        import bisect
+        left = bisect.bisect_left(self.prefix_sums, target)
+        return left
+
         

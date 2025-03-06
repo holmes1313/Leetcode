@@ -41,3 +41,22 @@ class Solution(object):
                 start = i + 1
         #s[start:] = s[start:][::-1]
         return s
+    
+    def reverseWords(self, s):
+
+        def reverse(low, high):
+            while low < high:
+                s[low], s[high] = s[high], s[low]
+                low += 1
+                high -= 1
+
+        reverse(0, len(s) - 1)
+
+        prev = 0
+        for i in range(len(s)):
+            if s[i] == " ":
+                reverse(prev, i-1)
+                prev = i + 1
+        reverse(prev, len(s)-1)
+
+        return s

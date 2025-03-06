@@ -87,3 +87,20 @@ class Solution(object):
                 curr_gas = 0
 
         return start_idx
+
+    # Time Limit Exceeded
+    def canCompleteCircuit(self, gas, cost):
+        if sum(gas) < sum(cost):
+            return -1
+
+        n = len(gas)
+        for i in range(n):
+            remaining = 0
+            success = True
+            for j in range(i, i+n):
+                remaining += gas[j % n] - cost[j % n]
+                if remaining < 0:
+                    success = False
+                    break
+            if success:
+                return i

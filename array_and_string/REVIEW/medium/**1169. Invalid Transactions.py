@@ -65,3 +65,5 @@ class Solution(object):
                         invalids.add(i2)
 
         return [transactions[i] for i in invalids]
+
+

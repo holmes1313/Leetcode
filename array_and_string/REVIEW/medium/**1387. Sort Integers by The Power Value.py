@@ -60,28 +60,40 @@ class Solution(object):
 
         return nums[k-1]
 
-
     def getKth(self, lo, hi, k):
-        """
-        :type lo: int
-        :type hi: int
-        :type k: int
-        :rtype: int
-        """
-        memo = {}
-        def get_power(n):
+        # Memoization dictionary to store previously computed powers
+        cache = {}
+
+        # Function to calculate the power of a number using recursion
+        def calc_power(n):
+            # If n is already computed, return the cached value
+            if n in cache:
+                return cache[n]
+            
+            # Base case: power of 1 is 0
             if n == 1:
+                cache[n] = 0
                 return 0
             
-            if n in memo:
-                return memo[n]
+            # Base case: power of 2 is 1
+            if n == 2:
+                cache[n] = 1
+                return 1
             
+            # If n is even, calculate power recursively
             if n % 2 == 0:
-                memo[n] = get_power(n//2) + 1
+                cache[n] = 1 + calc_power(n // 2)
             else:
-                memo[n] = get_power(n*3+1) + 1
-            return memo[n]
-        num_powers = [(num, get_power(num)) for num in range(lo, hi+1)]
-        num_powers.sort(key=lambda x: (x[1], x[0]))
+                # If n is odd, calculate power recursively
+                cache[n] = 1 + calc_power(3 * n + 1)
+            
+            return cache[n]
 
-        return num_powers[k-1][0]
+        # Create a list of numbers from lo to hi
+        my_list = [i for i in range(lo, hi + 1)]
+
+        # Sort the list by power and by number itself in case of ties
+        my_list.sort(key=lambda x: (calc_power(x), x))
+
+        # Return the k-th number (1-indexed, so k-1 for 0-indexed lists)
+        return my_list[k - 1]

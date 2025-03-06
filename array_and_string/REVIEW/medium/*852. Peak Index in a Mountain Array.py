@@ -42,3 +42,14 @@ class Solution(object):
             else:
                 right = mid - 1
         return left
+
+    def peakIndexInMountainArray(self, arr):
+        left, right = 0, len(arr) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if mid > 0 and mid < len(arr) - 1 and arr[mid] > max(arr[mid-1], arr[mid+1]):
+                return mid
+            elif mid + 1 < len(arr) and arr[mid] < arr[mid+1]:
+                left += 1
+            else:
+                right -= 1

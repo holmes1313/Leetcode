@@ -29,6 +29,7 @@ k is in the range [1, The number of unique words[i]]
 Follow-up: Could you solve it in O(n log(k)) time and O(n) extra space?
 """
 import collections
+import heapq
 
 
 class Solution(object):
@@ -47,4 +48,8 @@ class Solution(object):
         for _ in range(k):
             ans.append(heapq.heappop(max_heap)[1])
         return ans
-        
+
+    def topKFrequent(self, words, k):
+        counts = collections.Counter(words)
+        words_sorted = sorted(counts.keys(), key = lambda x: (-counts[x], x))
+        return words_sorted[:k]
