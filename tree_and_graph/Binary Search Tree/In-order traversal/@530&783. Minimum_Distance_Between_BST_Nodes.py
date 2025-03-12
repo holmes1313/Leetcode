@@ -37,26 +37,6 @@ The BST is always valid, each node's value is an integer, and each node's value 
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def minDiffInBST1(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        def inorder(node):
-            if not node:
-                return 0
-
-            inorder(node.left)
-            nums.append(node.val)
-            inorder(node.right)
-
-        nums = []
-        inorder(root)
-        min_diff = float("inf")
-        for i in range(len(nums) - 1):
-            min_diff = min(min_diff, nums[i+1] - nums[i])
-        return min_diff
-
     def minDiffInBST(self, root):
         """
         :type root: TreeNode

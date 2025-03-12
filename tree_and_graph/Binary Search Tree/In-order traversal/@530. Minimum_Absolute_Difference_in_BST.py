@@ -51,6 +51,8 @@ class Solution(object):
             prev[0] = node.val
             inorder(node.right)
 
+        #self.prev
+        #self.min_diff
         prev = [None]
         min_diff = [float('inf')]
         inorder(root)

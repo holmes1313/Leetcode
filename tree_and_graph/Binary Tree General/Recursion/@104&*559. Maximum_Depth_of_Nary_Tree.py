@@ -16,15 +16,12 @@ class Node(object):
 """
 class Solution(object):
     def maxDepth(self, root):
-        """
-        :type root: Node
-        :rtype: int
-        """
         if not root:
             return 0
-
+        
         max_depth = 0
         for child in root.children:
-            max_depth = max(max_depth, self.maxDepth(child))
+            depth = self.maxDepth(child)
+            max_depth = max(max_depth, depth)
         
         return max_depth + 1

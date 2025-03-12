@@ -37,20 +37,25 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
+        # In-Order Traversal: We can perform an in-order traversal (left, root, right) on the BST. Since the BST is ordered, an in-order traversal will visit the nodes in increasing order.
+        # Track kth Node: As we traverse the tree, we can keep a count of how many nodes we've visited. When we reach the kth node, we return its value.
+
         def inorder(node):
             if not node:
-                return 
+                return
 
             inorder(node.left)
 
-            count[0] += 1
-            if count[0] == k:
-                result[0] = node.val
+            # # Visit the current node
+            self.count += 1
+            if self.count == k:
+                self.result = node.val
                 return
 
             inorder(node.right)
 
-        count = [0]
-        result = [None]
+        self.count = 0
+        self.result = None
         inorder(root)
-        return result[0]
+        return self.result
+

@@ -28,33 +28,6 @@ Output: 23"""
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def rangeSumBST2(self, root, low, high):
-        """
-        :type root: TreeNode
-        :type low: int
-        :type high: int
-        :rtype: int
-        """
-        stack = [root]
-        ans = 0
-        while stack:
-            node = stack.pop()
-
-            if node is not None:
-
-                if low <= node.val <= high:
-                    ans += node.val
-                    stack.append(node.left)
-                    stack.append(node.right)
-
-                if node.val > high:
-                    stack.append(node.left)
-
-                if node.val < low:
-                    stack.append(node.right)
-
-        return ans
-
     def rangeSumBST(self, root, low, high):
         """
         :type root: TreeNode
@@ -84,14 +57,17 @@ class Solution(object):
         if not root:
             return 0
 
-        total = 0
+        range_sum = 0
+
         if low <= root.val <= high:
-            total += root.val
+            range_sum += root.val
 
-        if root.val >= low:
-            total += self.rangeSumBST(root.left, low, high)
-        
-        if root.val <= high:
-            total += self.rangeSumBST(root.right, low, high)
+        # If the current node's value is greater than low, we should explore the left subtree
+        if root.val > low:
+            range_sum += self.rangeSumBST(root.left, low, high)
 
-        return total
+        # If the current node's value is less than high, we should explore the right subtree
+        if root.val < high:
+            range_sum += self.rangeSumBST(root.right, low, high)
+
+        return range_sum

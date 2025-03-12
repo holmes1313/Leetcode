@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Nov 13 20:29:50 2019
-
-@author: z.chen7
-"""
-
 # 235. Lowest Common Ancestor of a Binary Search Tree
 
 """
@@ -45,12 +38,13 @@ class Solution(object):
         :type q: TreeNode
         :rtype: TreeNode
         """
+        # If both p and q are smaller than the current node's value, the LCA must be in the left subtree, so move left.
+        # If both p and q are greater than the current node's value, the LCA must be in the right subtree, so move right.
+        # If p and q are on opposite sides of the current node (i.e., one is smaller and one is larger), the current node is the LCA.
         while root:
-            if p.val < root.val and q.val < root.val:
+            if root.val > max(p.val, q.val):
                 root = root.left
-            elif p.val > root.val and q.val > root.val:
+            elif root.val < min(p.val, q.val):
                 root = root.right
             else:
                 return root
-        return None
-        

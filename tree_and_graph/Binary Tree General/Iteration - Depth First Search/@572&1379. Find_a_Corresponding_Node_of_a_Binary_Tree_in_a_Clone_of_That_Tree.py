@@ -43,25 +43,6 @@ class Solution(object):
         :type target: TreeNode
         :rtype: TreeNode
         """
-        q1 = collections.deque([original])
-        q2 = collections.deque([cloned])
-
-        while q1:
-            n1, n2 = q1.popleft(), q2.popleft()
-            if n1 is not None:
-                if n1 is target:
-                    return n2
-
-                q1.append(n1.left)
-                q1.append(n1.right)
-
-                q2.append(n2.left)
-                q2.append(n2.right)
-
-
-class Solution2:
-    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
-
         stack = [(original, cloned)]
         while stack:
             n1, n2 = stack.pop()
@@ -72,4 +53,16 @@ class Solution2:
                 
                 stack.append((n1.left, n2.left))
                 stack.append((n1.right, n2.right))
+
+    def getTargetCopy(self, original, cloned, target):
+        if not original:
+            return None
+
+        if original == target:
+            return cloned
+
+        left_result = self.getTargetCopy(original.left, cloned.left, target)
+        if left_result:
+            return left_result
         
+        return self.getTargetCopy(original.right, cloned.right, target)

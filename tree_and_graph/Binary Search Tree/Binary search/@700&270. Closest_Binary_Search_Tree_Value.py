@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Dec 31 22:09:05 2019
-
-@author: z.chen7
-"""
-
 # 270. Closest Binary Search Tree Value
 
 """

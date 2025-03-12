@@ -1,0 +1,1 @@
+In-Order Traversal: We can perform an in-order traversal (left, root, right) on the BST. Since the BST is ordered, an in-order traversal will visit the nodes in increasing order.

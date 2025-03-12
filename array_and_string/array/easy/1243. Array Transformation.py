@@ -33,14 +33,13 @@ class Solution(object):
         :type arr: List[int]
         :rtype: List[int]
         """
-        seen = set()
-        while tuple(arr) not in seen:
-            seen.add(tuple(arr))
-            arr_prev = arr[:]
-            for i in range(1, len(arr)-1):
-                if arr[i] > max(arr_prev[i-1], arr_prev[i+1]):
-                    arr[i] -= 1
-                elif arr[i] < min(arr_prev[i-1], arr_prev[i+1]):
+        while True:
+            prev = arr[:]
+            for i in range(1,len(arr)-1):
+                if prev[i] < prev[i-1] and prev[i] < prev[i+1]:
                     arr[i] += 1
+                if prev[i] > prev[i-1] and prev[i] > prev[i+1]:
+                    arr[i] -= 1
+            if prev == arr:
+                return arr
 
-        return arr

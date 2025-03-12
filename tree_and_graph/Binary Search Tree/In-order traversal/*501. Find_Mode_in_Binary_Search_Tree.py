@@ -54,3 +54,40 @@ class Solution(object):
 
         return modes
 
+    def findMode(self, root):
+        if not root:
+            return []
+
+        def inorder(node):
+            if not node:
+                return 
+
+            inorder(node.left)
+            if self.prev is not None:
+                if node.val == self.prev:
+                    self.curr_count += 1
+                else:
+                    if self.curr_count > self.max_count:
+                        self.max_count = self.curr_count
+                        self.mode = [self.prev]
+                    elif self.curr_count == self.max_count:
+                        self.mode.append(self.prev)
+                    self.curr_count = 1
+            self.prev = node.val
+
+            inorder(node.right)
+
+        self.prev = None
+        self.curr_count = 1
+        self.max_count = 1
+        self.mode = []
+
+        inorder(root)
+
+        if self.curr_count > self.max_count:
+            self.max_count = self.curr_count
+            self.mode = [self.prev]
+        elif self.curr_count == self.max_count:
+            self.mode.append(self.prev)
+
+        return self.mode

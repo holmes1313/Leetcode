@@ -19,6 +19,33 @@ Each node is represented as a pair of [val, random_index] where:
 val: an integer representing Node.val
 random_index: the index of the node (range from 0 to n-1) where random pointer 
 points to, or null if it does not point to any node.
+
+Your code will only be given the head of the original linked list.
+
+Example 1:
+
+
+Input: head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+Output: [[7,null],[13,0],[11,4],[10,2],[1,0]]
+Example 2:
+
+
+Input: head = [[1,1],[2,1]]
+Output: [[1,1],[2,1]]
+Example 3:
+
+
+
+Input: head = [[3,null],[3,0],[3,null]]
+Output: [[3,null],[3,0],[3,null]]
+ 
+
+Constraints:
+
+0 <= n <= 1000
+-104 <= Node.val <= 104
+Node.random is null or is pointing to some node in the linked list.
+
 """
 
 """

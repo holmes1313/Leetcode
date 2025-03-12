@@ -51,7 +51,7 @@ class BSTIterator(object):
         """
         :type root: Optional[TreeNode]
         """
-        self.stack = []
+        self.nodes_sorted = []
         self.index = 0
         self._inorder(root)
 
@@ -60,7 +60,7 @@ class BSTIterator(object):
             return
         
         self._inorder(node.left)
-        self.stack.append(node.val)
+        self.nodes_sorted.append(node.val)
         self._inorder(node.right)
 
     def next(self):
@@ -78,8 +78,34 @@ class BSTIterator(object):
         return self.index < len(self.stack)
         
 
+class BSTIterator(object):
 
-# Your BSTIterator object will be instantiated and called as such:
-# obj = BSTIterator(root)
-# param_1 = obj.next()
-# param_2 = obj.hasNext()
+    def __init__(self, root):
+        """
+        :type root: Optional[TreeNode]
+        """
+        self.stack = []
+        self._push_left(root)
+
+    def _push_left(self, node):
+        # Push all left children of the node onto the stack
+        while node:
+            self.stack.append(node)
+            node = node.left
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        node = self.stack.pop()
+        # If there's a right child, we push all its left children onto the stack
+        if node.right:
+            self._push_left(node.right)
+        return node.val
+        
+
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        return len(self.stack) > 0

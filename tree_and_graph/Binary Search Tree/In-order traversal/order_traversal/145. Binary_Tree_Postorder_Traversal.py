@@ -24,20 +24,7 @@ class TreeNode:
 
 
 class Solution:
-    def postorderTraversal1(self, root: Optional[TreeNode]) -> List[int]:
-        result = []
-        self.helper(root, result)
-        return result
-
-    def helper(self, node, result):
-        if not node:
-            return
-
-        self.helper(node.left, result)
-        self.helper(node.right, result)
-        result.append(node.val)
-
-    def postorderTraversal2(self, root: Optional[TreeNode]) -> List[int]:
+    def postorderTraversal(self, root):
         vars = []
         def postorder(node):
             if not node:
