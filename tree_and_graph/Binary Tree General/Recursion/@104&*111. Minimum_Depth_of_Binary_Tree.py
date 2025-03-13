@@ -58,3 +58,28 @@ class Solution(object):
                 queue.append((node.left, depth+1))
             if node.right:
                 queue.append((node.right, depth+1))
+
+
+    def minDepth1(self, root):
+        """
+        :type root: TreeNode
+        :rtype
+        """
+        def get_min_depth(node):
+            if not node:
+                return 0
+
+            left_depth = get_min_depth(node.left)
+            right_depth = get_min_depth(node.right)
+
+            if left_depth == 0 and right_depth == 0:
+                return 1
+
+            if left_depth == 0 or right_depth == 0:
+                return max(left_depth, right_depth) + 1
+
+            else:
+                return min(left_depth, right_depth) + 1
+
+        d = get_min_depth(root)
+        return d
