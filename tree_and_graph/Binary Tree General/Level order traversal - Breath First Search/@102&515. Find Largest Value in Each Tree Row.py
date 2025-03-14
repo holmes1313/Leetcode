@@ -40,8 +40,9 @@ class Solution(object):
         queue = collections.deque([root])
         result = []
         while queue:
+            level_size = len(queue)
             row_max = float("-inf")
-            for _ in range(len(queue)):
+            for _ in range(level_size):
                 node = queue.popleft()
                 row_max = max(row_max, node.val)
                 if node.left:

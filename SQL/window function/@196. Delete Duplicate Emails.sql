@@ -47,3 +47,18 @@ DELETE p1 FROM person p1,
     person p2
 WHERE
     p1.Email = p2.Email AND p1.Id > p2.Id
+
+
+-- To remove duplicates using a window function, you can use ROW_NUMBER() or RANK() to assign a unique row number to each row partitioned by the column (or columns) you want to deduplicate.
+
+WITH RankedEmails AS (
+    SELECT id, email,
+           ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) AS row_num
+    FROM Person
+)
+DELETE FROM Person
+WHERE id IN (
+    SELECT id
+    FROM RankedEmails
+    WHERE row_num > 1
+);

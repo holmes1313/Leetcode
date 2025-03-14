@@ -46,6 +46,8 @@ class Node(object):
         self.right = right
         self.next = next
 """
+import collections
+
 
 class Solution(object):
     def connect(self, root):

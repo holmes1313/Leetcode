@@ -30,6 +30,9 @@ return its zigzag level order traversal as:
 #         self.val = val
 #         self.left = left
 #         self.right = right
+import collections
+
+
 class Solution(object):
     def zigzagLevelOrder(self, root):
         """
@@ -40,7 +43,7 @@ class Solution(object):
             return []
         
         result = []  
-        queue = deque([root])  
+        queue = collections.deque([root])  
         left_to_right = True  
         
         while queue:

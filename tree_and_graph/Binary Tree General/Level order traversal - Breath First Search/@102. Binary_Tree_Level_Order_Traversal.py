@@ -31,6 +31,9 @@ return its level order traversal as:
 #         self.val = val
 #         self.left = left
 #         self.right = right
+import collections
+
+
 class Solution(object):
     def levelOrder(self, root):
         """
